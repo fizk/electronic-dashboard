@@ -22,12 +22,24 @@ jobs:
         needs: build
         steps:
             -
-                name: copy file via ssh key
-                uses: appleboy/scp-action@v0.1.7
+                name: copy Server files via ssh key
+                uses: garygrossgarten/github-action-scp@release
                 with:
                     host: ${{ secrets.HOST }}
                     username: ${{ secrets.USERNAME }}
                     port: ${{ secrets.PORT }}
-                    key: ${{ secrets.KEY }}
-                    source: "server, client"
-                    target: /var/www/electronics
+                    privateKey: ${{ secrets.KEY }}
+                    passphrase: ${{ secrets.PASSPHRASE }}
+                    local: server
+                    remote: /var/www/electronics
+            -
+                name: copy Client file via ssh key
+                uses: garygrossgarten/github-action-scp@release
+                with:
+                    host: ${{ secrets.HOST }}
+                    username: ${{ secrets.USERNAME }}
+                    port: ${{ secrets.PORT }}
+                    privateKey: ${{ secrets.KEY }}
+                    passphrase: ${{ secrets.PASSPHRASE }}
+                    local: client
+                    remote: /var/www/electronics
