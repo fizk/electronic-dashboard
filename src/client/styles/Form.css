@@ -1,0 +1,64 @@
+/* LABEL BUTTON */
+.button {
+    border: none;
+    background-color: var(--color-primary);
+    padding: var(--space-1);
+    border-radius: 3px;
+    font-family: inherit;
+}
+
+/* LABEL INPUT */
+.label-input {
+    display: inline-flex;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    border: 1px solid var(--color-primary);
+}
+
+.label-input:has(.label-input__input:focus) {
+    box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, .3);
+}
+
+.label-input__label {
+    padding: 0 var(--space-1);
+}
+.label-input__input {
+    border: none;
+    padding: 0 var(--space-1);
+}
+.label-input__input:focus{
+    outline: none;
+}
+
+.label-output {
+    display: inline-flex;
+    background-color: var(--color-secondary);
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary);
+}
+
+.label-output__label {
+    padding: 0 var(--space-1);
+}
+.label-output__input {
+    border: none;
+    padding: 0 var(--space-1);
+}
+
+
+
+/* LABEL SELECT */
+.label-select {
+    display: inline-flex;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    border: 1px solid var(--color-primary);
+}
+
+.label-select__label {
+    padding: 0 var(--space-1);
+}
+.label-select__input {
+    border: none;
+    padding: 0 var(--space-1);
+}
