@@ -6,7 +6,8 @@
     "dev": "node --watch ./server/index.js",
     "watch-server": "./node_modules/.bin/tsc -p tsconfig.server.json --w",
     "watch-client": " ./node_modules/.bin/webpack --mode development -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-server": "./node_modules/.bin/tsc -p tsconfig.server.json",
+    "build-client": " ./node_modules/.bin/webpack --mode production"
   },
   "author": "",
   "license": "ISC",

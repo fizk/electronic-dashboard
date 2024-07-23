@@ -1,0 +1,19 @@
+name: Deploy
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Check out repository code
+                uses: actions/checkout@v4
+            -
+                name: Install dependencies
+                run: npm i
+            -
+                name: Builds Server code
+                run: npm run build-server
+            -
+                name: Builds Client code
+                run: npm run build-client
