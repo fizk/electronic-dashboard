@@ -1,6 +1,3 @@
-/*!**************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/WantList.css ***!
-  \**************************************************************************************/
 .want-list {
     list-style: none;
 }
@@ -15,27 +12,15 @@
     color: var(--color-gray-2);
 }
 .want-list__description {}
-/*!**********************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/pages/Resistors.css ***!
-  \**********************************************************************************/
 
-/*!****************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/ResistorCodeCalculator.css ***!
-  \****************************************************************************************************/
 .active {
     background-color: red;
 }
-/*!***********************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/ResistorValueList.css ***!
-  \***********************************************************************************************/
 .resistor-value-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-/*!*****************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/CapacitorCodeCalculator.css ***!
-  \*****************************************************************************************************/
 .capacitor-code-calculator {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -54,9 +39,6 @@
 .capacitor-code-calculator__button--active {
     background-color: var(--color-secondary);
 }
-/*!******************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/styles/Form.css ***!
-  \******************************************************************************/
 /* LABEL BUTTON */
 .button {
     border: none;
@@ -122,9 +104,6 @@
     padding: 0 var(--space-1);
 }
 
-/*!********************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/VoltageDivider.css ***!
-  \********************************************************************************************/
 .voltage-divider {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -157,9 +136,6 @@
     justify-content: flex-start;
     gap: var(--space-1);
 }
-/*!******************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/VoltageRatio.css ***!
-  \******************************************************************************************/
 .voltage-ratio {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -190,9 +166,6 @@
 .voltage-ratio__table-body tr {
     border-bottom: 1px solid var(--color-primary);
 }
-/*!***********************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/NonInvertingOpAmp.css ***!
-  \***********************************************************************************************/
 .non-inverting-op-amp {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -225,9 +198,6 @@
     justify-content: flex-start;
     gap: var(--space-1);
 }
-/*!********************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/components/InvertingOpAmp.css ***!
-  \********************************************************************************************/
 .inverting-op-amp {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -260,9 +230,6 @@
     justify-content: flex-start;
     gap: var(--space-1);
 }
-/*!**********************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/App.css ***!
-  \**********************************************************************/
 html, body {
     box-sizing: border-box;
 }

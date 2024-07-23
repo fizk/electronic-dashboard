@@ -39,3 +39,25 @@ jobs:
                     passphrase: ${{ secrets.PASSPHRASE }}
                     local: client
                     remote: /var/www/electronics/client/
+            -
+                name: copy NPM files
+                uses: garygrossgarten/github-action-scp@release
+                with:
+                    host: ${{ secrets.HOST }}
+                    username: ${{ secrets.USERNAME }}
+                    port: ${{ secrets.PORT }}
+                    privateKey: ${{ secrets.KEY }}
+                    passphrase: ${{ secrets.PASSPHRASE }}
+                    local: package.json
+                    remote: /var/www/electronics/
+            # -
+                # name: Run SSH
+                # uses: appleboy/ssh-action@v1.0.3
+                # with:
+                #     host: ${{ secrets.HOST }}
+                #     username: ${{ secrets.USERNAME }}
+                #     key: ${{ secrets.KEY }}
+                #     passphrase: ${{ secrets.PASSPHRASE }}
+                #     port: ${{ secrets.PORT }}
+                #     script: |
+                #         whoami
