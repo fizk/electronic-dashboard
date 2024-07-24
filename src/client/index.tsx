@@ -19,19 +19,19 @@ const router = createBrowserRouter([
     element: (<App><h1>Hello World</h1></App>),
   },
   {
-    path: "electronic/wantlist",
+    path: "/electronic/wantlist",
     element: (<App><WantListPage /></App>),
   },
   {
-    path: "electronic/resistors",
+    path: "/electronic/resistors",
     element: (<App><ResistorsPage /></App>),
   },
   {
-    path: "electronic/capacitors",
+    path: "/electronic/capacitors",
     element: (<App><CapacitorsPage /></App>),
   },
   {
-    path: "electronic/calculators",
+    path: "/electronic/calculators",
     element: (<App><CalculatorsPage /></App>),
   },
 ]);
