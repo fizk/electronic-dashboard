@@ -11,14 +11,14 @@ const PORT = 3030;
 const db = new Database('./database.db');
 
 const router: [RegExp, Handler][] = [
-    [/^\/$/,                        SkeletonHandler],
-    [/\.js$/,                       JsHandler],
-    [/\.ico$/,                      NotFoundHandler],
-    [/\.css$/,                      CssHandler],
-    [/^\/api\/wantlist$/,           WantListHandler(db)],
-    [/^\/api\/wantlist\/[0-9]+$/,   WantListItemHandler(db)],
-    [/^\/api\/values\/resistors$/,  ResistorsHandler(db)],
-    [/^\/api\/values\/resistors\/[0-9\.k]+$/,  ResistorsItemHandler(db)],
+    [/^\/$/,                                    SkeletonHandler],
+    [/\.ico$/,                                  NotFoundHandler],
+    [/^\/electronic\/.*\.js$/,                  JsHandler],
+    [/^\/electronic\/.*\.css$/,                 CssHandler],
+    [/^\/electronic\/api\/wantlist$/,           WantListHandler(db)],
+    [/^\/electronic\/api\/wantlist\/[0-9]+$/,   WantListItemHandler(db)],
+    [/^\/electronic\/api\/values\/resistors$/,  ResistorsHandler(db)],
+    [/^\/electronic\/api\/values\/resistors\/[0-9\.k]+$/,  ResistorsItemHandler(db)],
 ]
 
 const server = createServer(async (request, response) => {

@@ -11,23 +11,23 @@ import App from './App';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/electronic",
     element: (<App><h1>Hello World</h1></App>),
   },
   {
-    path: "wantlist",
+    path: "electronic/wantlist",
     element: (<App><WantListPage /></App>),
   },
   {
-    path: "resistors",
+    path: "electronic/resistors",
     element: (<App><ResistorsPage /></App>),
   },
   {
-    path: "capacitors",
+    path: "electronic/capacitors",
     element: (<App><CapacitorsPage /></App>),
   },
   {
-    path: "calculators",
+    path: "electronic/calculators",
     element: (<App><CalculatorsPage /></App>),
   },
 ]);

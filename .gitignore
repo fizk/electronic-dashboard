@@ -232,4 +232,6 @@ $RECYCLE.BIN/
 
 
 
-act
+my-custom.secrets
+client
+server

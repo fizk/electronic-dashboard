@@ -13,7 +13,7 @@ export default function Calculators () {
 
 
     const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ValueItemEntry[]> => {
-        const request = await fetch('/api/values/resistors');
+        const request = await fetch('/electronic/api/values/resistors');
         const response = request.json();
         return response;
     } });

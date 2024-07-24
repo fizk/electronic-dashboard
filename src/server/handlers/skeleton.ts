@@ -8,9 +8,9 @@ export const SkeletonHandler = (request: IncomingMessage, response: ServerRespon
         <head>
             <meta charset="UTF-8">
             <title>My app</title>
-            <script src="/app.js" defer></script>
             <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;400&display=swap" rel="stylesheet">
-            <link href="/app.css" rel="stylesheet">
+            <script src="/electronic/app.js" defer></script>
+            <link href="/electronic/app.css" rel="stylesheet">
         </head>
         <body>
             <div data-react></div>
@@ -31,15 +31,29 @@ export const NotFoundHandler = (request: IncomingMessage, response: ServerRespon
 }
 
 export const JsHandler = async (request: IncomingMessage, response: ServerResponse) => {
-    const file = await readFile(`./client${request.url}`);
-    response.writeHead(200, {
-        'content-type': 'application/javascript'
-    }).end(file);
+    const path = request.url?.split('/').filter(part => part !== '').slice(1).join('/');
+    try {
+        const file = await readFile(`./client/${path}`);
+        response.writeHead(200, {
+            'content-type': 'application/javascript'
+        }).end(file);
+    } catch(error) {
+        response.writeHead(404, {
+            'content-type': 'application/javascript'
+        }).end();
+    }
 }
 
 export const CssHandler = async (request: IncomingMessage, response: ServerResponse) => {
-    const file = await readFile(`./client${request.url}`);
-    response.writeHead(200, {
-        'content-type': 'text/css'
-    }).end(file);
+    const path = request.url?.split('/').filter(part => part !== '').slice(1).join('/');
+    try {
+        const file = await readFile(`./client/${path}`);
+        response.writeHead(200, {
+            'content-type': 'text/css'
+        }).end(file);
+    } catch(error) {
+        response.writeHead(404, {
+            'content-type': 'application/javascript'
+        }).end();
+    }
 }

@@ -6,11 +6,11 @@ export default function App ({children}) {
     return (
         <div>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/wantlist">WantList</Link></li>
-                <li><Link to="/resistors">Resistors</Link></li>
-                <li><Link to="/capacitors">Capacitors</Link></li>
-                <li><Link to="/calculators">Calculators</Link></li>
+                <li><Link to="/electronic">Home</Link></li>
+                <li><Link to="/electronic/wantlist">WantList</Link></li>
+                <li><Link to="/electronic/resistors">Resistors</Link></li>
+                <li><Link to="/electronic/capacitors">Capacitors</Link></li>
+                <li><Link to="/electronic/calculators">Calculators</Link></li>
             </ul>
             {children}
         </div>

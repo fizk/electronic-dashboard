@@ -17,7 +17,7 @@ function getRandomInt(min: number, max: number) {
 export default () => {
     const queryClient = useQueryClient()
     const query = useQuery({ queryKey: ['wantlist'], queryFn: async(): Promise<WantListEntry[]> => {
-        const request = await fetch('/api/wantlist');
+        const request = await fetch('/electronic/api/wantlist');
         const response = request.json();
         return response;
     } });
@@ -27,7 +27,7 @@ export default () => {
             const formData = new FormData();
             formData.set('done', String(item.done ? 0 : 1));
 
-            const response = await fetch(`/api/wantlist/${item.id}`, {
+            const response = await fetch(`/electronic/api/wantlist/${item.id}`, {
                 method: 'PATCH',
                 body: formData
             });
@@ -47,7 +47,7 @@ export default () => {
 
     const createMutation = useMutation({
         mutationFn: async (form: FormData): Promise<any>  => {
-            const response = await fetch(`/api/wantlist`, {
+            const response = await fetch(`/electronic/api/wantlist`, {
                 method: 'POST',
                 body: form,
             });
