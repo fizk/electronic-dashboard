@@ -56,10 +56,6 @@ jobs:
                     local: client
                     remote: /var/www/electronics/client/
             -
-                name: Debug
-                run: | 
-                    pwd && ls -al
-            -
                 name: copy NPM package files
                 uses: garygrossgarten/github-action-scp@release
                 with:

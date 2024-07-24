@@ -11,7 +11,6 @@ export default function Calculators () {
     
     const [storage, setStorage] = useLocalStorage('all-resistor-values', false);
 
-
     const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ValueItemEntry[]> => {
         const request = await fetch('/electronic/api/values/resistors');
         const response = request.json();

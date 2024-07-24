@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter,RouterProvider, } from "react-router-dom";
+import { createBrowserRouter,Link,RouterProvider, } from "react-router-dom";
 import { QueryClient,QueryClientProvider, } from '@tanstack/react-query'
 import WantListPage from './pages/Wantlist';
 import ResistorsPage from './pages/Resistors';
@@ -10,6 +10,10 @@ import App from './App';
 
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (<Link to={"/electronic"}>to site</Link>),
+  },
   {
     path: "/electronic",
     element: (<App><h1>Hello World</h1></App>),

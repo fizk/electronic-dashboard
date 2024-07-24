@@ -7,7 +7,7 @@
     "watch-server": "./node_modules/.bin/tsc -p tsconfig.server.json --w",
     "watch-client": " ./node_modules/.bin/webpack --mode development -w",
     "build-server": "./node_modules/.bin/tsc -p tsconfig.server.json",
-    "build-client": " ./node_modules/.bin/webpack --mode production"
+    "build-client": " ./node_modules/.bin/webpack --mode development"
   },
   "author": "",
   "license": "ISC",

@@ -48,7 +48,7 @@ export default () => {
     const handleAddToWantlist = async (item: ValueItemEntry) => {
         const formData = new FormData();
         formData.append('name', `Resistor ${item.text}`);
-
+        
         await fetch(`/electronic/api/wantlist`, {
             method: 'POST',
             body: formData
