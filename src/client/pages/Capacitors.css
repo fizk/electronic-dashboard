@@ -1,8 +1,8 @@
-.resistors-page {
+.capacitors-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.resistors-page__header {
+.capacitors-page__header {
     grid-column: 1 / span 2;
 }

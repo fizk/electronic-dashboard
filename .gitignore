@@ -233,5 +233,9 @@ $RECYCLE.BIN/
 
 
 my-custom.secrets
-client
-server
+/client
+/server
+apache.dockerfile
+docker-compose.yml
+httpd.conf
+database.db

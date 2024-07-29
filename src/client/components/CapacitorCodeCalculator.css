@@ -12,6 +12,7 @@
     background-color: var(--color-primary);
     padding: var(--space-0);
     cursor: pointer;
+    font-size: inherit;
 }
 .capacitor-code-calculator__button--active {
     background-color: var(--color-secondary);

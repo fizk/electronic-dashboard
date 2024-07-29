@@ -11,6 +11,13 @@ export const SkeletonHandler = (request: IncomingMessage, response: ServerRespon
             <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;400&display=swap" rel="stylesheet">
             <script src="/electronic/app.js" defer></script>
             <link href="/electronic/app.css" rel="stylesheet">
+            <style>
+                [data-react] {
+                    display: flex;
+                    flex-direction: row;
+                    min-height: 100vh;
+                }
+            </style>
         </head>
         <body>
             <div data-react></div>

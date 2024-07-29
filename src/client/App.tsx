@@ -1,18 +1,23 @@
 import React from 'react';
-import {Link,} from "react-router-dom";
+import {Link,NavLink} from "react-router-dom";
 import './App.css';
+import classVariant from './helpers/classVariant';
 
 export default function App ({children}) {
     return (
-        <div>
-            <ul>
-                <li><Link to="/electronic">Home</Link></li>
-                <li><Link to="/electronic/wantlist">WantList</Link></li>
-                <li><Link to="/electronic/resistors">Resistors</Link></li>
-                <li><Link to="/electronic/capacitors">Capacitors</Link></li>
-                <li><Link to="/electronic/calculators">Calculators</Link></li>
-            </ul>
-            {children}
-        </div>
+        <>
+            <nav className="app__navigation">
+                <ul className='main-nav'>
+                    <li><NavLink end className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/electronic">Home</NavLink></li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/electronic/wantlist">WantList</NavLink></li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/electronic/resistors">Resistors</NavLink></li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/electronic/capacitors">Capacitors</NavLink></li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/electronic/calculators">Calculators</NavLink></li>
+                </ul>
+            </nav>
+            <main className="app__content">
+                {children}
+            </main>
+        </>
     )
 }

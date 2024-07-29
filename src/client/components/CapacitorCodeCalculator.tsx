@@ -67,9 +67,9 @@ export default function CapacitorCodeCalculator ()  {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{outcomeState.at(0)}</td>
-                        <td>{outcomeState.at(1)}</td>
-                        <td>{outcomeState.at(2)}</td>
+                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(0)!)}</td>
+                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(1)!)}</td>
+                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(2)!)}</td>
                     </tr>
                 </tbody>
             </table>

@@ -3,10 +3,10 @@ import {
     useQuery,
     useMutation,
     useQueryClient,
-} from '@tanstack/react-query'
-import Markdown from 'react-markdown'
+} from '@tanstack/react-query';
 import {WantListEntry} from '../types.d';
 import WantList from '../components/WantList';
+import { LabelInput } from '../elements/Form';
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -92,7 +92,7 @@ export default () => {
             <WantList items={query.data || []} onSelect={handleCheck} />
 
             <form onSubmit={handleCreate}>
-                <input name="name" />
+                <LabelInput text="text" name="name" />
                 <textarea name="description" />
                 <button type="submit">create</button>
             </form>

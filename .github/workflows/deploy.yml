@@ -9,7 +9,7 @@ jobs:
                 name: Check out repository code
                 uses: actions/checkout@v4
             -
-                name: Install dependencies
+                name: Install dependencies and compile
                 run: |
                     npm i; \
                     npm run build-server; \

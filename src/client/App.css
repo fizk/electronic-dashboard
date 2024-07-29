@@ -55,6 +55,27 @@ body {
 
 /* - - - - - - - - - - - - - - - - - - - - - */
 
-body {
-    padding: 2rem;
+.app__navigation {
+    background-color: var(--color-primary, lightblue);
+}
+.app__content {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0 var(--space-3);
+}
+
+
+
+.main-nav {
+    list-style: none;
+    padding: 0;
+    margin: calc(var(--space-2) * 2);
+}
+
+.main-nav__link{
+    text-decoration: none;
+    color: currentColor;
+}
+.main-nav__link--active{
+    text-decoration: underline;
 }

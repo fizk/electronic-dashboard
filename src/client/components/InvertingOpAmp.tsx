@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState, MouseEvent} from "react";
 import type {ValueItemEntry} from '../types.d';
-import {LabelInput, LabelSelect, LabelOutput, Button} from '../styles/Form';
+import {LabelInput, LabelSelect, LabelOutput, Button, Toggle} from '../elements/Form';
 import './InvertingOpAmp.css';
 
 interface Props {

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState, MouseEvent} from "react";
-import {LabelInput, LabelSelect, LabelOutput, Button} from '../styles/Form';
+import {LabelInput, LabelSelect, LabelOutput, Button} from '../elements/Form';
 import type {ValueItemEntry} from '../types.d'
 import './VoltageDivider.css';
 

@@ -7,19 +7,19 @@ interface LabelInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInpu
 
 export function LabelInput({text, ...rest}: LabelInputProps) {
     return (
-        <div className="label-input">
+        <label className="label-input">
             <span className="label-input__label">{text}</span>
             <input {...rest}  className="label-input__input"/>
-        </div>
+        </label>
     )
 }
 
 export function LabelOutput({text, ...rest}: LabelInputProps) {
     return (
-        <div className="label-output">
+        <label className="label-output">
             <input {...rest}  className="label-output__input"/>
             <span className="label-output__label">{text}</span>
-        </div>
+        </label>
     )
 }
 
@@ -30,17 +30,17 @@ interface LabelSelectProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLSel
 
 export function LabelSelect({text, children, ...rest}: LabelSelectProps) {
     return (
-        <div className="label-select">
+        <label className="label-select">
             <span className="label-select__label">{text}</span>
             <select {...rest}  className="label-select__input">
                 {children}
             </select>
-        </div>
+        </label>
     )
 }
 
 interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-    children: ReactNode
+    children?: ReactNode
 }
 
 export function Button({children, ...rest}: ButtonProps) {
@@ -48,5 +48,28 @@ export function Button({children, ...rest}: ButtonProps) {
         <button {...rest} className="button">
             {children}
         </button>
+    )
+}
+
+interface ToggleProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>  {
+    onCheck?: (element: HTMLInputElement) => void
+    onUnCheck?: (element: HTMLInputElement) => void
+    onToggle?: (value: boolean) => void
+    text?: string
+}
+
+export function Toggle({text, onCheck = () => {}, onUnCheck = () => {}, onToggle = () => {}, checked, ...rest}: ToggleProps) {
+    return (
+        <div className="toggle">
+            <label>
+                {text && (<span className="toggle__label">{text}</span>)}
+                <input className="toggle__input" type="checkbox" checked={checked} onChange={(event) => {
+                    onToggle(event.currentTarget.checked );
+                    event.currentTarget.checked 
+                        ? onCheck(event.currentTarget) 
+                        : onUnCheck(event.currentTarget)
+            }} {...rest} />
+            </label>
+        </div>
     )
 }

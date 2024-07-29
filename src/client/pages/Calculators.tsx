@@ -6,6 +6,8 @@ import type {ValueItemEntry} from '../types.d';
 import NonInvertingOpAmp from "../components/NonInvertingOpAmp";
 import InvertingOpAmp from "../components/InvertingOpAmp";
 import useLocalStorage from '../hooks/useLocalStorage';
+import { Toggle } from "../elements/Form";
+import Levelshifter from "../components/LevelShifter";
 
 export default function Calculators () {
     
@@ -17,16 +19,18 @@ export default function Calculators () {
         return response;
     } });
 
-    const handleToggleAllValues = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        setStorage(!storage);
+    const handleOnToggle = (value: boolean) => {
+        setStorage(value);
     }
 
     return (
         <div>
-            <button style={{backgroundColor: storage  ? 'green' : '' }} onClick={handleToggleAllValues}>use all values</button>
-            <h3>InvertingOpAmp</h3>
+            <Toggle checked={storage} onToggle={handleOnToggle} text="Display all values" />
+            
+            <h3>Level Shifter</h3>
+            <Levelshifter values={query?.data || []} allValues={storage}  />
 
+            <h3>InvertingOpAmp</h3>
             <InvertingOpAmp values={query?.data || []} allValues={storage}  />
 
             <h3>NonInvertingOpAmp</h3>

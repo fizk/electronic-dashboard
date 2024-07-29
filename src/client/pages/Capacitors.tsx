@@ -1,18 +1,25 @@
 import React from "react";
 import CapacitorConverter from "../components/CapacitorConverter";
 import CapacitorCodeCalculator from "../components/CapacitorCodeCalculator";
-
+import { Section } from "../elements/Section";
+import './Capacitors.css'
 
 export default function Capacitors () {
     return (
-        <div>
-            <h2>capacitor</h2>
-
-            <h3>Converter</h3>
-            <CapacitorConverter />
-
-            <h3>Codes</h3>
-            <CapacitorCodeCalculator />
-        </div>
+        <article className="capacitors-page">
+            <header className="capacitors-page__header">
+                <h1>Capacitors</h1>
+            </header>
+            <section className="capacitors-page__section">
+                <Section>
+                    <header><h2>Converter</h2></header>
+                    <CapacitorConverter />
+                </Section>
+            </section>
+            <section className="capacitors-page__section">
+                <header><h2>Codes</h2></header>
+                <CapacitorCodeCalculator />
+            </section>
+        </article>
     )
 }

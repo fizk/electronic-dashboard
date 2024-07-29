@@ -4,10 +4,11 @@ import {
     useMutation,
     useQueryClient,
 } from '@tanstack/react-query'
-import './Resistors.css';
 import ResistorCodeCalculator from '../components/ResistorCodeCalculator';
 import ResistorValueList from '../components/ResistorValueList';
 import type {ValueItemEntry} from '../types.d';
+import './Resistors.css';
+import { Section } from '../elements/Section';
 
 
 export default () => {
@@ -56,15 +57,24 @@ export default () => {
     };
     
     return (
-        <div>
-            <h2>Resistors</h2>
-
-            <h3>3 Digit EIA</h3>
-            <ResistorCodeCalculator />
-
-            <h3>E24 values (5% tolerance)</h3>
-            <ResistorValueList values={query.data || []} onSelect={handleCheck} onAdd={handleAddToWantlist} />
-
-        </div>
+        <article className="resistors-page">
+            <header className="resistors-page__header">
+                <h1>Resistors</h1>
+            </header>
+            <section className="resistors-page__section">
+                <Section>
+                    <header><h2>3 Digit EIA</h2></header>
+                    <ResistorCodeCalculator />
+                </Section>
+            </section>
+            <section className="resistors-page__section">
+                <Section>
+                    <header><h2>E24 values (5% tolerance)</h2></header>
+                    <ResistorValueList values={query.data || []} 
+                        onSelect={handleCheck} 
+                        onAdd={handleAddToWantlist} />
+                </Section>
+            </section>
+        </article>
     )
 }

@@ -1,3 +1,15 @@
-.active {
-    background-color: red;
+.resistor-code-calculator__button {
+    appearance: none;
+    border: none;
+    background-color: var(--color-primary);
+    padding: var(--space-0);
+    cursor: pointer;
+    font-size: inherit;
+}
+.resistor-code-calculator__button--active {
+    background-color: var(--color-secondary);
+}
+
+.resistor-code-calculator__table {
+    margin: var(--space-2) 0;
 }
