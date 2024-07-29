@@ -13,31 +13,26 @@ import ErrorPage from './pages/Error';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (<Link to={"/electronic"}>to site</Link>),
-    errorElement: (<ErrorPage />),
-  },
-  {
-    path: "/electronic",
     element: (<App><h1>Hello World</h1></App>),
     errorElement: (<ErrorPage />),
   },
   {
-    path: "/electronic/wantlist",
+    path: "/wantlist",
     element: (<App><WantListPage /></App>),
     errorElement: (<ErrorPage />),
   },
   {
-    path: "/electronic/resistors",
+    path: "/resistors",
     element: (<App><ResistorsPage /></App>),
     errorElement: (<ErrorPage />),
   },
   {
-    path: "/electronic/capacitors",
+    path: "/capacitors",
     element: (<App><CapacitorsPage /></App>),
     errorElement: (<ErrorPage />),
   },
   {
-    path: "/electronic/calculators",
+    path: "/calculators",
     element: (<App><CalculatorsPage /></App>),
     errorElement: (<ErrorPage />),
   },
@@ -50,7 +45,9 @@ const router = createBrowserRouter([
     </App>),
     errorElement: (<ErrorPage />),
   },
-]);
+], {
+    basename: '/electronic'
+});
 const queryClient = new QueryClient()
 
 createRoot(document.querySelector('[data-react]'))

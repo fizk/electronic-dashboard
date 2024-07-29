@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "node --watch ./server/index.js",
     "watch-server": "./node_modules/.bin/tsc -p tsconfig.server.json --w",
-    "watch-client": " ./node_modules/.bin/webpack --mode development -w",
-    "build-server": "./node_modules/.bin/tsc -p tsconfig.server.json",
-    "build-client": " ./node_modules/.bin/webpack --mode production"
+    "watch-client": "./node_modules/.bin/webpack --mode development -w",
+    "build-server": "NODE_ENV=production ./node_modules/.bin/tsc -p tsconfig.server.json",
+    "build-client": "NODE_ENV=production ./node_modules/.bin/webpack  --define-process-env-node-env production --mode production"
   },
   "author": "",
   "license": "ISC",
