@@ -1,8 +1,8 @@
-import React from "react";
-import CapacitorConverter from "../components/CapacitorConverter";
+import React from 'react';
+import CapacitorConverter from '../components/CapacitorConverter';
 import CapacitorCodeCalculator from "../components/CapacitorCodeCalculator";
-import { Section } from "../elements/Section";
-import './Capacitors.css'
+import { Section } from '../elements/Section';
+import './Capacitors.css';
 
 export default function Capacitors () {
     return (

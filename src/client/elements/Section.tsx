@@ -1,5 +1,5 @@
-import React from "react";
-import classVariant from "../helpers/classVariant";
+import React from 'react';
+import classVariant from '../helpers/classVariant';
 
 export function Section ({children, variant = []}) {
     return (

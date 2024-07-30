@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { ValueItemEntry } from "../types";
-import { LabelInput } from "../elements/Form";
-import type {ChangeEvent} from "react";
+import React, { useState } from 'react';
+import { LabelInput } from '../elements/Form';
 import classVariant from '../helpers/classVariant';
+import type {ChangeEvent} from 'react';
+import type { ValueItemEntry } from '../types';
+import '../elements/Table.css';
 import './Levelshifter.css';
 
 interface Props {
@@ -319,40 +320,40 @@ export default function Levelshifter ({values, allValues}: Props) {
                 </form>
             </section>
             <footer className="level-shifter__footer">
-                <table className="level-shifter__table">
-                    <thead className="level-shifter__table-head">
-                        <tr className="level-shifter__table-row">
-                            <td className="level-shifter__table-data">R<sub>round</sub></td>
-                            <td colSpan={3} className="level-shifter__table-data">R<sub>feedback</sub></td>
-                            <td colSpan={3}  className="level-shifter__table-data">R<sub>bias</sub></td>
+                <table className={classVariant('table', ['full', 'stick'])}>
+                    <thead className="table__head">
+                        <tr>
+                            <td className={classVariant('table__data', [])}>R<sub>ground</sub></td>
+                            <td colSpan={3}  className={classVariant('table__data', ['begin', 'end'])}>R<sub>feedback</sub></td>
+                            <td colSpan={3}  className={classVariant('table__data', [])}>R<sub>bias</sub></td>
                         </tr>
                     </thead>
-                    <tbody className="level-shifter__table-body">
+                    <tbody className="table__body">
                         {table.map(item => (
-                            <tr key={`${item.at(0)}${item.at(1)}${item.at(2)}`} className="level-shifter__table-row">
-                                <td className={classVariant('level-shifter__table-data', (item.at(0)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
-                                    {((item.at(0)?.at(0) as number) / 1000).toFixed(1) + 'k'}
+                            <tr key={`${item.at(0)}${item.at(1)}${item.at(2)}`}>
+                                <td className={classVariant('table__data', (item.at(0)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
+                                    <strong>{((item.at(0)?.at(0) as number) / 1000).toFixed(1) + 'k'}</strong>
                                 </td>
 
                                 
-                                <td className={classVariant('level-shifter__table-data-start', (item.at(1)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
-                                    {((item.at(1)?.at(0) as number / 1000).toFixed(3) + 'k')}
+                                <td className={classVariant('table__data', (item.at(1)?.at(1) as TableFormat)?.active ? ['active', 'begin'] : ['begin'])}>
+                                    <small>{((item.at(1)?.at(0) as number / 1000).toFixed(3) + 'k')}</small>
                                 </td>
-                                <td className={classVariant('level-shifter__table-data', (item.at(1)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
+                                <td className={classVariant('table__data', (item.at(1)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
                                     <strong>{(item.at(1)?.at(1) as TableFormat)?.text}</strong>
                                 </td>
-                                <td className={classVariant('level-shifter__table-data', (item.at(1)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
+                                <td className={classVariant('table__data', (item.at(1)?.at(1) as TableFormat)?.active ? ['active', 'end'] : ['end'])}>
                                     <small>({(item.at(1)?.at(1) as TableFormat)?.tolerance})</small>
                                 </td>
                                 
 
-                                <td className={classVariant('level-shifter__table-data-start', (item.at(2)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
-                                    {((item.at(2)?.at(0) as number / 1000).toFixed(3) + 'k')}
+                                <td className={classVariant('table__data', (item.at(2)?.at(1) as TableFormat)?.active ? ['active', 'begin'] : ['begin'])}>
+                                    <small>{((item.at(2)?.at(0) as number / 1000).toFixed(3) + 'k')}</small>
                                 </td>
-                                <td className={classVariant('level-shifter__table-data', (item.at(2)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
+                                <td className={classVariant('table__data', (item.at(2)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
                                     <strong>{(item.at(2)?.at(1) as TableFormat)?.text}</strong>
                                 </td>
-                                <td className={classVariant('level-shifter__table-data', (item.at(2)?.at(1) as TableFormat)?.active ? ['active'] : [])}>
+                                <td className={classVariant('table__data', (item.at(2)?.at(1) as TableFormat)?.active ? ['active', 'end'] : ['end'])}>
                                     <small>({(item.at(2)?.at(1) as TableFormat)?.tolerance})</small>
                                 </td>
                             </tr>

@@ -55,11 +55,19 @@ body {
 
 /* - - - - - - - - - - - - - - - - - - - - - */
 
+.app__header {
+    grid-row: 1 / span 1;
+    background-color: var(--color-primary, lightblue);
+    padding: var(--space-2);
+    text-align: center;
+}
+
 .app__navigation {
+    grid-row: 2 / span 1;
     background-color: var(--color-primary, lightblue);
 }
 .app__content {
-    flex-grow: 1;
+    grid-row: 1 / span 2;
     overflow: auto;
     padding: 0 var(--space-3);
 }

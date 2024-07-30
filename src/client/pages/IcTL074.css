@@ -1,0 +1,20 @@
+.ictl074 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+}
+
+.ictl074__header {
+    grid-column: 1 / span 2;
+}
+.ictl074__content {
+    grid-column: 2 / span 1;
+}
+.ictl074__props {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 3;
+}
+.ictl074__aside {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}

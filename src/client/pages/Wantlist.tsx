@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query';
-import {WantListEntry} from '../types.d';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import WantList from '../components/WantList';
 import { LabelInput } from '../elements/Form';
+import type { WantListEntry } from '../types.d';
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -86,6 +82,7 @@ export default () => {
         createMutation.mutate(new FormData(event.target))
     }
 
+    console.log(query.data);
     return (
         <div>
             <h2>WantList</h2>

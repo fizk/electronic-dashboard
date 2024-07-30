@@ -1,6 +1,6 @@
-import React, {useState, ChangeEvent} from "react";
-import classVariant from "../helpers/classVariant";
-import { LabelOutput, LabelSelect } from "../elements/Form";
+import React, {useState, ChangeEvent} from 'react';
+import classVariant from '../helpers/classVariant';
+import { LabelOutput, LabelSelect } from '../elements/Form';
 import './ResistorCodeCalculator.css';
 
 export default function ResistorCodeCalculator ()  {

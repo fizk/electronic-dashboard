@@ -1,5 +1,6 @@
-import React, {useState, ChangeEvent} from "react";
-import { LabelInput } from "../elements/Form";
+import React, { useState } from 'react';
+import { LabelInput } from '../elements/Form';
+import type { ChangeEvent } from "react";
 import './CapacitorConverter.css';
 
 export default function CapacitorConverter () {

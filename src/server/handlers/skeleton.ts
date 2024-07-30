@@ -13,8 +13,9 @@ export const SkeletonHandler = (request: IncomingMessage, response: ServerRespon
             <link href="/electronic/app.css" rel="stylesheet">
             <style>
                 [data-react] {
-                    display: flex;
-                    flex-direction: row;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    grid-template-rows: auto 1fr;
                     min-height: 100vh;
                 }
             </style>

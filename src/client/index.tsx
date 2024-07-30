@@ -1,13 +1,16 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter,Link,RouterProvider, } from "react-router-dom";
-import { QueryClient,QueryClientProvider, } from '@tanstack/react-query'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import WantListPage from './pages/Wantlist';
 import ResistorsPage from './pages/Resistors';
 import CapacitorsPage from './pages/Capacitors';
-import CalculatorsPage from './pages/Calculators';
+import CalculatorsOpAmpsPage from './pages/CalculatorsOpAmps';
+import CalculatorsVoltagePage from './pages/CalculatorsVoltage';
 import App from './App';
 import ErrorPage from './pages/Error';
+import IcTL074Page from './pages/IcTL074';
+import IcLm358Page from './pages/Iclm358';
 
 
 const router = createBrowserRouter([
@@ -32,8 +35,23 @@ const router = createBrowserRouter([
     errorElement: (<ErrorPage />),
   },
   {
-    path: "/calculators",
-    element: (<App><CalculatorsPage /></App>),
+    path: "/calculators/op-amps",
+    element: (<App><CalculatorsOpAmpsPage /></App>),
+    errorElement: (<ErrorPage />),
+  },
+  {
+    path: "/calculators/voltage",
+    element: (<App><CalculatorsVoltagePage /></App>),
+    errorElement: (<ErrorPage />),
+  },
+  {
+    path: "/ic/tl074",
+    element: (<App><IcTL074Page /></App>),
+    errorElement: (<ErrorPage />),
+  },
+  {
+    path: "/ic/lm358",
+    element: (<App><IcLm358Page /></App>),
     errorElement: (<ErrorPage />),
   },
   {

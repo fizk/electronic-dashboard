@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import type {ValueItemEntry} from '../types.d';
-import './ResistorValueList.css';
-import { Button, Toggle } from "../elements/Form";
+import { Button, Toggle } from '../elements/Form';
 import Cart from "../icons/Cart";
+import './ResistorValueList.css';
 
 interface Props {
     values: ValueItemEntry[],

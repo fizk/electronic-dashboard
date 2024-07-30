@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import ResistorCodeCalculator from '../components/ResistorCodeCalculator';
 import ResistorValueList from '../components/ResistorValueList';
-import type {ValueItemEntry} from '../types.d';
-import './Resistors.css';
 import { Section } from '../elements/Section';
+import type { ValueItemEntry } from '../types.d';
+import './Resistors.css';
 
 
 export default () => {

@@ -1,6 +1,7 @@
-import React, {useState, ChangeEvent} from "react";
-import './CapacitorCodeCalculator.css';
+import React, { useState } from 'react';
 import classVariant from '../helpers/classVariant';
+import './CapacitorCodeCalculator.css';
+import '../elements/Table.css';
 
 export default function CapacitorCodeCalculator ()  {
                                           //          p  n  u
@@ -57,19 +58,19 @@ export default function CapacitorCodeCalculator ()  {
                 </div>
             ))}
             </div>
-            <table>
-                <thead>
+            <table className="table">
+                <thead className="table__head">
                     <tr>
-                        <td>pF</td>
-                        <td>nF</td>
-                        <td>µF</td>
+                        <td className={classVariant('table__data')}>pF</td>
+                        <td className={classVariant('table__data', ['begin', 'end'])}>nF</td>
+                        <td className={classVariant('table__data')}>µF</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="table__body">
                     <tr>
-                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(0)!)}</td>
-                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(1)!)}</td>
-                        <td>{Intl.NumberFormat('en-GB').format(outcomeState.at(2)!)}</td>
+                        <td className="table__data">{Intl.NumberFormat('en-GB').format(outcomeState.at(0)!)}</td>
+                        <td className={classVariant('table__data', ['begin', 'end'])}>{Intl.NumberFormat('en-GB').format(outcomeState.at(1)!)}</td>
+                        <td className="table__data">{Intl.NumberFormat('en-GB').format(outcomeState.at(2)!)}</td>
                     </tr>
                 </tbody>
             </table>

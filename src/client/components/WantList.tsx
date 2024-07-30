@@ -1,6 +1,6 @@
-import React from "react";
-import Markdown from "react-markdown";
-import {WantListEntry} from '../types.d';
+import React from 'react';
+import Markdown from 'react-markdown';
+import type { WantListEntry } from '../types.d';
 import './WantList.css';
 
 interface Propss {

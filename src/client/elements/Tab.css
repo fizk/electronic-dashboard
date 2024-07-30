@@ -1,0 +1,14 @@
+.tab__links {
+    display: flex;
+    list-style: none;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.tab__button {
+    border-bottom: 2px solid transparent;
+}
+.tab__button--active {
+    border-bottom: 2px solid var(--color-secondary);
+}

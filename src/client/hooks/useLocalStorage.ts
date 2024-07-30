@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-const useLocalStorage = (key, defaultValue) => {
+const useLocalStorage = (key: string, defaultValue: any) => {
   const [value, setValue] = useState(() => {
-    let currentValue;
+    let currentValue: any;
 
     try {
       currentValue = JSON.parse(

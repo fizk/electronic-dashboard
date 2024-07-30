@@ -4,27 +4,3 @@
 }
 .voltage-ratio__aside {}
 .voltage-ratio__content {}
-.voltage-ratio__table {
-    width: 100%;
-    border-collapse: collapse;
-    padding: var(--space-1);
-}
-
-.voltage-ratio__table td {
-    padding: 0.5rem 1.5rem;
-}
-.voltage-ratio__table-head {
-    background-color: black;
-    color: antiquewhite;
-    position: sticky;
-    top: -6px;
-}
-.voltage-ratio__table-head td {
-    background-color: var(--color-text);
-    color: var(--color-white);
-    
-}
-.voltage-ratio__table-body {}
-.voltage-ratio__table-body tr {
-    border-bottom: 1px solid var(--color-primary);
-}
