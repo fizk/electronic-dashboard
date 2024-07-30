@@ -10,7 +10,7 @@ import CalculatorsVoltagePage from './pages/CalculatorsVoltage';
 import App from './App';
 import ErrorPage from './pages/Error';
 import IcTL074Page from './pages/IcTL074';
-import IcLm358Page from './pages/Iclm358';
+import IcLm358Page from './pages/IcLm358';
 
 
 const router = createBrowserRouter([
