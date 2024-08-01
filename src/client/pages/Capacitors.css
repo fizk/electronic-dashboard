@@ -6,3 +6,40 @@
 .capacitors-page__header {
     grid-column: 1 / span 2;
 }
+
+.capacitors-page__converter {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+.capacitors-page__calculator {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+.capacitors-page__values {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+
+    svg {
+        height: var(--space-3);
+        width: auto;
+    }
+}
+
+.capacitors-page__tab-link {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.capacitors-page__footer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,.4);
+    right: 0;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

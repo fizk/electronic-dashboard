@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Database } from 'sqlite3';
 import { WantListHandler, WantListItemHandler } from './handlers/wantlist.js';
-import { ResistorsHandler, ResistorsItemHandler } from './handlers/values.js';
+import { ResistorsHandler, ResistorsItemHandler, CapacitorsHandler, CapacitorsItemHandler, CapacitorsValueHandler, CapacitorType } from './handlers/values.js';
 import { SkeletonHandler, NotFoundHandler, JsHandler, CssHandler } from './handlers/skeleton.js';
 import type { IncomingMessage, ServerResponse } from 'http';
 
@@ -11,14 +11,25 @@ const PORT = 3030;
 const db = new Database('./database.db');
 
 const router: [RegExp, Handler][] = [
-    [/^\/$/,                                    SkeletonHandler],
-    [/\.ico$/,                                  NotFoundHandler],
-    [/^\/electronic\/.*\.js$/,                  JsHandler],
-    [/^\/electronic\/.*\.css$/,                 CssHandler],
-    [/^\/electronic\/api\/wantlist$/,           WantListHandler(db)],
-    [/^\/electronic\/api\/wantlist\/[0-9]+$/,   WantListItemHandler(db)],
-    [/^\/electronic\/api\/values\/resistors$/,  ResistorsHandler(db)],
-    [/^\/electronic\/api\/values\/resistors\/[0-9\.k]+$/,  ResistorsItemHandler(db)],
+    [/^\/$/,                                                            SkeletonHandler],
+    [/\.ico$/,                                                          NotFoundHandler],
+    [/^\/electronic\/.*\.js$/,                                          JsHandler],
+    [/^\/electronic\/.*\.css$/,                                         CssHandler],
+    [/^\/electronic\/api\/wantlist$/,                                   WantListHandler(db)],
+    [/^\/electronic\/api\/wantlist\/[0-9]+$/,                           WantListItemHandler(db)],
+    [/^\/electronic\/api\/values\/resistors$/,                          ResistorsHandler(db)],
+    [/^\/electronic\/api\/values\/resistors\/[0-9\.k]+$/,               ResistorsItemHandler(db)],
+
+    [/^\/electronic\/api\/values\/capacitors$/,                        CapacitorsValueHandler(db)],
+
+    [/^\/electronic\/api\/values\/capacitors\/electrolytic$/,           CapacitorsHandler(CapacitorType.Electrolytic)(db)],
+    [/^\/electronic\/api\/values\/capacitors\/electrolytic\/[0-9\.]+$/, CapacitorsItemHandler(CapacitorType.Electrolytic)(db)],
+
+    [/^\/electronic\/api\/values\/capacitors\/ceramic$/,                CapacitorsHandler(CapacitorType.Ceramic)(db)],
+    [/^\/electronic\/api\/values\/capacitors\/ceramic\/[0-9\.]+$/,      CapacitorsItemHandler(CapacitorType.Ceramic)(db)],
+
+    [/^\/electronic\/api\/values\/capacitors\/film$/,                   CapacitorsHandler(CapacitorType.Film)(db)],
+    [/^\/electronic\/api\/values\/capacitors\/film\/[0-9\.]+$/,         CapacitorsItemHandler(CapacitorType.Film)(db)],
 ]
 
 const server = createServer(async (request, response) => {

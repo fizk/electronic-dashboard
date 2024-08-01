@@ -25,14 +25,16 @@ export function LabelOutput({text, ...rest}: LabelInputProps) {
 }
 
 interface LabelSelectProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
-    text: ReactNode
-    children: ReactNode
+    text?: ReactNode
+    children?: ReactNode
 }
 
 export function LabelSelect({text, children, ...rest}: LabelSelectProps) {
     return (
         <label className="label-select">
-            <span className="label-select__label">{text}</span>
+            {text && (
+                <span className="label-select__label">{text}</span>
+            )}
             <select {...rest}  className="label-select__input">
                 {children}
             </select>

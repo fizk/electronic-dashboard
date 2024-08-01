@@ -5,12 +5,12 @@ import VoltageRatio from "../components/VoltageRatio";
 import useLocalStorage from '../hooks/useLocalStorage';
 import { Toggle } from '../elements/Form';
 import { Tab, TabItem } from "../elements/Tab";
-import type { ValueItemEntry } from '../types.d';
+import type { ResistorValue } from '../types.d';
 
 export default function CalculatorsVoltage () {
     const [storage, setStorage] = useLocalStorage('all-resistor-values', false);
 
-    const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ValueItemEntry[]> => {
+    const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ResistorValue[]> => {
         const request = await fetch('/electronic/api/values/resistors');
         const response = request.json();
         return response;

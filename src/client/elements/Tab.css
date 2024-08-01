@@ -7,7 +7,11 @@
     cursor: pointer;
 }
 .tab__button {
+    text-decoration: none;
+    color: currentColor;
     border-bottom: 2px solid transparent;
+    display: inline-block;
+    padding: var(--space-0) 0;
 }
 .tab__button--active {
     border-bottom: 2px solid var(--color-secondary);

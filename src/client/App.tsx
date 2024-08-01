@@ -22,6 +22,7 @@ export default function App ({children}) {
                         <ul>
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/op-amps">OpAmps</NavLink></li>
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/voltage">Voltage</NavLink></li>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/filters">Filter</NavLink></li>
                         </ul>
                     </li>
                     <li>

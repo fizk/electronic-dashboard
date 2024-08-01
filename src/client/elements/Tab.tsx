@@ -1,6 +1,6 @@
 import React, { Children, useState } from 'react';
 import classVariant from '../helpers/classVariant';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement, ReactNode, MouseEvent } from 'react';
 import './Tab.css';
 
 interface TabProps {
@@ -10,7 +10,8 @@ interface TabProps {
 export const Tab = ({children}: TabProps) => {
     const [active, setActive] = useState(window.location.hash.replace('#', ''))
     
-    const handleSelect = (path: string) => {
+    const handleSelect = (event: MouseEvent<HTMLAnchorElement>, path: string) => {
+        event.preventDefault();
         window.location.hash = path;
         setActive(path);
     }
@@ -21,9 +22,9 @@ export const Tab = ({children}: TabProps) => {
                 {Children.map(children, (child, index) => {
                     return (
                         <li>
-                            <span className={classVariant('tab__button', (!active && index === 0 || (child as any).props.path === active) ? ['active'] : [])} onClick={() => handleSelect(((child as ReactElement).props as TabItemProps).path)}>
+                            <a href="#" className={classVariant('tab__button', (!active && index === 0 || (child as any).props.path === active) ? ['active'] : [])} onClick={event => handleSelect(event, ((child as ReactElement).props as TabItemProps).path)}>
                                 {((child as ReactElement).props as TabItemProps).title}
-                            </span>
+                            </a>
                         </li>
                     )
                 })}
@@ -39,7 +40,7 @@ export const Tab = ({children}: TabProps) => {
 
 interface TabItemProps {
     children?: ReactNode
-    title: string | ReactNode
+    title: ReactNode
     path: string
     active?: boolean
 }

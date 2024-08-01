@@ -1,0 +1,20 @@
+.capacitor-value-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: calc(var(--space-4)* 4);
+    row-gap: var(--space-1);
+}
+
+
+.capacitor-value-list__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.capacitor-value-list__label {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-0);
+}

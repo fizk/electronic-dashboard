@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -7,6 +7,7 @@ import ResistorsPage from './pages/Resistors';
 import CapacitorsPage from './pages/Capacitors';
 import CalculatorsOpAmpsPage from './pages/CalculatorsOpAmps';
 import CalculatorsVoltagePage from './pages/CalculatorsVoltage';
+import CalculatorsFiltersPage from './pages/CalculatorsFilters';
 import App from './App';
 import ErrorPage from './pages/Error';
 import IcTL074Page from './pages/IcTL074';
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
     errorElement: (<ErrorPage />),
   },
   {
+    path: "/calculators/filters",
+    element: (<App><CalculatorsFiltersPage /></App>),
+    errorElement: (<ErrorPage />),
+  },
+  {
     path: "/ic/tl074",
     element: (<App><IcTL074Page /></App>),
     errorElement: (<ErrorPage />),
@@ -70,7 +76,9 @@ const queryClient = new QueryClient()
 
 createRoot(document.querySelector('[data-react]'))
     .render(
-        <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-        </QueryClientProvider>
+        <StrictMode>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
+        </StrictMode>
     );

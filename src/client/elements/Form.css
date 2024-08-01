@@ -65,20 +65,22 @@
 }
 
 
-
+/* TOGGLE */
 .toggle {
     display: inline-block;    
+    --component-dimensions: var(--space-3)
 }
 .toggle__input {
     appearance: none;
     position: relative;
     display: inline-block;
     background-color: var(--color-primary);
-    height: var(--space-4);
-    width: calc(var(--space-4) * 2);
+    height: var(--component-dimensions);
+    width: calc(var(--component-dimensions) * 2);
     vertical-align: middle;
     border-radius: var(--space-2);
     cursor: pointer;
+    transition: background-color ease-in-out 0.2s;
 }
 .toggle__input:checked {
     background-color: var(--color-secondary);
@@ -91,8 +93,8 @@
     position: absolute;
     top: calc(var(--space-0) / 2);
     left: calc(var(--space-0) / 2);
-    height: calc(var(--space-4) - var(--space-0));
-    width: calc(var(--space-4) - var(--space-0));
+    height: calc(var(--component-dimensions) - var(--space-0));
+    width: calc(var(--component-dimensions) - var(--space-0));
 }
 .toggle__input:checked::before {
     right: calc(var(--space-0) / 2);

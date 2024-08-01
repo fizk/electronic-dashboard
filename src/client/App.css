@@ -1,59 +1,4 @@
-html, body {
-    box-sizing: border-box;
-}
 
-*, *::before, *::after {
-    box-sizing: inherit;
-}
-
-body {
-    font-family: 'Spartan', sans-serif;
-    line-height: 1.5;
-    margin: 0;
-    color: var(--color-text);
-}
-
-:root {
-    --color-red-1: #EF9A9A;
-    --color-pink-1: #F48FB1;
-    --color-purple-1: #CE93D8;
-    --color-purple-2: #B39DDB;
-    --color-indigo-1: #9FA8DA;
-    --color-blue-1: #90CAF9;
-    --color-blue-2: #81D4FA;
-    --color-cyan-1: #80DEEA;
-    --color-green-1: #80CBC4;
-    --color-green-2: #A5D6A7;
-    --color-green-3: #C5E1A5;
-    --color-lime-1: #E6EE9C;
-    --color-yellow-1: #FFF59D;
-    --color-orange-1: #FFE082;
-    --color-orange-2: #FFCC80;
-    --color-orange-3: #FFAB91;
-    --color-brown-1: #BCAAA4;
-    --color-gray-1: #CFD8DC;
-    --color-gray-2: #607D8B;
-    --color-gray-3: #263238;
-
-    --color-white: white;
-    --color-primary: #dde7ea;
-    --color-secondary: orange;
-    --color-text: rgb(30, 30, 30);
-
-    --size-max-width: 100%;
-    --space-0: 0.667rem;
-    --space-1: 0.66rem;
-    --space-2: 1rem;
-    --space-3: 1.5rem;
-    --space-4: 1.5rem;
-    --space-5: 5.063rem;
-    --font-0: 0.667rem;
-    --font-1: 1rem;
-    --font-2: 1.5rem;
-}
-
-
-/* - - - - - - - - - - - - - - - - - - - - - */
 
 .app__header {
     grid-row: 1 / span 1;
@@ -72,8 +17,6 @@ body {
     padding: 0 var(--space-3);
 }
 
-
-
 .main-nav {
     list-style: none;
     padding: 0;
@@ -87,3 +30,4 @@ body {
 .main-nav__link--active{
     text-decoration: underline;
 }
+
