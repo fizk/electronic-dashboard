@@ -1,8 +1,16 @@
 import { createServer } from 'http';
 import { Database } from 'sqlite3';
+import { 
+    ResistorsHandler, 
+    ResistorsItemHandler, 
+    CapacitorsHandler, 
+    CapacitorsItemHandler, 
+    CapacitorsValueHandler, 
+    CapacitorType, 
+    ResistorType 
+} from './handlers/values.js';
 import { WantListHandler, WantListItemHandler } from './handlers/wantlist.js';
-import { ResistorsHandler, ResistorsItemHandler, CapacitorsHandler, CapacitorsItemHandler, CapacitorsValueHandler, CapacitorType } from './handlers/values.js';
-import { SkeletonHandler, NotFoundHandler, JsHandler, CssHandler } from './handlers/skeleton.js';
+import { SkeletonHandler, NotFoundHandler, JsHandler, CssHandler, ManifestHandler, IconHandler } from './handlers/skeleton.js';
 import type { IncomingMessage, ServerResponse } from 'http';
 
 type Handler = (request: IncomingMessage, response: ServerResponse) => void;
@@ -13,14 +21,23 @@ const db = new Database('./database.db');
 const router: [RegExp, Handler][] = [
     [/^\/$/,                                                            SkeletonHandler],
     [/\.ico$/,                                                          NotFoundHandler],
-    [/^\/electronic\/.*\.js$/,                                          JsHandler],
-    [/^\/electronic\/.*\.css$/,                                         CssHandler],
+    [/^\/electronic\/manifest.json$/,                                   ManifestHandler],
+    [/^\/electronic\/.*\.js(\?.*)*$/,                                   JsHandler],
+    [/^\/electronic\/.*\.css(\?.*)*$/,                                  CssHandler],
+
+    [/^\/electronic\/icons\/.*\.png(\?.*)*$/,                           IconHandler],
+    
     [/^\/electronic\/api\/wantlist$/,                                   WantListHandler(db)],
     [/^\/electronic\/api\/wantlist\/[0-9]+$/,                           WantListItemHandler(db)],
-    [/^\/electronic\/api\/values\/resistors$/,                          ResistorsHandler(db)],
-    [/^\/electronic\/api\/values\/resistors\/[0-9\.k]+$/,               ResistorsItemHandler(db)],
 
-    [/^\/electronic\/api\/values\/capacitors$/,                        CapacitorsValueHandler(db)],
+    [/^\/electronic\/api\/values\/resistors\/fixed$/,                   ResistorsHandler(ResistorType.Fixed)(db)],
+    [/^\/electronic\/api\/values\/resistors\/fixed\/[0-9\.k]+$/,        ResistorsItemHandler(ResistorType.Fixed)(db)],
+    [/^\/electronic\/api\/values\/resistors\/variable$/,                ResistorsHandler(ResistorType.Variable)(db)],
+    [/^\/electronic\/api\/values\/resistors\/variable\/[0-9\.k]+$/,     ResistorsItemHandler(ResistorType.Variable)(db)],
+    [/^\/electronic\/api\/values\/resistors\/trim$/,                    ResistorsHandler(ResistorType.Trim)(db)],
+    [/^\/electronic\/api\/values\/resistors\/trim\/[0-9\.k]+$/,         ResistorsItemHandler(ResistorType.Trim)(db)],
+
+    [/^\/electronic\/api\/values\/capacitors$/,                         CapacitorsValueHandler(db)],
 
     [/^\/electronic\/api\/values\/capacitors\/electrolytic$/,           CapacitorsHandler(CapacitorType.Electrolytic)(db)],
     [/^\/electronic\/api\/values\/capacitors\/electrolytic\/[0-9\.]+$/, CapacitorsItemHandler(CapacitorType.Electrolytic)(db)],
@@ -34,6 +51,7 @@ const router: [RegExp, Handler][] = [
 
 const server = createServer(async (request, response) => {
     console.log(`${new Date().toISOString()} ${request.method} ${request.url}`);
+
     for (const element of router) {
         if (request.url?.match(element.at(0) as RegExp)) {
             (element.at(1) as Handler)(request, response);

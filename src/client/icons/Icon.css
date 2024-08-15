@@ -1,0 +1,26 @@
+.icon {
+
+}
+.icon-shape {
+    &.icon-shape--fill {
+        fill: currentColor;
+    }
+}
+.icon-info {
+    &.icon-info--normal path {
+        fill: var(--color-blue-2);
+    }
+    &.icon-info--disabled path{
+        fill: var(--color-primary);
+    }
+}
+
+
+.icon-burger {
+    &.icon-burger--normal path {
+        fill: var(--color-blue-2);
+    }
+    &.icon-burger--disabled path{
+        fill: var(--color-primary);
+    }
+}

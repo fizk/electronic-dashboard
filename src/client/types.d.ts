@@ -5,6 +5,7 @@ export interface ResistorValue {
     text: string
     value: number
     active: boolean
+    notes: Maybe<string>
 }
 
 export interface CapacitorValue {
@@ -18,6 +19,7 @@ export interface CapacitorValue {
     farad: number
     farad_value: string
     active: boolean
+    notes: string
 }
 export interface WantListEntry {
     id: string | number,

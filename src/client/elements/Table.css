@@ -6,7 +6,8 @@
         width: 100%;
     }
 
-    &.table--stick .table__head td {
+    &.table--stick .table__head td, 
+    &.table--stick .table__head th {
         position: sticky;
         height: auto;
         top: 0;

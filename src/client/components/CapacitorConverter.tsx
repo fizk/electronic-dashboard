@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LabelInput } from '../elements/Form';
+import { FormStack, LabelInput } from '../elements/Form';
 import type { ChangeEvent } from "react";
 import './CapacitorConverter.css';
 
@@ -64,19 +64,11 @@ export default function CapacitorConverter () {
     };
 
     return (
-        <div className="capacitor-converter">
-            <div className="capacitor-converter__row">
-                <LabelInput text="pF" value={values.at(0)} onChange={handlePico} />
-            </div>
-            <div className="capacitor-converter__row">
-                <LabelInput text="nF" value={values.at(1)} onChange={handleNano} />
-            </div>
-            <div className="capacitor-converter__row">
-                <LabelInput text="µF" value={values.at(2)} onChange={handleMicro} />
-            </div>
-            <div className="capacitor-converter__row">
-                <LabelInput text="&nbsp;F" value={values.at(3) } onChange={handleFarad} />
-            </div>
-        </div>
+        <FormStack>
+            <LabelInput text="pF" value={values.at(0)} onChange={handlePico} />
+            <LabelInput text="nF" value={values.at(1)} onChange={handleNano} />
+            <LabelInput text="µF" value={values.at(2)} onChange={handleMicro} />
+            <LabelInput text="&nbsp;F" value={values.at(3) } onChange={handleFarad} />
+        </FormStack>
     )
 }

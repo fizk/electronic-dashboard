@@ -93,4 +93,5 @@ jobs:
                     script: |
                         cd /var/www/electronics; \
                         npm install --omit=dev; \
+                        node ./server/database.js; \
                         ./node_modules/.bin/pm2 restart app;

@@ -1,39 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import VoltageDivider from '../components/VoltageDivider';
-import { useQuery } from '@tanstack/react-query';
 import VoltageRatio from "../components/VoltageRatio";
-import useLocalStorage from '../hooks/useLocalStorage';
-import { Toggle } from '../elements/Form';
 import { Tab, TabItem } from "../elements/Tab";
-import type { ResistorValue } from '../types.d';
+import { ResistorValuesContext } from '../contexts/ResistorValuesContext';
 
 export default function CalculatorsVoltage () {
-    const [storage, setStorage] = useLocalStorage('all-resistor-values', false);
-
-    const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ResistorValue[]> => {
-        const request = await fetch('/electronic/api/values/resistors');
-        const response = request.json();
-        return response;
-    } });
-
-    const handleOnToggle = (value: boolean) => {
-        setStorage(value);
-    }
+    
+    const resistorValues = useContext(ResistorValuesContext);
 
     return (
-        <div>
-            <Toggle checked={storage} onToggle={handleOnToggle} text="Display all values" />
-
-            <Tab>
-                <TabItem title="Voltage Divider" path="voltage-divider">
-                    <h3>VoltageDivider</h3>
-                    <VoltageDivider values={query?.data || []} allValues={storage}  />
-                </TabItem>
-                <TabItem title="Voltage Ratio" path="voltage-ratio">
-                    <h3>VoltageRatio</h3>
-                    <VoltageRatio values={query?.data || []} allValues={storage}  />
-                </TabItem>
-            </Tab>
-        </div>
+        <Tab>
+            <TabItem title="Voltage Divider" path="voltage-divider">
+                <h3>Voltage Divider</h3>
+                <VoltageDivider />
+            </TabItem>
+            <TabItem title="Voltage Ratio" path="voltage-ratio">
+                <h3>Voltage Ratio</h3>
+                <VoltageRatio values={resistorValues} />
+            </TabItem>
+        </Tab>
     )
 }

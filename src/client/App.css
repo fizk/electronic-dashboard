@@ -10,19 +10,28 @@
 .app__navigation {
     grid-row: 2 / span 1;
     background-color: var(--color-primary, lightblue);
+    display: flex;
+    flex-direction: column;
 }
 .app__content {
     grid-row: 1 / span 2;
     overflow: auto;
-    padding: 0 var(--space-3);
+    padding: var(--space-4);
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .main-nav {
     list-style: none;
     padding: 0;
     margin: calc(var(--space-2) * 2);
-}
 
+    flex-grow: 1;
+}
+.main-control {
+    margin: calc(var(--space-2) * 2);
+    align-self: self-end;
+}
 .main-nav__link{
     text-decoration: none;
     color: currentColor;

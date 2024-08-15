@@ -21,10 +21,6 @@
     grid-row: 3 / span 1;
 }
 
-.voltage-divider__form-row {
-    margin: var(--space-1) 0;
-}
-
 .voltage-divider__footer {
     display: flex;
     justify-content: flex-start;

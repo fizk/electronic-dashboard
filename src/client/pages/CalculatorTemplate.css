@@ -1,0 +1,11 @@
+.calculator-template {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto 1fr;
+    gap: var(--space-2);
+    margin: var(--space-4) 0;
+}
+
+.calculator-template__header{
+    grid-column: 1 / span 1;
+}

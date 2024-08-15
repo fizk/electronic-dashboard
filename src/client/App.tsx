@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useContext, useRef, useEffect, useState, MouseEvent } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import classVariant from './helpers/classVariant';
 import Logo from './icons/Logo';
+import Cog from './icons/Cog';
+import { Button, Toggle } from './elements/Form';
+import { ConfigContext } from './contexts/ConfigContext';
+import { Outlet } from "react-router-dom";
 import './App.css';
 
-export default function App ({children}) {
+export default function App () {
+    const {isAllResistorValues, setIsAllResistorValues} = useContext(ConfigContext);
+    const [dialogState, setDialogState] = useState(false);
+    const dialogRef = useRef<HTMLDialogElement>(null);
+
+    useEffect(() => {
+        dialogState 
+            ? dialogRef.current?.showModal()
+            : dialogRef.current?.close();
+
+    }, [dialogState]);
+
+    const handleDialogToggle = (event: MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        setDialogState(!dialogState);
+    }
+
     return (
         <>
             <header className="app__header">
@@ -13,7 +33,7 @@ export default function App ({children}) {
                 </Link>
             </header>
             <nav className="app__navigation">
-                <ul className='main-nav'>
+                <ul className="main-nav">
                     <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/wantlist">WantList</NavLink></li>
                     <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/resistors">Resistors</NavLink></li>
                     <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/capacitors">Capacitors</NavLink></li>
@@ -25,17 +45,21 @@ export default function App ({children}) {
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/filters">Filter</NavLink></li>
                         </ul>
                     </li>
-                    <li>
-                        <span>ICs</span>
-                        <ul>
-                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/ic/tl074">TL074</NavLink></li>
-                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/ic/lm358">LM358</NavLink></li>
-                        </ul>
-                    </li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/ic">ICs</NavLink></li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/eseries">E series</NavLink></li>
                 </ul>
+                <nav className="main-control">
+                    <a href="#" onClick={handleDialogToggle}>
+                        <Cog />
+                    </a>
+                </nav>
+                <dialog ref={dialogRef}>
+                    <Toggle checked={isAllResistorValues} onToggle={setIsAllResistorValues} text="Display all values" />
+                    <Button onClick={handleDialogToggle}>close</Button>
+                </dialog>
             </nav>
             <main className="app__content">
-                {children}
+                <Outlet />
             </main>
         </>
     )

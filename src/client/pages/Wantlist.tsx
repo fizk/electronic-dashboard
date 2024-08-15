@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import WantList from '../components/WantList';
-import { LabelInput } from '../elements/Form';
+import { Button, FormStack, LabelInput, Textarea } from '../elements/Form';
+import WantlistDetails from '../components/WantlistDetails';
+import type {ChangeEvent, FormEvent} from 'react';
 import type { WantListEntry } from '../types.d';
+import './Wantlist.css'
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -10,44 +12,97 @@ function getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default () => {
+export default function Wantlist()  {
+    const [formState, setFormState] = useState(['', '']);
     const queryClient = useQueryClient()
     const query = useQuery({ queryKey: ['wantlist'], queryFn: async(): Promise<WantListEntry[]> => {
         const request = await fetch('/electronic/api/wantlist');
-        const response = request.json();
-        return response;
+        return request.json();
     } });
 
-    const updateMutation = useMutation({
+    const statusMutation = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(r => {
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['wantlist'], data.previous)
+                }
+            });
+        },
         mutationFn: async (item: WantListEntry): Promise<any>  => {
             const formData = new FormData();
             formData.set('done', String(item.done ? 0 : 1));
 
-            const response = await fetch(`/electronic/api/wantlist/${item.id}`, {
+            const response = fetch(`/electronic/api/wantlist/${item.id}`, {
                 method: 'PATCH',
                 body: formData
             });
 
+            const previous = queryClient.getQueryData(['wantlist']);
             queryClient.setQueryData(['wantlist'], (old: WantListEntry[]) => (
                 old.map((i: WantListEntry) => (
                     i.id === item.id ? {...i, done: (item.done ? false : true)} : i
                 ))
             ));
 
-            return {data: await response.json()};
+            return {previous, response};
         },
-        onError: (error, variables, context) => {
-            console.log({error, variables, context});
-        }
+    });
+
+    const updateMutation = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(r => {
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['wantlist'], data.previous)
+                }
+            });
+        },
+        mutationFn: async (item: WantListEntry): Promise<any>  => {
+            const formData = new FormData();
+            formData.set('name', item.name);
+            formData.set('description', item.description!);
+
+            const response = fetch(`/electronic/api/wantlist/${item.id}`, {
+                method: 'PATCH',
+                body: formData
+            });
+
+            const previous = queryClient.getQueryData(['wantlist']);
+            queryClient.setQueryData(['wantlist'], (old: WantListEntry[]) => (
+                old.map((i: WantListEntry) => (
+                    i.id === item.id ? {...i, name: item.name, description: item.description} : i
+                ))
+            ));
+
+            return {previous, response};
+        },
     });
 
     const createMutation = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(async (r) => {
+                const serverResponse = await r.json();
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['wantlist'], data.previous)
+                } else {
+                    queryClient.setQueryData(['wantlist'], (old: any[]) =>
+                        old.map((item) => {
+                            return item.id === data.optimistic.id ? {...item, id: serverResponse.lastID} : item;
+                        })
+                    )
+                }
+            });
+        },
         mutationFn: async (form: FormData): Promise<any>  => {
-            const response = await fetch(`/electronic/api/wantlist`, {
+            const response = fetch(`/electronic/api/wantlist`, {
                 method: 'POST',
                 body: form,
             });
-            if (response.status !== 201) {throw new Error('this is some error')}
 
             const optimistic = {
                 id: getRandomInt(1000, 999999),
@@ -57,16 +112,25 @@ export default () => {
                 date: new Date().getTime(),
             };
 
+            const previous = queryClient.getQueryData(['wantlist']);
             queryClient.setQueryData(['wantlist'], (old: any[]) => [...old, optimistic]);
 
-            return {data: await response.json(), optimistic};
+            return {optimistic, previous, response};
         },
-        onSuccess: async (response: Record<string, any>, variables: FormData, context) => {
-            queryClient.setQueryData(['wantlist'], (old: any[]) =>
-                old.map((item) => {
-                    return item.id === response.optimistic.id ? {...item, id: response.data.lastID} : item;
-                })
-            )
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: async (item: WantListEntry): Promise<any>  => {
+
+            const response = await fetch(`/electronic/api/wantlist/${item.id}`, {
+                method: 'DELETE',
+            });
+
+            queryClient.setQueryData(['wantlist'], (old: WantListEntry[]) => (
+                old.filter((i: WantListEntry) => i.id !== item.id)
+            ));
+
+            return {data: await response.json()};
         },
         onError: (error, variables, context) => {
             console.log({error, variables, context});
@@ -74,25 +138,61 @@ export default () => {
     });
     
     const handleCheck = (item: WantListEntry) => {
+        statusMutation.mutate(item);
+    }
+
+    const handleRemove = (item: WantListEntry) => {
+        deleteMutation.mutate(item);
+    }
+
+    const handleCreate = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        createMutation.mutate(new FormData(event.currentTarget))
+        setFormState(['', '']);
+    }
+
+    const handleUpdate = (item: WantListEntry) => {
         updateMutation.mutate(item);
     }
 
-    const handleCreate = (event) => {
-        event.preventDefault();
-        createMutation.mutate(new FormData(event.target))
+    const handleFormNameField = (event: ChangeEvent<HTMLInputElement>) => {
+        setFormState([
+            event.currentTarget.value,
+            formState.at(1)!,
+        ]);
     }
 
-    console.log(query.data);
-    return (
-        <div>
-            <h2>WantList</h2>
-            <WantList items={query.data || []} onSelect={handleCheck} />
+    const handleFormDescriptionField = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setFormState([
+            formState.at(0)!,
+            event.currentTarget.value,
+        ]);
+    }
 
-            <form onSubmit={handleCreate}>
-                <LabelInput text="text" name="name" />
-                <textarea name="description" />
-                <button type="submit">create</button>
-            </form>
-        </div>
+    return (
+        <>
+            <section className="wantlist-page__content">
+                <ul className="wantlist-page__list">
+                    {(query.data || []).map(item => (
+                        <li key={item.id} className="wantlist-page__item">
+                            <WantlistDetails item={item} 
+                                onSelect={handleCheck} 
+                                onRemove={handleRemove} 
+                                onUpdate={handleUpdate} />
+                        </li>
+                    ))}
+                </ul>
+            </section>
+            <aside className="wantlist-page__form-container">
+                <h3>Create new Wantlist item</h3>
+                <form onSubmit={handleCreate} autoComplete="off">
+                    <FormStack variants={['stretch']}>
+                        <LabelInput text="text" name="name" value={formState.at(0)} onChange={handleFormNameField} />
+                        <Textarea text="description" name="description" value={formState.at(1)} onChange={handleFormDescriptionField} />
+                        <Button type="submit">create</Button>
+                    </FormStack>
+                </form>
+            </aside>
+        </>
     )
 }

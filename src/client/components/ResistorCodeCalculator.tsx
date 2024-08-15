@@ -3,10 +3,15 @@ import classVariant from '../helpers/classVariant';
 import { LabelOutput, LabelSelect } from '../elements/Form';
 import './ResistorCodeCalculator.css';
 
-export default function ResistorCodeCalculator ()  {
+interface Props {
+    defaultUnit?: number
+    setDefaultUnit?: (value: number) => void
+}
+
+export default function ResistorCodeCalculator ({defaultUnit = 1000, setDefaultUnit = () => {}}: Props)  {
     const [valueState, setValueState] = useState([0,0,0]);
     const [outcomeState, setOutcomeState] = useState(0);
-    const [unitState, setUnitState] = useState(1);
+    const [unitState, setUnitState] = useState(defaultUnit);
 
     const calculateResistorValue = (one: number, two: number, three: number, unit: number) => (
         (((one * 10) + two) * Math.pow(10, three)) / unit
@@ -46,6 +51,7 @@ export default function ResistorCodeCalculator ()  {
 
     const handleUnitChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setUnitState(Number(event.currentTarget.value));
+        setDefaultUnit(Number(event.currentTarget.value));
         setOutcomeState(calculateResistorValue(
             valueState.at(0)!, 
             valueState.at(1)!, 
@@ -68,7 +74,7 @@ export default function ResistorCodeCalculator ()  {
                 </div>
             ))}
             </div>
-            <LabelSelect text="unit" onChange={event => handleUnitChange(event)} defaultValue={unitState}>
+            <LabelSelect text="unit" onChange={handleUnitChange} defaultValue={unitState}>
                 <option value={1}>Ω</option>
                 <option value={1000}>kΩ</option>
             </LabelSelect>

@@ -1,11 +1,14 @@
-import {Database, RunResult} from 'sqlite3';
-import {writeResponse, processHttpBody} from './helpers.js';
+import { Database, RunResult } from 'sqlite3';
+import { writeResponse, writeUnauthorizedResponse } from '../helpers/response';
+import { processHttpBody } from '../helpers/processHttpBody';
+import authorization from '../helpers/authorization.js';
 import type {IncomingMessage, ServerResponse} from 'http';
 
 interface ResistorItem {
     text: string
     value: number
     active: boolean
+    notes: string
 }
 
 interface ResistorItemEntry extends ResistorItem {
@@ -22,6 +25,7 @@ interface CapacitorItem {
     farad: number
     farad_value: string
     active: boolean
+    notes: string
 }
 
 interface CapacitorItemEntry extends CapacitorItem {
@@ -44,15 +48,21 @@ interface CapacitorValues {
 }
 
 export const CapacitorType = {
-    Electrolytic: 'capacitorsElectrolytic',
-    Ceramic: 'capacitorsCeramic',
-    Film: 'capacitorsFilm'
+    Electrolytic: 'CapacitorElectrolytic',
+    Ceramic: 'CapacitorCeramic',
+    Film: 'CapacitorFilm'
 }
 
-export const ResistorsHandler = (db: Database) => async (request: IncomingMessage, response: ServerResponse) => {
+export const ResistorType = {
+    Fixed: 'ResistorFixed',
+    Variable: 'ResistorVariable',
+    Trim: 'ResistorTrim',
+}
+
+export const ResistorsHandler = (type: string) => (db: Database) => async (request: IncomingMessage, response: ServerResponse) => {
     switch (request.method?.toLowerCase()) {
         case 'get': {
-            getAllResistors(db)
+            getAllResistors(db, type)
                 .then(items => writeResponse(response, items, 200))
                 .catch((error: Error) => writeResponse(response, error, 500))
                 .finally(() => {});
@@ -63,16 +73,21 @@ export const ResistorsHandler = (db: Database) => async (request: IncomingMessag
     } 
 };
 
-export const ResistorsItemHandler = (db: Database) => async (request: IncomingMessage, response: ServerResponse) => {
+export const ResistorsItemHandler = (type: string) => (db: Database) => async (request: IncomingMessage, response: ServerResponse) => {
     const id: string = request.url?.split('/').pop() as string;
     const body = await processHttpBody<ResistorItemEntry>(request);
     
     switch (request.method?.toLowerCase()) {
         case 'patch': {
-            updateResistor(db, id, body).then(result => writeResponse(response, result, 200))
-                .catch(error => writeResponse(response, error, 500))
-                .finally(() => {})
-        }; break;
+            try {
+                await authorization(request.headers.authorization);
+                await updateResistor(db, type, id, body).then(result => writeResponse(response, result, 200))
+                    .catch(error => writeResponse(response, error, 500))
+                    .finally(() => {})
+                } catch (e) {
+                    writeUnauthorizedResponse(response);
+                }
+            }; break;
         default: {
             writeResponse(response, null, 405);   
         }
@@ -99,9 +114,14 @@ export const CapacitorsItemHandler = (type: string) => (db: Database) => async (
     
     switch (request.method?.toLowerCase()) {
         case 'patch': {
-            updateCapacitor(db, type, id, body).then(result => writeResponse(response, result, 200))
-                .catch(error => writeResponse(response, error, 500))
-                .finally(() => {})
+            try {
+                await authorization(request.headers.authorization);
+                await updateCapacitor(db, type, id, body).then(result => writeResponse(response, result, 200))
+                    .catch(error => writeResponse(response, error, 500))
+                    .finally(() => {})
+            } catch (e) {
+                writeUnauthorizedResponse(response);
+            }
         }; break;
         default: {
             writeResponse(response, null, 405);   
@@ -110,15 +130,22 @@ export const CapacitorsItemHandler = (type: string) => (db: Database) => async (
 };
 
 export const CapacitorsValueHandler = (db: Database) => async (request: IncomingMessage, response: ServerResponse) => {
-    getCapacitorsActive(db)
-        .then(result => writeResponse(response, result, 200))
-        .catch(error => writeResponse(response, error, 500))
-        .finally(() => {})
+    switch (request.method?.toLowerCase()) {
+        case 'get': {
+            getCapacitorsActive(db)
+                .then(result => writeResponse(response, result, 200))
+                .catch(error => writeResponse(response, error, 500))
+                .finally(() => {})
+        }; break;
+        default: {
+            writeResponse(response, null, 405);  
+        }
+    }
 }
 
-function getAllResistors(db: Database): Promise<ResistorItemEntry[]> {
+function getAllResistors(db: Database, type: string): Promise<ResistorItemEntry[]> {
     return new Promise((resolve, reject) => {
-        db.all('select * from resistors order by value', [], (error: any, rows: ResistorItemEntry[]) => {
+        db.all(`select * from ${type} order by value`, [], (error: any, rows: ResistorItemEntry[]) => {
             if (error) {
                 reject(error);
             }
@@ -127,14 +154,14 @@ function getAllResistors(db: Database): Promise<ResistorItemEntry[]> {
     });
 }
 
-function updateResistor(db: Database, id: string, data: Partial<ResistorItem>): Promise<any> {
-    const allowedKeys = ['text', 'value', 'active'];
+function updateResistor(db: Database, type: string, id: string, data: Partial<ResistorItem>): Promise<any> {
+    const allowedKeys = ['text', 'value', 'active', 'notes'];
     const keys = Object.keys(data).filter(key => allowedKeys.includes(key))
     const statement = keys.map(key => `${key} = ?`);
     const values = keys.map(key => (data as any)[key]);
     
     return new Promise((resolve, reject) => {
-        const stmt = db.prepare(`UPDATE resistors set ${statement.join(', ')} where id = ?`);
+        const stmt = db.prepare(`UPDATE ${type} set ${statement.join(', ')} where id = ?`);
         stmt.run([...values, id], function (error: Error)  {
             // @ts-ignore
             if (error || (this as RunResult).changes !== 1) {
@@ -175,15 +202,15 @@ function getCapacitorsActive(db: Database): Promise<CapacitorValues[]> {
                 CC.active as ceramic, 
                 CF.active as film 
                 from (
-                    select * from capacitorsElectrolytic
+                    select * from CapacitorElectrolytic
                     union
-                    select * from capacitorsCeramic
+                    select * from CapacitorCeramic
                     union 
-                    select * from capacitorsFilm
+                    select * from CapacitorFilm
                 ) as A
-            left join capacitorsElectrolytic as CE on (A.id = CE.id)
-            left join capacitorsCeramic as CC on (A.id = CC.id)
-            left join capacitorsFilm as CF on (A.id = CF.id)
+            left join CapacitorElectrolytic as CE on (A.id = CE.id)
+            left join CapacitorCeramic as CC on (A.id = CC.id)
+            left join CapacitorFilm as CF on (A.id = CF.id)
             order by A.nano
             `, [], (error: any, rows: CapacitorValues[]) => {
             if (error) {
@@ -195,7 +222,14 @@ function getCapacitorsActive(db: Database): Promise<CapacitorValues[]> {
 }
 
 function updateCapacitor (db: Database, type: string, id: string, data: Partial<CapacitorItem>): Promise<any> {
-    const allowedKeys = ['nano', 'nano_value', 'pico', 'pico_value', 'micro', 'micro_value', 'farad', 'farad_value', 'active'];
+    const allowedKeys = [
+        'nano', 'nano_value', 
+        'pico', 'pico_value', 
+        'micro', 'micro_value', 
+        'farad', 'farad_value', 
+        'active', 
+        'notes'
+    ];
     const keys = Object.keys(data).filter(key => allowedKeys.includes(key))
     const statement = keys.map(key => `${key} = ?`);
     const values = keys.map(key => (data as any)[key]);

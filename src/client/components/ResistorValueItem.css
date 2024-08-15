@@ -1,0 +1,24 @@
+
+.resistor-value-item__header {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.resistor-value-item__footer {}
+
+.resistor-value-item__label {
+    flex-grow: 1;
+}
+
+.resistor-value-item__controlls {
+    display: flex;
+    gap: var(--space-0);
+
+    [data-info], [data-menu] {
+        cursor: pointer;
+    }
+}
+
+.resistor-value-item__panel {
+    width: 50%;
+}

@@ -1,45 +1,52 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import NonInvertingOpAmp from '../components/NonInvertingOpAmp';
 import InvertingOpAmp from '../components/InvertingOpAmp';
-import useLocalStorage from '../hooks/useLocalStorage';
-import { Toggle } from '../elements/Form';
 import Levelshifter from '../components/LevelShifter';
 import { Tab, TabItem } from '../elements/Tab';
-import type { ValueItemEntry } from '../types.d';
+import DifferentialOpAmp from '../components/DifferentialOpAmp';
+import InvertingSummingOpAmp from '../components/InvertingSummingOpAmp';
+import CalculatorTemplate from './CalculatorTemplate';
+
+function Template ({children, title}) {
+    return (
+        <article style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-2)'}}>
+            <header style={{gridColumn: '1 / span 1'}}>
+                <h3>{title}</h3>
+            </header>
+            {children}
+        </article>
+    )
+}
+
 
 export default function CalculatorsOpAmps () {
-    
-    const [storage, setStorage] = useLocalStorage('all-resistor-values', false);
-
-    const query = useQuery({ queryKey: ['resistors'], queryFn: async(): Promise<ValueItemEntry[]> => {
-        const request = await fetch('/electronic/api/values/resistors');
-        const response = request.json();
-        return response;
-    } });
-
-    const handleOnToggle = (value: boolean) => {
-        setStorage(value);
-    }
-
     return (
-        <div>
-            <Toggle checked={storage} onToggle={handleOnToggle} text="Display all values" />
-            
-            <Tab>
-                <TabItem title="Level Shifter" path="level-shifter">
-                    <h3>Level Shifter</h3>
-                    <Levelshifter values={query?.data || []} allValues={storage}  />
-                </TabItem>
-                <TabItem title="Inverting OpAmp" path="inverting-op-amp">
-                    <h3>InvertingOpAmp</h3>
-                    <InvertingOpAmp values={query?.data || []} allValues={storage}  />
-                </TabItem>
-                <TabItem title="Non-Inverting OpAmp" path="non-inverting-op-amp">
-                    <h3>NonInvertingOpAmp</h3>
-                    <NonInvertingOpAmp values={query?.data || []} allValues={storage}  />
-                </TabItem>
-            </Tab>
-        </div>
+        <Tab>
+            <TabItem title="Inverting" path="inverting-op-amp">
+                <CalculatorTemplate header="Inverting OpAmp">
+                    <InvertingOpAmp />
+                </CalculatorTemplate>
+            </TabItem>
+            <TabItem title="Non-Inverting" path="non-inverting-op-amp">
+                <CalculatorTemplate header="Non-Inverting OpAmp">
+                    <NonInvertingOpAmp />
+                </CalculatorTemplate>
+            </TabItem>
+            <TabItem title="Differential" path="diff-op-amp">
+                <CalculatorTemplate header="Differential amplifier">
+                    <DifferentialOpAmp  />
+                </CalculatorTemplate>
+            </TabItem>
+            <TabItem title="Summing" path="inverting-summing-op-amp">
+                <CalculatorTemplate header="Inverting Summing amplifier">
+                    <InvertingSummingOpAmp  />
+                </CalculatorTemplate>
+            </TabItem>
+            <TabItem title="Level Shifter" path="level-shifter">
+                <CalculatorTemplate header="Level Shifter">
+                    <Levelshifter />
+                </CalculatorTemplate>
+            </TabItem>
+        </Tab>
     )
 }

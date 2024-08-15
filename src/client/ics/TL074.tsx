@@ -1,15 +1,15 @@
 import React from "react";
 import classVariant from '../helpers/classVariant';
 import '../elements/Table.css';
-import './IcTL074.css';
+import './TL074.css';
 
-export default function IcTL074 () {
+export default function TL074 () {
     return (
-        <article className="ictl074">
-            <header className="ictl074__header">
+        <article className="tl074">
+            <header className="tl074__header">
                 <h1>TL074 Quad Operational Amplifier</h1>
             </header>
-            <section className="ictl074__content">
+            <section className="tl074__content">
                 <p>
                     TL074 is a JFET-input quad operational amplifier monolithic integrated circuit. This op-amp IC contains four OP-AMPs. 
                     It consists of high voltage junction field-effect transistors (JFETs) and Bi-polar junction transistors (BJTs). In addition,  
@@ -19,7 +19,7 @@ export default function IcTL074 () {
                     of TL074 is rendered as latch-up-free. TL071 and TL072 are the single and dual OP-AMP versions of the TL07X family.
                 </p>
             </section>
-            <section className="ictl074__props">
+            <section className="tl074__props">
                 <table className={classVariant('table', ['full', 'stick'])}>
                     <thead className="table__head">
                         <tr>
@@ -137,7 +137,7 @@ export default function IcTL074 () {
                     </tbody>
                 </table>
             </section>
-            <aside className="ictl074__aside">
+            <aside className="tl074__aside">
                 <svg width="190" height="281" viewBox="0 0 190 281" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_53_2)">
                     <rect width="190" height="281" fill="white"/>

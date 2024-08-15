@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LabelInput, LabelSelect } from "../elements/Form";
+import { FormRow, FormStack, LabelInput, LabelSelect } from "../elements/Form";
 import type { ChangeEvent } from "react";
 
 type State = {
@@ -169,28 +169,32 @@ export default function LowPassFilterCalculator () {
     return (
         <article>
             <form>
-            <div>
-                <LabelInput text="Resistance" type="number" value={formState.r} onChange={handleResistanceChange} />
-                <LabelSelect value={formState.ru} onChange={console.log}>
-                    <option value={1}>Ω</option>
-                    <option value={1000}>ΩK</option>
-                </LabelSelect>
-            </div>
-            <div>
-                <LabelInput text="Capacitance" type="number" value={formState.c}  onChange={handleCapacitanceChange} />
-                <LabelSelect value={formState.cu} onChange={console.log}>
-                    <option value={12}>pF</option>
-                    <option value={6}>µF</option>
-                    <option value={1}>F</option>
-                </LabelSelect>
-            </div>
-            <div>
-                <LabelInput text="-3dB Cutoff Frequency" type="number" value={formState.f}  onChange={handleCutoffChange} />
-                <LabelSelect value={formState.fu} onChange={console.log}>
-                    <option value={1}>Hz</option>
-                    <option value={1000}>KHz</option>
-                </LabelSelect>
-            </div>
+                <FormStack>
+                    <FormRow>
+                        <LabelInput text="Resistance" type="number" value={formState.r} attachRight={true} onChange={handleResistanceChange} />
+                        <LabelSelect value={formState.ru} attachLeft={true} onChange={console.log}>
+                            <option value={1}>Ω</option>
+                            <option value={1000}>ΩK</option>
+                        </LabelSelect>
+                    </FormRow>
+                
+                    <FormRow>
+                        <LabelInput text="Capacitance" type="number" value={formState.c} attachRight={true} onChange={handleCapacitanceChange} />
+                        <LabelSelect value={formState.cu} attachLeft={true} onChange={console.log}>
+                            <option value={12}>pF</option>
+                            <option value={6}>µF</option>
+                            <option value={1}>F</option>
+                        </LabelSelect>
+                    </FormRow>
+                    
+                    <FormRow>
+                        <LabelInput text="Frequency" type="number" value={formState.f} attachRight={true} onChange={handleCutoffChange} />
+                        <LabelSelect value={formState.fu} attachLeft={true} onChange={console.log}>
+                            <option value={1}>Hz</option>
+                            <option value={1000}>KHz</option>
+                        </LabelSelect>
+                    </FormRow>
+                </FormStack>
             </form>
         </article>
     )

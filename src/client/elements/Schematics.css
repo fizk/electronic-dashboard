@@ -1,0 +1,29 @@
+.schematics {
+    --dark-color: var(--color-text);
+    --middle-color: var(--color-secondary);
+    --light-color: var(--color-white);
+}
+
+.schematics--stroke-dark {
+    stroke-width: 2;
+    stroke: var(--dark-color);
+}
+.schematics--stroke-middle {
+    stroke-width: 2;
+    stroke: var(--middle-color);
+}
+.schematics--stroke-light {
+    stroke-width: 2;
+    stroke: var(--light-color);
+}
+
+.schematics--fill-light {
+    fill: var(--light-color);
+}
+.schematics--fill-middle {
+    fill: var(--middle-color);
+}
+
+.schematics--fill-dark {
+    fill: var(--dark-color);
+}

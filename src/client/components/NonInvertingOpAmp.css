@@ -1,32 +1,21 @@
-.non-inverting-op-amp {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-1);
-}
+/* .non-inverting-op-amp {} */
 
-.non-inverting-op-amp__header {
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
-}
-.non-inverting-op-amp__content {
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 2;
-}
-.non-inverting-op-amp__aside {
-    grid-column: 1 / span 1;
-    grid-row: 2 / span 2;
-}
-.non-inverting-op-amp__footer {
-    grid-column: 2 / span 1;
+.non-inverting-op-amp__formula {
+    grid-column: 1 /span 1;
     grid-row: 3 / span 1;
 }
 
-.non-inverting-op-amp__form-row {
-    margin: var(--space-1) 0;
+.non-inverting-op-amp__input {
+    grid-column: 2 /span 1;
+    grid-row: 1 / span 3;
 }
 
-.non-inverting-op-amp__footer {
-    display: flex;
-    justify-content: flex-start;
-    gap: var(--space-1);
+.non-inverting-op-amp__description {
+    grid-column: 1 /span 2;
+    columns: 3;
+}
+
+.non-inverting-op-amp__schematic {
+    grid-column: 1 /span 1;
+    grid-row: 2 / span 1;
 }

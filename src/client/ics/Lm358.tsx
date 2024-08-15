@@ -1,13 +1,13 @@
 import React from "react";
-import './IcLm358.css';
+import './Lm358.css';
 
-export default function IcLm358 () {
+export default function Lm358 () {
     return (
-        <article className="iclm358-page">
-            <header className="iclm358-page__header">
+        <article className="lm358">
+            <header className="lm358__header">
                 <h1>LM358 Dual Operational Amplifier</h1>
             </header>
-            <section className="iclm358-page__content">
+            <section className="lm358__content">
                 <p>
                     The LM358 series consists of two independent, high gain, internally frequency 
                     compensated operational amplifiers which were designed specifically to operate 
@@ -23,7 +23,7 @@ export default function IcLm358 () {
                 </p>
                 
             </section>
-            <aside className="iclm358-page__aside">
+            <aside className="lm358__aside">
                 <svg width="190" height="173" viewBox="0 0 190 173" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_58_63)">
                     <rect width="190" height="173" fill="white"/>

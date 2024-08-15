@@ -34,6 +34,15 @@ export default function Capacitors () {
     } });
 
     const updateCeramic = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(r => {
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['capacitors-ceramic'], data.previous)
+                }
+            });
+        },
         mutationFn: async (item: CapacitorValue): Promise<any>  => {
             const formData = new FormData();
             formData.set('active', String(item.active ? 0 : 1));
@@ -43,20 +52,27 @@ export default function Capacitors () {
                 body: formData
             });
 
+            const previous = queryClient.getQueryData(['capacitors-ceramic']);
             queryClient.setQueryData(['capacitors-ceramic'], (old: CapacitorValue[]) => (
                 old.map((i: CapacitorValue) => (
                     i.id === item.id ? {...i, active: (item.active ? false : true)} : i
                 ))
             ));
 
-            return {data: await response.json()};
+            return {previous, response};
         },
-        onError: (error, variables, context) => {
-            console.log({error, variables, context});
-        }
     });
 
     const updateElectrolytic = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(r => {
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['capacitors-electrolytic'], data.previous)
+                }
+            });
+        },
         mutationFn: async (item: CapacitorValue): Promise<any>  => {
             const formData = new FormData();
             formData.set('active', String(item.active ? 0 : 1));
@@ -66,20 +82,27 @@ export default function Capacitors () {
                 body: formData
             });
 
+            const previous = queryClient.getQueryData(['capacitors-electrolytic']);
             queryClient.setQueryData(['capacitors-electrolytic'], (old: CapacitorValue[]) => (
                 old.map((i: CapacitorValue) => (
                     i.id === item.id ? {...i, active: (item.active ? false : true)} : i
                 ))
             ));
 
-            return {data: await response.json()};
+            return {previous, response};
         },
-        onError: (error, variables, context) => {
-            console.log({error, variables, context});
-        }
     });
 
     const updateFilm = useMutation({
+        retry: false,
+        onError: console.log,
+        onSettled: (data, error, variables, context) => {
+            data.response.then(r => {
+                if (r.status >= 300) {
+                    queryClient.setQueryData(['capacitors-film'], data.previous)
+                }
+            });
+        },
         mutationFn: async (item: CapacitorValue): Promise<any>  => {
             const formData = new FormData();
             formData.set('active', String(item.active ? 0 : 1));
@@ -89,17 +112,15 @@ export default function Capacitors () {
                 body: formData
             });
 
+            const previous = queryClient.getQueryData(['capacitors-film']);
             queryClient.setQueryData(['capacitors-film'], (old: CapacitorValue[]) => (
                 old.map((i: CapacitorValue) => (
                     i.id === item.id ? {...i, active: (item.active ? false : true)} : i
                 ))
             ));
 
-            return {data: await response.json()};
+            return {previous, response};
         },
-        onError: (error, variables, context) => {
-            console.log({error, variables, context});
-        }
     });
 
     const handleAddToWantlist = async (item: CapacitorValue, type: string) => {
@@ -117,18 +138,15 @@ export default function Capacitors () {
     };
 
     return (
-        <article className="capacitors-page">
-            <header className="capacitors-page__header">
-                <h1>Capacitors</h1>
-            </header>
+        <>
             <section className="capacitors-page__section capacitors-page__converter">
                 <Section>
-                    <header><h2>Converter</h2></header>
+                    <h2>Converter</h2>
                     <CapacitorConverter />
                 </Section>
             </section>
             <section className="capacitors-page__section capacitors-page__calculator">
-                <header><h2>Codes</h2></header>
+                <h2>Codes</h2>
                 <CapacitorCodeCalculator />
             </section>
             <section className="capacitors-page__section capacitors-page__values">
@@ -136,15 +154,38 @@ export default function Capacitors () {
                     <TabItem title={<span className="capacitors-page__tab-link"><CeramicCapacitor />Ceramic</span>} path="ceramic">
                         <CapacitorValueList format={(item) => (
                             <>
-                                {item.micro >= 0.1 && (
-                                    <strong>{item.micro_value}</strong>
-                                )}
-                                {item.micro < 0.1 && (
+                                {item.micro >= 0.000001 && item.micro < 0.0001 && (
                                     <>
-                                    <strong>{item.pico_value}</strong>
-                                    {item.micro >= 0.001 && <small>{item.micro_value}</small>}
+                                        <strong>{item.pico_value}</strong>
+                                        <small>{item.nano_value}</small>
                                     </>
+                                )}
 
+                                {item.micro >= 0.0001 && item.micro < 0.001 && (
+                                    <>
+                                        <strong>{item.nano_value}</strong>
+                                        <small>{item.pico_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 0.001 && item.micro < 0.01 && (
+                                    <>
+                                        <strong>{item.nano_value}</strong>
+                                        <small>{item.micro_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 0.01 && item.micro < 10 && (
+                                    <>
+                                        <strong>{item.micro_value}</strong>
+                                        <small>{item.nano_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 10 && (
+                                    <>
+                                        <strong>{item.micro_value}</strong>
+                                    </>
                                 )}
                             </>
                         )} values={ceramicCapacitors.data || []} onSelect={updateCeramic.mutate} 
@@ -153,15 +194,41 @@ export default function Capacitors () {
                     <TabItem title={<span className="capacitors-page__tab-link"><FilmCapacitor/>Film</span>} path="film">
                         <CapacitorValueList format={item => (
                             <>
-                                {item.micro >= 0.1 && (
-                                    <strong>{item.micro_value}</strong>
-                                )}
-                                {item.micro < 0.1 && (
+
+                                {item.micro >= 0.000001 && item.micro < 0.0001 && (
                                     <>
-                                    <strong>{item.pico_value}</strong>
-                                    {item.micro >= 0.001 && <small>{item.micro_value}</small>}
+                                        <strong>{item.pico_value}</strong>
+                                        <small>{item.nano_value}</small>
                                     </>
                                 )}
+
+                                {item.micro >= 0.0001 && item.micro < 0.001 && (
+                                    <>
+                                        <strong>{item.nano_value}</strong>
+                                        <small>{item.pico_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 0.001 && item.micro < 0.01 && (
+                                    <>
+                                        <strong>{item.nano_value}</strong>
+                                        <small>{item.micro_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 0.01 && item.micro < 10 && (
+                                    <>
+                                        <strong>{item.micro_value}</strong>
+                                        <small>{item.nano_value}</small>
+                                    </>
+                                )}
+
+                                {item.micro >= 10 && (
+                                    <>
+                                        <strong>{item.micro_value}</strong>
+                                    </>
+                                )}
+
                             </>
                         )} values={filmCapacitors.data || []} onSelect={updateFilm.mutate} 
                             onAdd={item => handleAddToWantlist(item, 'Film')} />
@@ -179,6 +246,6 @@ export default function Capacitors () {
                     <Loading />
                 </footer>
             )}
-        </article>
+        </>
     )
 }

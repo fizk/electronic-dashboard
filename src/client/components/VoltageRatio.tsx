@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import { LabelInput } from '../elements/Form';
+import { FormStack, LabelInput } from '../elements/Form';
 import classVariant from '../helpers/classVariant';
+import isEmpty from '../helpers/isEmpty';
 import type { ChangeEvent } from 'react';
-import type { ValueItemEntry } from '../types.d';
+import type { ResistorValue } from '../types.d';
 import '../elements/Table.css';
 import './VoltageRatio.css';
 
 interface Props {
-    values: ValueItemEntry[]
-    allValues: boolean
+    values: ResistorValue[]
 }
 
 interface Output {
@@ -17,52 +17,36 @@ interface Output {
     sum: number
 }
 
+type State = [string, string];
+
 export default function VoltageRatio ({values = []}: Props) {
     
-                                            //    in  out
-    const [inputState, setInputState] = useState<[string, string]>(['',  '']);
+                                                   //    in   out
+    const [inputState, setInputState] = useState<State>(['0', '0']);
     const [outputState, setOutputState] = useState<Output[]>([]);
 
+    const handleVin = (event: ChangeEvent<HTMLInputElement>) => updateState([
+        event.currentTarget.value,
+        inputState.at(1)!,
+    ]);
+    
+    const handleVout = (event: ChangeEvent<HTMLInputElement>) => updateState([
+        inputState.at(0)!,
+        event.currentTarget.value
+    ]);
 
-    const handleVin = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputState([
-            event.currentTarget.value,
-            inputState.at(1)!,
-        ]);
+    const updateState = (state: State) => {
+        setInputState(state);
 
-        if (
-            event.currentTarget.value === '' || 
-            event.currentTarget.value === '0' || 
-            inputState.at(1) === '' ||
-            inputState.at(1) === '0'
-        ) {return};
-
-        const calculations = calculate(
-            parseFloat(event.currentTarget.value), 
-            parseFloat(inputState.at(1)!)
-        );
-        setOutputState(calculations);
-    };
-
-    const handleVout = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputState([
-            inputState.at(0)!,
-            event.currentTarget.value
-        ]);
-
-        if (
-            inputState.at(0) === '' ||  
-            inputState.at(0) === '0' ||  
-            event.currentTarget.value === '' ||
-            event.currentTarget.value === '0'
-        ) {return};
+        const isEveryValueSet = state.every(value => !isEmpty(value));
+        if (isEveryValueSet === false) return;
 
         const calculations = calculate(
-            parseFloat(inputState.at(0)!), 
-            parseFloat(event.currentTarget.value)
+            parseFloat(state.at(0)!), 
+            parseFloat(state.at(1)!)
         );
         setOutputState(calculations);
-    };
+    }
 
     const calculate = (input: number, output: number) => {
         const filteredValues = values.filter(item => item.active);
@@ -86,12 +70,11 @@ export default function VoltageRatio ({values = []}: Props) {
     return (
         <article className="voltage-ratio">
             <aside className="voltage-ratio__aside">
-                <div>
-                    <LabelInput text={<>V<sub>in</sub></>} onChange={handleVin} value={inputState.at(0) || ''} />
-                </div>
-                <div>
-                    <LabelInput text={<>V<sub>out</sub></>} onChange={handleVout} value={inputState.at(1) || ''} />
-                </div>
+                <FormStack>
+                    <LabelInput text={<>V<sub>in</sub></>} type="number" onChange={handleVin} value={inputState.at(0) || ''} />
+                    <LabelInput text={<>V<sub>out</sub></>} type="number" onChange={handleVout} value={inputState.at(1) || ''} />
+
+                </FormStack>
             </aside>
             <section className="voltage-ratio__content">
                 <table className={classVariant('table', ['full'])}>

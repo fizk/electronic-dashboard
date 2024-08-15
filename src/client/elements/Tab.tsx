@@ -17,7 +17,7 @@ export const Tab = ({children}: TabProps) => {
     }
 
     return (
-        <div>
+        <div className="tab">
             <ul className="tab__links">
                 {Children.map(children, (child, index) => {
                     return (

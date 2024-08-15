@@ -1,7 +1,8 @@
-import {writeResponse, processHttpBody} from './helpers.js';
-import type {IncomingMessage, ServerResponse} from 'http';
-import type {Database, RunResult} from 'sqlite3';
-import type {Maybe} from './helpers.js';
+import { writeResponse, writeUnauthorizedResponse } from '../helpers/response';
+import { processHttpBody, Maybe } from '../helpers/processHttpBody';
+import authorization from '../helpers/authorization.js';
+import type { IncomingMessage, ServerResponse } from 'http';
+import type { Database, RunResult } from 'sqlite3';
 
 interface WantListItem {
     name: string
@@ -24,25 +25,30 @@ export const WantListHandler = (db: Database) => async (request: IncomingMessage
             }).finally(() => {});
         }; break;
         case 'post': {
-            const data = await processHttpBody<WantListItem>(request);
-            
-            if (!data['name']) {
-                writeResponse(response, {message: 'Missing value for "name"'}, 401);
-                return;
+            try {
+                await authorization(request.headers.authorization);
+                const data = await processHttpBody<WantListItem>(request);
+                
+                if (!data['name']) {
+                    writeResponse(response, {message: 'Missing value for "name"'}, 401);
+                    return;
+                }
+    
+                const payload: WantListItem = {
+                    name: (Array.isArray(data['name']) ? data['name'].at(0) : data['name']) || '',
+                    done: (Array.isArray(data['done']) ? Number(data['name'].at(0)) : Number(data['done'])) || 0,
+                    date: new Date().getTime(),
+                    description: (Array.isArray(data['description']) ? data['description'].at(0) : data['description']) || null,
+                };
+    
+                await createItem(db, payload).then(item => {
+                    writeResponse(response, item, 201);
+                }).catch((error: Error) => {
+                    writeResponse(response, error, 500);
+                }).finally(() => {});
+            } catch (e) {
+                writeUnauthorizedResponse(response);
             }
-
-            const payload: WantListItem = {
-                name: (Array.isArray(data['name']) ? data['name'].at(0) : data['name']) || '',
-                done: (Array.isArray(data['done']) ? Number(data['name'].at(0)) : Number(data['done'])) || 0,
-                date: new Date().getTime(),
-                description: (Array.isArray(data['description']) ? data['description'].at(0) : data['description']) || null,
-            };
-
-            createItem(db, payload).then(item => {
-                writeResponse(response, item, 201);
-            }).catch((error: Error) => {
-                writeResponse(response, error, 500);
-            }).finally(() => {});
         }; break;
         default: {
             writeResponse(response, null, 405);
@@ -65,38 +71,53 @@ export const WantListItemHandler = (db: Database) => async (request: IncomingMes
             }).finally(() => {});
         }; break;
         case 'patch': {
-            const data = await processHttpBody<WantListItem>(request);
-            
-            updateItem(db, id, data as WantListItem).then(result => {
-                writeResponse(response, result, 200);
-            }).catch((error: Error) => {
-                writeResponse(response, error, 500);
-            }).finally(() => {});            
+            try {
+                await authorization(request.headers.authorization);
+
+                const data = await processHttpBody<WantListItem>(request);
+                await updateItem(db, id, data as WantListItem).then(result => {
+                    writeResponse(response, result, 200);
+                }).catch((error: Error) => {
+                    writeResponse(response, error, 500);
+                }).finally(() => {});            
+            } catch {
+                writeUnauthorizedResponse(response);
+            }
         }; break; 
         case 'put': {
-            const data = await processHttpBody<WantListItem>(request);
-            
-            if (!data['name']) {
-                writeResponse(response, {message: 'Missing value for "name"'}, 405);
-                return;
+            try {
+                await authorization(request.headers.authorization);
+                const data = await processHttpBody<WantListItem>(request);
+                
+                if (!data['name']) {
+                    writeResponse(response, {message: 'Missing value for "name"'}, 405);
+                    return;
+                }
+                const payload: WantListItem = {
+                    name: (Array.isArray(data['name']) ? data['name'].at(0) : data['name']) || '',
+                    done: (Array.isArray(data['done']) ? Number(data['name'].at(0)) : Number(data['done'])) || 0,
+                    description: (Array.isArray(data['description']) ? data['description'].at(0) : data['description']) || null,
+                };
+                await updateItem(db, id, payload).then(result => {
+                    writeResponse(response, result, 200);
+                }).catch((error: Error) => {
+                    writeResponse(response, error, 500);
+                }).finally(() => {});
+            } catch (e) {
+                writeUnauthorizedResponse(response);
             }
-            const payload: WantListItem = {
-                name: (Array.isArray(data['name']) ? data['name'].at(0) : data['name']) || '',
-                done: (Array.isArray(data['done']) ? Number(data['name'].at(0)) : Number(data['done'])) || 0,
-                description: (Array.isArray(data['description']) ? data['description'].at(0) : data['description']) || null,
-            };
-            updateItem(db, id, payload).then(result => {
-                writeResponse(response, result, 200);
-            }).catch((error: Error) => {
-                writeResponse(response, error, 500);
-            }).finally(() => {});
         }; break;
         case 'delete': {
-            deleteItem(db, id).then(result => {
-                writeResponse(response, result, 200);
-            }).catch((error: Error) => {
-                writeResponse(response, error, 500);
-            }).finally(() => {});
+            try {
+                await authorization(request.headers.authorization);
+                deleteItem(db, id).then(result => {
+                    writeResponse(response, result, 200);
+                }).catch((error: Error) => {
+                    writeResponse(response, error, 500);
+                }).finally(() => {});
+            } catch (e) {
+                writeUnauthorizedResponse(response);
+            }
         }; break;
         default: {
             writeResponse(response, null, 405);
@@ -106,7 +127,7 @@ export const WantListItemHandler = (db: Database) => async (request: IncomingMes
 
 function getAll(db: Database): Promise<WantListEntry[]> {
     return new Promise((resolve, reject) => {
-        db.all('select * from wantlist', [], (error: any, rows: WantListEntry[]) => {
+        db.all('select * from WantList order by [date] asc', [], (error: any, rows: WantListEntry[]) => {
             if (error) {
                 reject(error);
             }
@@ -117,7 +138,7 @@ function getAll(db: Database): Promise<WantListEntry[]> {
 
 function getItem(db: Database, id: string): Promise<Maybe<WantListEntry>> {
     return new Promise((resolve, reject) => {
-        db.get('select * from wantlist where id = $id', {$id: id}, (error: any, row: WantListEntry) => {
+        db.get('select * from WantList where id = $id', {$id: id}, (error: any, row: WantListEntry) => {
             if (error) {
                 reject(error);
             } else {
@@ -129,7 +150,7 @@ function getItem(db: Database, id: string): Promise<Maybe<WantListEntry>> {
 
 function createItem(db: Database, data: WantListItem): Promise<RunResult> {
     return new Promise((resolve, reject) => {
-        const stmt = db.prepare("INSERT INTO wantlist (name, description, done, date) VALUES (?, ?, ?, ?)");
+        const stmt = db.prepare("INSERT INTO WantList (name, description, done, date) VALUES (?, ?, ?, ?)");
         stmt.run([data.name, data.description, Number(data.done), data.date], function (error: Error)  {
             // @ts-ignore
             if (error || (this as RunResult).changes !== 1) {
@@ -144,12 +165,15 @@ function createItem(db: Database, data: WantListItem): Promise<RunResult> {
 
 function updateItem(db: Database, id: string, data: WantListItem): Promise<RunResult> {
     const allowedKeys = ['name', 'description', 'done', 'date'];
-    const keys = Object.keys(data).filter(key => allowedKeys.includes(key))
-    const statement = keys.map(key => `${key} = ?`);
-    const values = keys.map(key => (data as any)[key]);
-    
+    const filteredData = Object.entries(data)
+        .filter(([key]) => allowedKeys.includes(key))
+        .map(filterRequestBody);
+
+    const statement = filteredData.map(([key, value]) => `${key} = ?`)
+    const values = filteredData.map(([key, value]) => value);
+
     return new Promise((resolve, reject) => {
-        const stmt = db.prepare(`UPDATE wantlist set ${statement.join(', ')} where id = ?`);
+        const stmt = db.prepare(`UPDATE WantList set ${statement.join(', ')} where id = ?`);
         stmt.run([...values, id], function (error: Error)  {
             // @ts-ignore
             if (error || (this as RunResult).changes !== 1) {
@@ -164,7 +188,7 @@ function updateItem(db: Database, id: string, data: WantListItem): Promise<RunRe
 
 function deleteItem(db: Database, id: string): Promise<RunResult> {
     return new Promise((resolve, reject) => {
-        const stmt = db.prepare("DELETE FROM wantlist WHERE id = ?");
+        const stmt = db.prepare("DELETE FROM WantList WHERE id = ?");
         stmt.run([id], function (error: Error)  {
             // @ts-ignore
             if (error || (this as RunResult).changes !== 1) {
@@ -177,3 +201,17 @@ function deleteItem(db: Database, id: string): Promise<RunResult> {
     });
 }
 
+function filterRequestBody([key, value]: [string, any]) {
+    switch (key) {
+        case 'description': {
+            if (value === null || value === undefined || value === '') {
+                return [key, null];
+            } else {
+                return [key, value];
+            }
+        }; break;
+        default: {
+            return [key, value]
+        }; break;
+    }
+}

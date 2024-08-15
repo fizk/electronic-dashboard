@@ -8,7 +8,6 @@ export default function CapacitorCodeCalculator ()  {
     const [valueState, setValueState] =     useState([0, 0, 0]);
     const [outcomeState, setOutcomeState] = useState([0, 0, 0]);
 
-
     const calculateCapacitorValue = (one: number, two: number, three: number, unit: number) => (
         (((one * 10) + two) * Math.pow(10, three)) / unit
     );
@@ -42,7 +41,6 @@ export default function CapacitorCodeCalculator ()  {
             }; break;
         }
     }
-
 
     return (
         <section className="capacitor-code-calculator">

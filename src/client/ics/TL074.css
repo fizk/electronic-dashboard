@@ -1,14 +1,20 @@
-.iclm358-page {
+.tl074 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-2);
 }
-.iclm358-page__header {
+
+.tl074__header {
     grid-column: 1 / span 2;
 }
-.iclm358-page__content {
-    grid-column: 1 / span 1;
-}
-.iclm358-page__aside {
+.tl074__content {
     grid-column: 2 / span 1;
+}
+.tl074__props {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 3;
+}
+.tl074__aside {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
 }

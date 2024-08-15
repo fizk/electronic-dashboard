@@ -1,3 +1,4 @@
+
 .tab__links {
     display: flex;
     list-style: none;
@@ -5,6 +6,10 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
+
+
+    /* margin: var(--space-5) 0; */
+    border-bottom: 1px solid var(--color-primary);
 }
 .tab__button {
     text-decoration: none;
