@@ -6,6 +6,7 @@ import type { ChangeEvent } from 'react';
 import type { ResistorValue } from '../types.d';
 import '../elements/Table.css';
 import './VoltageRatio.css';
+import { Section } from '../elements/Section';
 
 interface Props {
     values: ResistorValue[]
@@ -69,15 +70,19 @@ export default function VoltageRatio ({values = []}: Props) {
 
     return (
         <article className="voltage-ratio">
+            <header className="voltage-ratio__header">
+                <h2 className="voltage-ratio__title">Voltage Ratio</h2>
+            </header>
             <aside className="voltage-ratio__aside">
-                <FormStack>
-                    <LabelInput text={<>V<sub>in</sub></>} type="number" onChange={handleVin} value={inputState.at(0) || ''} />
-                    <LabelInput text={<>V<sub>out</sub></>} type="number" onChange={handleVout} value={inputState.at(1) || ''} />
-
-                </FormStack>
+                <Section variant={['framed', 'raised']}>
+                    <FormStack>
+                        <LabelInput text={<>V<sub>in</sub></>} type="number" onChange={handleVin} value={inputState.at(0) || ''} />
+                        <LabelInput text={<>V<sub>out</sub></>} type="number" onChange={handleVout} value={inputState.at(1) || ''} />
+                    </FormStack>
+                </Section>
             </aside>
             <section className="voltage-ratio__content">
-                <table className={classVariant('table', ['full'])}>
+                <table className={classVariant('table', ['full', 'stick'])}>
                     <thead className="table__head">
                         <tr>
                             <td className="table__data">R<sub>1</sub></td>

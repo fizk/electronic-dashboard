@@ -1,8 +1,7 @@
 .article-template {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-    margin: var(--space-4) 0;
+    gap: var(--space-4);
 }
 
 .article-template__header {

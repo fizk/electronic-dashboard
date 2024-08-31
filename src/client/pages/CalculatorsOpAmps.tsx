@@ -1,10 +1,10 @@
 import React from 'react';
-import NonInvertingOpAmp from '../components/NonInvertingOpAmp';
-import InvertingOpAmp from '../components/InvertingOpAmp';
-import Levelshifter from '../components/LevelShifter';
+import NonInvertingOpAmp from '../components/OpAmp/NonInvertingOpAmp';
+import InvertingOpAmp from '../components/OpAmp/InvertingOpAmp';
+import Levelshifter from '../components/OpAmp/LevelShifter';
 import { Tab, TabItem } from '../elements/Tab';
-import DifferentialOpAmp from '../components/DifferentialOpAmp';
-import InvertingSummingOpAmp from '../components/InvertingSummingOpAmp';
+import DifferentialOpAmp from '../components/OpAmp/DifferentialOpAmp';
+import InvertingSummingOpAmp from '../components/OpAmp/InvertingSummingOpAmp';
 import CalculatorTemplate from './CalculatorTemplate';
 
 function Template ({children, title}) {

@@ -1,8 +1,9 @@
-/* .inverting-op-amp {} */
-
 .inverting-op-amp__formula {
     grid-column: 1 / span 1;
     grid-row: 3 / span 1;
+
+    font-size: var(--font-2);
+    text-align: center;
 }
 .inverting-op-amp__input {
     grid-column: 2 / span 1;

@@ -1,0 +1,40 @@
+.capacitor-value-item__header {
+    display: flex;
+    gap: var(--space-1);
+    align-items: center;
+}
+
+.capacitor-value-item__label {
+    flex-grow: 1;
+}
+
+.capacitor-value-item__controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-0);
+
+    svg {
+        cursor: pointer;
+    }
+}
+
+.capacitor-value-item__dialog[open] {
+    min-width: 40%;
+    min-height: 60%;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--space-4);
+    display: flex;
+    align-items: stretch;
+    box-shadow: var(--box-shadow);
+}
+.capacitor-value-item__dialog-content {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-2)
+}
+.capacitor-value-item__dialog-description {
+    flex-grow: 1;
+}

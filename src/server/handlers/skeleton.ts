@@ -108,3 +108,20 @@ export const IconHandler = async (request: IncomingMessage, response: ServerResp
         }).end();
     }
 }
+
+export const FontHandler = async (request: IncomingMessage, response: ServerResponse) => {
+    const url = new URL(request.url!, 'http://any-host');
+    const path = url.pathname?.split('/').filter(part => part !== '');
+    try {
+        const file = await readFile(`./client/fonts/${path.pop()}`);
+        response.writeHead(200, {
+            'Content-Length': Buffer.byteLength(file),
+            'content-type': 'font/otf'
+        }).end(file);
+    } catch (error) {
+        response.writeHead(404, {
+            'Content-Length': 0,
+            'content-type': 'application/javascript'
+        }).end();
+    }
+}

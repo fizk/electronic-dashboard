@@ -11,7 +11,7 @@
         fill: var(--color-blue-2);
     }
     &.icon-info--disabled path{
-        fill: var(--color-primary);
+        fill: var(--color-primary-500);
     }
 }
 
@@ -21,6 +21,15 @@
         fill: var(--color-blue-2);
     }
     &.icon-burger--disabled path{
-        fill: var(--color-primary);
+        fill: var(--color-primary-500);
+    }
+}
+
+.icon-basket {
+    &.icon-basket--normal path {
+        fill: var(--color-blue-2);
+    }
+    &.icon-basket--disabled path{
+        fill: var(--color-primary-500);
     }
 }

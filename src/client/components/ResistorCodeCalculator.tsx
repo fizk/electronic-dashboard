@@ -1,20 +1,17 @@
-import React, {useState, ChangeEvent} from 'react';
+import React, {useState } from 'react';
 import classVariant from '../helpers/classVariant';
-import { LabelOutput, LabelSelect } from '../elements/Form';
+import { FormStack } from '../elements/Form';
 import './ResistorCodeCalculator.css';
+import '../elements/Table.css';
 
-interface Props {
-    defaultUnit?: number
-    setDefaultUnit?: (value: number) => void
-}
+interface Props {}
 
-export default function ResistorCodeCalculator ({defaultUnit = 1000, setDefaultUnit = () => {}}: Props)  {
+export default function ResistorCodeCalculator ({}: Props)  {
     const [valueState, setValueState] = useState([0,0,0]);
     const [outcomeState, setOutcomeState] = useState(0);
-    const [unitState, setUnitState] = useState(defaultUnit);
 
-    const calculateResistorValue = (one: number, two: number, three: number, unit: number) => (
-        (((one * 10) + two) * Math.pow(10, three)) / unit
+    const calculateResistorValue = (one: number, two: number, three: number) => (
+        (((one * 10) + two) * Math.pow(10, three))
     );
 
     const handleValueChange = (column: number, value: number) => {
@@ -24,8 +21,7 @@ export default function ResistorCodeCalculator ({defaultUnit = 1000, setDefaultU
                 setOutcomeState(calculateResistorValue(
                     value, 
                     valueState.at(1)!, 
-                    valueState.at(2)!, 
-                    unitState
+                    valueState.at(2)!,
                 ));
             }; break;
             case 1: {
@@ -33,8 +29,7 @@ export default function ResistorCodeCalculator ({defaultUnit = 1000, setDefaultU
                 setOutcomeState(calculateResistorValue(
                     valueState.at(0)!, 
                     value, 
-                    valueState.at(2)!, 
-                    unitState
+                    valueState.at(2)!,
                 ));
             }; break;
             case 2: {
@@ -42,43 +37,41 @@ export default function ResistorCodeCalculator ({defaultUnit = 1000, setDefaultU
                 setOutcomeState(calculateResistorValue(
                     valueState.at(0)!, 
                     valueState.at(1)!, 
-                    value, 
-                    unitState
+                    value,
                 ));
             }; break;
         }
     }
 
-    const handleUnitChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setUnitState(Number(event.currentTarget.value));
-        setDefaultUnit(Number(event.currentTarget.value));
-        setOutcomeState(calculateResistorValue(
-            valueState.at(0)!, 
-            valueState.at(1)!, 
-            valueState.at(2)!, 
-            Number(event.currentTarget.value)
-        ));
-    }
-
     return (
         <section className="resistor-code-calculator">
-            <div className="resistor-code-calculator__table">
-            {[0,1,2,3,4,5,6,7,8,9].map(row => (
-                <div key={row}>
-                    {[0,1,2].map(column => (
-                        <button key={column} className={classVariant('resistor-code-calculator__button', row === valueState.at(column) ? ['active'] : [])} 
-                            onClick={() => handleValueChange(column, row)}>
-                                {row}
-                        </button>    
-                    ))}
-                </div>
-            ))}
+            <div>
+                {[0,1,2,3,4,5,6,7,8,9].map(row => (
+                    <div className="resistor-code-calculator__row" key={row}>
+                        {[0,1,2].map(column => (
+                            <button key={column} className={classVariant('resistor-code-calculator__button', row === valueState.at(column) ? ['active'] : [])} 
+                                onClick={() => handleValueChange(column, row)}>
+                                    {row}
+                            </button>    
+                        ))}
+                    </div>
+                ))}
             </div>
-            <LabelSelect text="unit" onChange={handleUnitChange} defaultValue={unitState}>
-                <option value={1}>Ω</option>
-                <option value={1000}>kΩ</option>
-            </LabelSelect>
-            <LabelOutput text="value" readOnly value={Intl.NumberFormat('en-GB').format(outcomeState)} />
+            <table className="table table--full">
+                <thead className="table__head">
+                    <tr>
+                        <td className={classVariant('table__data')}>Ω</td>
+                        <td className={classVariant('table__data', ['begin'])}>kΩ</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td className={classVariant('table__data')}>{Intl.NumberFormat('en-GB').format(outcomeState)}</td>
+                        <td className={classVariant('table__data', ['begin'])}>{Intl.NumberFormat('en-GB').format(outcomeState / 1000)}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
         </section>
     )
 }

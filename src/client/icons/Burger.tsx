@@ -9,9 +9,8 @@ interface Props extends SVGProps<SVGSVGElement> {
 
 export default function Burger ({kind = 'normal', ...rest}: Props) {
     return (
-        <svg width="16" height="16" viewBox="0 0 16 16" className={classVariant('icon-burger', [kind])} fill="none" {...rest}>
+        <svg width="16" height="16" viewBox="0 0 16 16" className={classVariant('icon-basket', [kind])} fill="none" {...rest}>
             <g clipPath="url(#clip0_70_8)">
-                <rect width="16" height="16" fill="white"/>
                 <path fillRule="evenodd" clipRule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 
                     0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM8 5.5C8.82843 5.5 9.5 4.82843 9.5 4C9.5 
                     3.17157 8.82843 2.5 8 2.5C7.17157 2.5 6.5 3.17157 6.5 4C6.5 4.82843 7.17157 5.5 8 5.5ZM9.5 8C9.5 

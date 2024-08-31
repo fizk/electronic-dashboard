@@ -56,7 +56,7 @@ export default function CapacitorCodeCalculator ()  {
                 </div>
             ))}
             </div>
-            <table className="table">
+            <table className="table table--full">
                 <thead className="table__head">
                     <tr>
                         <td className={classVariant('table__data')}>pF</td>

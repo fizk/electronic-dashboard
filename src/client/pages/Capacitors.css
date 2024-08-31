@@ -1,25 +1,41 @@
-
-.capacitors-page__converter {
-    grid-column: 1 / span 1;
-    grid-row: 2 / span 1;
+.capacitors-page {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: var(--space-4);
 }
-.capacitors-page__calculator {
-    grid-column: 2 / span 1;
-    grid-row: 2 / span 1;
-}
-.capacitors-page__values {
+.capacitors-page__header {
     grid-column: 1 / span 2;
-    grid-row: 3 / span 1;
+}
 
+.capacitors-page__title {
+    margin: 0;
+}
+
+.capacitors-page__tab-link {
+    display: flex;
+    gap: var(--space-1);
     svg {
         height: var(--space-3);
         width: auto;
     }
 }
 
-.capacitors-page__tab-link {
+.capacitors-page__value-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2) var(--space-4);
+    padding: 0;
+}
+
+.capacitors-page__value-format {
     display: flex;
-    gap: var(--space-1);
+    flex-direction: column;
+
+    small {
+        margin-top: var(--space-0);
+        font-size: var(--font-0);
+    }
 }
 
 .capacitors-page__footer {
@@ -34,4 +50,3 @@
     justify-content: center;
     align-items: center;
 }
-

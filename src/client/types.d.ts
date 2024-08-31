@@ -29,3 +29,19 @@ export interface WantListEntry {
     date: number
 }
 
+declare global {   
+    namespace JSX {     
+        interface IntrinsicElements {       
+            math: any;       
+            mi: any;       
+            mo: any;     
+            mn: any;     
+            msup: any;     
+            msub: any;     
+            mrow: any;     
+            mfrac: any;     
+            mstyle: any;     
+            mfenced: any;     
+        }   
+    } 
+}

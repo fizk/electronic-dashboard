@@ -46,6 +46,18 @@ module.exports = {
                 //     outputPath: 'icons/',
                 //   },
             },
+            {
+                test: /\.otf$/i,
+                type: 'asset/resource',
+                generator: {
+                    // keep original filenames and copy images to `dist/img/`
+                    filename: 'fonts/[name][ext]', 
+                  },
+                // generator: {
+                //     publicPath: 'https://cdn/assets/',
+                //     outputPath: 'icons/',
+                //   },
+            },
         ]
     }
 };

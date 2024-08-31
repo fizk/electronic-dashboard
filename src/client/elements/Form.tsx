@@ -12,53 +12,48 @@ import './Form.css';
 
 interface LabelInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     text?: ReactNode
-    attachLeft?: boolean
-    attachRight?: boolean
+    attached?: ('left' | 'right') []
 }
 
-export function LabelInput({text, attachLeft = false, attachRight = false, ...rest}: LabelInputProps) {
-    const classVariants: string[] = [];
-    attachLeft && classVariants.push('left');
-    attachRight && classVariants.push('right');
-
+export function LabelInput({text, attached = [], ...rest}: LabelInputProps) {
     return (
-        <label className={classVariant('label-input', classVariants)}>
+        <label className={classVariant('label-input', attached)}>
             {text && (
                 <span className="label-input__label">{text}</span>
             )}
-            <input {...rest}  className="label-input__input"/>
+            <input {...rest}  className={classVariant('label-input__input', text ? [] : ['full-radius'])}/>
         </label>
     )
 }
 
-export function LabelOutput({text, ...rest}: LabelInputProps) {
+interface LabelOutputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    text?: ReactNode
+    attached?: ('left' | 'right') []
+}
+export function LabelOutput({text, attached = [], ...rest}: LabelOutputProps) {
     return (
-        <label className="label-output">
-            <input {...rest}  className="label-output__input"/>
-            <span className="label-output__label">{text}</span>
+        <label className={classVariant('label-output', attached)}>
+            <input {...rest}  className={classVariant('label-output__input', text ? [] : ['full-radius'])} readOnly/>
+            {text && (
+                <span className="label-output__label">{text}</span>
+            )}
         </label>
     )
 }
 
-interface LabelSelectProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
+export interface LabelSelectProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
     text?: ReactNode
     children?: ReactNode
-    attachLeft?: boolean
-    attachRight?: boolean
+    attached?: ('left' | 'right') []
 }
 
-export function LabelSelect({text, attachLeft = false, attachRight = false, children, ...rest}: LabelSelectProps) {
-    const classVariants: string[] = [];
-    !text && classVariants.push('stand-alone');
-    attachRight && classVariants.push('right');
-    attachLeft && classVariants.push('left');
-
+export function LabelSelect({text, attached = [], children, ...rest}: LabelSelectProps) {
     return (
-        <label className={classVariant('label-select', classVariants)}>
+        <label className={classVariant('label-select', attached)}>
             {text && (
                 <span className="label-select__label">{text}</span>
             )}
-            <select {...rest}  className="label-select__input">
+            <select {...rest}  className={classVariant('label-select__input')}>
                 {children}
             </select>
         </label>
@@ -67,10 +62,10 @@ export function LabelSelect({text, attachLeft = false, attachRight = false, chil
 
 interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     children?: ReactNode
-    kind?: 'normal' | 'warning' | 'danger'
+    kind?: 'primary' | 'secondary' | 'warning' | 'danger'
 }
 
-export function Button({children, kind = 'normal', ...rest}: ButtonProps) {
+export function Button({children, kind = 'primary', ...rest}: ButtonProps) {
     return (
         <button {...rest} className={classVariant('button', [kind])}>
             {children}
@@ -114,18 +109,20 @@ export function Textarea({children, text, ...props}: TextAreaProps) {
     )
 }
 
-interface FormStackProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    variants?: string[]
-}
+interface FormStackProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export function FormStack({children, variants = []}: FormStackProps) {
+export function FormStack({children}: FormStackProps) {
     return (
-        <div className={classVariant('form-stack', variants)}>{children}</div>
+        <div className={classVariant('form-stack')}>{children}</div>
     )
 }
 
-export function FormRow({children}:FormStackProps) {
+interface FormRowProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    variants?: ('stretch' | 'none' | 'compact' | 'begin' | 'end' | 'center') []
+}
+
+export function FormRow({children, variants = []}:FormRowProps) {
     return (
-        <div className="form-row">{children}</div>
+        <div className={classVariant('form-row', variants)}>{children}</div>
     )
 }

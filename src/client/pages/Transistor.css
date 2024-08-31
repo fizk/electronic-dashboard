@@ -1,0 +1,24 @@
+.transistor__article {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-4);
+}
+
+.transistor__header {
+    grid-column: 1 / span 2;
+}
+.transistor__title {}
+
+.transistor__description {
+    grid-column: 2 / span 1;
+    columns: 2;
+    column-gap: var(--space-2);
+}
+.transistor__scematic {
+    grid-column: 1 / span 1;
+    display: grid;
+    vertical-align: middle;
+    justify-content: center;
+    align-content: center;
+}
+

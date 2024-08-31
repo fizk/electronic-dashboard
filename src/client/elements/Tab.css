@@ -9,7 +9,7 @@
 
 
     /* margin: var(--space-5) 0; */
-    border-bottom: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary-500);
 }
 .tab__button {
     text-decoration: none;
@@ -19,5 +19,5 @@
     padding: var(--space-0) 0;
 }
 .tab__button--active {
-    border-bottom: 2px solid var(--color-secondary);
+    border-bottom: 2px solid var(--color-secondary-500);
 }

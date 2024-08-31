@@ -1,0 +1,15 @@
+math, math[mode="inline"] {
+    /* display: inline; */
+    font-family: LatinmodernMath, Symbol, Times;
+    /* font-style: normal;
+    math-style: normal; */
+
+  }
+  
+  math[mode="display"] {
+    /* display: block; */
+    /* text-align: center; */
+    font-family: LatinmodernMath, Symbol, Times;
+    /* font-style: normal; */
+    /* math-style: normal; */
+  }

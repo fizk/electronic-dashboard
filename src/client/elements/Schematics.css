@@ -1,11 +1,19 @@
 .schematics {
     --dark-color: var(--color-text);
-    --middle-color: var(--color-secondary);
+    --middle-color: var(--color-secondary-500);
+    --disable-color: var(--color-primary-500);
     --light-color: var(--color-white);
+
+    --line-color-1: var(--color-secondary-500);
+    --line-color-2: var(--color-indigo-1);
 }
 
 .schematics--stroke-dark {
     stroke-width: 2;
+    stroke: var(--dark-color);
+}
+.schematics--stroke-dark-thin {
+    stroke-width: 1;
     stroke: var(--dark-color);
 }
 .schematics--stroke-middle {
@@ -15,6 +23,10 @@
 .schematics--stroke-light {
     stroke-width: 2;
     stroke: var(--light-color);
+}
+.schematics--stroke-light-thin {
+    stroke-width: 1;
+    stroke: var(--disable-color);
 }
 
 .schematics--fill-light {
@@ -26,4 +38,19 @@
 
 .schematics--fill-dark {
     fill: var(--dark-color);
+}
+
+.schematics--line-one {
+    stroke-width: 1;
+    stroke: var(--line-color-1);
+}
+.schematics--fill-one {
+    fill: var(--line-color-1);
+}
+.schematics--line-two {
+    stroke-width: 1;
+    stroke: var(--line-color-2);
+}
+.schematics--fill-two {
+    fill: var(--line-color-2);
 }

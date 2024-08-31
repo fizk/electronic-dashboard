@@ -1,0 +1,22 @@
+.unit-converter-article {
+    display: grid;
+    gap: var(--space-4);
+    margin-block: var(--space-4) 0;
+    max-width: 64rem;
+}
+
+.unit-converter-article__header {
+    grid-column: 1 / span 2;
+}
+.unit-converter-article__title {
+    margin: 0;
+}
+.unit-converter-article__input {
+    grid-column: 1 / span 1;
+}
+.unit-converter-article__description {
+    grid-column: 2 / span 1;
+}
+.unit-converter-article__footer {
+    grid-column: 1 / span 2;
+}

@@ -10,7 +10,7 @@ export default function CalculatorTemplate ({children, header}: Props) {
     return (
         <article className="calculator-template">
             <header className="calculator-template__header">
-                <h3>{header}</h3>
+                <h2 className="calculator-template__title">{header}</h2>
             </header>
             {children}
         </article>

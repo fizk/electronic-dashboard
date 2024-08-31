@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button, FormStack, LabelInput, Textarea } from '../elements/Form';
+import { Button, FormRow, FormStack, LabelInput, Textarea } from '../elements/Form';
 import WantlistDetails from '../components/WantlistDetails';
 import type {ChangeEvent, FormEvent} from 'react';
 import type { WantListEntry } from '../types.d';
 import './Wantlist.css'
+import { Section } from '../elements/Section';
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -171,7 +172,7 @@ export default function Wantlist()  {
 
     return (
         <>
-            <section className="wantlist-page__content">
+            <Section variant={['framed', 'raised']}>
                 <ul className="wantlist-page__list">
                     {(query.data || []).map(item => (
                         <li key={item.id} className="wantlist-page__item">
@@ -182,14 +183,16 @@ export default function Wantlist()  {
                         </li>
                     ))}
                 </ul>
-            </section>
+            </Section>
             <aside className="wantlist-page__form-container">
-                <h3>Create new Wantlist item</h3>
+                <h3>Create new wantlist item</h3>
                 <form onSubmit={handleCreate} autoComplete="off">
-                    <FormStack variants={['stretch']}>
-                        <LabelInput text="text" name="name" value={formState.at(0)} onChange={handleFormNameField} />
+                    <FormStack>
+                        <FormRow variants={['stretch']}>
+                            <LabelInput text="text" name="name" value={formState.at(0)} onChange={handleFormNameField} />
+                            <Button type="submit" kind="secondary">create</Button>
+                        </FormRow>
                         <Textarea text="description" name="description" value={formState.at(1)} onChange={handleFormDescriptionField} />
-                        <Button type="submit">create</Button>
                     </FormStack>
                 </form>
             </aside>

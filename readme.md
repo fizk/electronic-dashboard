@@ -4,6 +4,10 @@
 Uses Webpack (for client) and TSC (for server)
 
 ```sh
+docker run -it -p 3030:3030 -v $(pwd):/var/app --rm --name electro x-electro bash
+```
+
+```sh
 npm run ...
 ```
 
@@ -35,6 +39,9 @@ Uses [PM2](https://pm2.keymetrics.io/) for production
 ./node_modules/.bin/pm2 delete app
 ```
 
+https://www.imatheq.com/imatheq/com/imatheq/math-equation-editor-latex-mathml.html
+
+https://visualmatheditor.equatheque.net/VisualMathEditor.html?runLocal&codeType=Latex&encloseAllFormula=false&style=aguas&localType=en_US&equation=%5Cvec{F}%20=%20%5Cfrac{d%20%5Cvec{p}}{dt}%20=%20m%20%5Cfrac{d%20%5Cvec{v}}{dt}%20=%20m%20%5Cvec{a}
 
 
 [math-editor](https://math-editor.online/)

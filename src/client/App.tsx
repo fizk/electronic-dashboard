@@ -6,6 +6,7 @@ import Cog from './icons/Cog';
 import { Button, Toggle } from './elements/Form';
 import { ConfigContext } from './contexts/ConfigContext';
 import { Outlet } from "react-router-dom";
+import './fonts/latinmodern-math.otf';
 import './App.css';
 
 export default function App () {
@@ -34,19 +35,28 @@ export default function App () {
             </header>
             <nav className="app__navigation">
                 <ul className="main-nav">
-                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/wantlist">WantList</NavLink></li>
-                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/resistors">Resistors</NavLink></li>
-                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/capacitors">Capacitors</NavLink></li>
                     <li>
                         <span>Calculators</span>
                         <ul>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/units">Units</NavLink></li>
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/op-amps">OpAmps</NavLink></li>
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/voltage">Voltage</NavLink></li>
                             <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/filters">Filter</NavLink></li>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/capacitor">Capacitor</NavLink></li>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/calculators/resistor">Resistor</NavLink></li>
                         </ul>
                     </li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/transistor">Transistor</NavLink></li>
                     <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/ic">ICs</NavLink></li>
                     <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/eseries">E series</NavLink></li>
+                    <li>
+                        <span>Inventory</span>
+                        <ul>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/inventory/resistors">Resistors</NavLink></li>
+                            <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/inventory/capacitors">Capacitors</NavLink></li>        
+                        </ul>
+                    </li>
+                    <li><NavLink className={({isActive}) => classVariant('main-nav__link', isActive ? ['active'] : [])} to="/wantlist">WantList</NavLink></li>
                 </ul>
                 <nav className="main-control">
                     <a href="#" onClick={handleDialogToggle}>

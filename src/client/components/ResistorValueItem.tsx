@@ -1,89 +1,90 @@
 import React, { useState, useRef , useEffect} from 'react';
-import { Button, FormRow, FormStack, Textarea, Toggle } from '../elements/Form';
-import Cart from "../icons/Cart";
+import { Button, FormRow, Textarea, Toggle } from '../elements/Form';
 import Info from '../icons/Info';
-import Burger from '../icons/Burger';
+import Basket from '../icons/Basket';
 import Markdown from 'react-markdown';
 import type {ChangeEvent, MouseEvent} from 'react';
 import type {ResistorValue} from '../types.d';
 import './ResistorValueItem.css';
 
 interface Props {
-    value: ResistorValue,
+    item: ResistorValue,
     onSelect: (item: ResistorValue) => void
     onAdd: (item: ResistorValue) => void
     onUpdate: (item: ResistorValue) => void
 }
 
-export default function ResistorValueItem ({value, onSelect, onAdd, onUpdate}: Props) {
-    const [notes, setNotes] = useState(value.notes);
-    
-    const infoRef = useRef<any>();
-    const editRef = useRef<any>();
-    const [infoDialog, setInfoDialog] = useState(false);
-    const [editDialog, setEditDialog] = useState(false);
+export default function ResistorValueItem ({item, onSelect, onAdd, onUpdate}: Props) {
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
+    const [isEditDialog, setIsEditDialog] = useState(false);
+    const [text, setText] = useState<string|null>(item.notes || null);
 
     useEffect(() => {
-        infoDialog
-            ? infoRef.current?.showModal()
-            : infoRef.current?.close();
-    }, [infoDialog]);
+        isOpenDialog && dialogRef.current?.showModal();
+        !isOpenDialog && dialogRef.current?.close();
+    }, [isOpenDialog]);
 
-    useEffect(() => {
-        editDialog 
-            ? editRef.current?.showModal()
-            : editRef.current?.close();
-    }, [editDialog]);
-
-    const handleNotesChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setNotes(event.currentTarget.value);
+    const handleToggleDialog = (status: boolean) => {
+        setIsOpenDialog(status);
     }
-
+    const handleToggleEdit = (status: boolean) => {
+        setIsEditDialog(status);
+    }
+    const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setText(event.currentTarget.value);
+    }
     const handleSave = (event: MouseEvent<HTMLButtonElement>) => {
         onUpdate({
-            ...value,
-            notes: notes
+            ...item,
+            notes: text
         });
-        setEditDialog(false);
+        setIsEditDialog(false);
     }
 
-    const handleAdd = (value: ResistorValue) => {
-        onAdd(value);
-        setEditDialog(false);
-    }
-    
     return (
         <>
             <header className="resistor-value-item__header">
-                <Toggle checked={value.active} onToggle={() => onSelect(value)} />
-                <span className="resistor-value-item__label">{value.text}</span>
-                <span className="resistor-value-item__controlls">
-                    <Info data-info kind={value.notes ? 'normal' : 'disabled'}  onClick={value.notes ? () => setInfoDialog(true) : () => {}}/>
-                    <Burger data-menu kind="normal"  onClick={() => setEditDialog(true)} />
-                </span>
+                <Toggle checked={item.active} onToggle={() => onSelect(item)} />
+                <span className="resistor-value-item__label">{item.text}</span>
+                <div className="resistor-value-item__controls">
+                    <Info onClick={() => handleToggleDialog(!isOpenDialog)} kind={item.notes ? 'normal' : 'disabled' } />
+                    <Basket onClick={() => onAdd(item)} />
+                </div>
             </header>
-            <dialog ref={infoRef} onCancel={() => setInfoDialog(false)}>
-                <h3>{value.text}</h3>
-                <Markdown>{value.notes}</Markdown>
-                <Button onClick={() => setInfoDialog(false)}>close</Button>
-            </dialog>
-            <dialog className="resistor-value-item__panel" ref={editRef} onCancel={() => setEditDialog(false)}>
-                <header>
-                    <h3>{value.text}</h3>
-                </header>
-                <section>
-                    <span>Add to wantlist</span>
-                    <Button onClick={() => handleAdd(value)}><Cart /></Button>
-                </section>
-                <section>
-                    <FormStack variants={['stretch']}>
-                        <Textarea autoFocus value={notes || ''} onChange={handleNotesChange} />
-                        <FormRow>
-                            <Button onClick={handleSave}>save</Button>
-                            <Button onClick={() => setEditDialog(false)}>cancel</Button>
-                        </FormRow>
-                    </FormStack>
-                </section>
+            <dialog className="resistor-value-item__dialog" ref={dialogRef} onClose={() => handleToggleDialog(false)}>
+                {isEditDialog && (
+                    <div className="resistor-value-item__dialog-content">
+                        <header className="resistor-value-item__dialog-header">
+                            <h3>{item.text}</h3>
+                        </header>
+                        <section className="resistor-value-item__dialog-description">
+                        <Textarea value={text || undefined} onChange={handleTextChange} autoFocus={true} />
+                        </section>
+                        <footer className="resistor-value-item__dialog-footer">
+                            <FormRow variants={['end']}>
+                                <Button kind="warning" onClick={handleSave}>save</Button>
+                                <Button kind="danger" onClick={() => setIsEditDialog(false)}>cancel</Button>
+                            </FormRow>
+                        </footer>
+                    </div>
+                )}
+                {!isEditDialog && (
+                    <div className="resistor-value-item__dialog-content">
+                        <header className="resistor-value-item__dialog-header">
+                            <h3>{item.text}</h3>
+                        </header>
+                        <section className="resistor-value-item__dialog-description">
+                            <Markdown>{item.notes}</Markdown>
+                        </section>
+                        <footer className="resistor-value-item__dialog-footer">
+                            <FormRow variants={['end']}>
+                                <Button kind="warning" autoFocus={true} onClick={() => handleToggleEdit(true)}>edit</Button>
+                                <Button onClick={() => handleToggleDialog(false)}>close</Button>
+                            </FormRow>
+                        </footer>
+                    </div>
+                )}
             </dialog>
         </>
     )

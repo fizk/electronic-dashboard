@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import useLocalStorage from '../hooks/useLocalStorage';
 import ResistorCodeCalculator from '../components/ResistorCodeCalculator';
 import ResistorValueItem from '../components/ResistorValueItem';
 import { Section } from '../elements/Section';
@@ -15,7 +14,6 @@ interface MutationArgument {
 }
 
 export default function Resistor() {
-    const [threeDigitunit, setThreeDigitunit] = useLocalStorage ('3-digit-eia-unit', 1000);
     const [loading, setLoading] = useState(false);
     const queryClient = useQueryClient();
 
@@ -214,35 +212,35 @@ export default function Resistor() {
     return (
         <article className="resistors-page">
             <header className="resistors-page__header">
-                <h1>Resistors</h1>
+                <h1 className="resistors-page__title">Resistors</h1>
             </header>
-            <section className="resistors-page__section">
-                <Section>
-                    <h2>3 Digit EIA</h2>
-                    <ResistorCodeCalculator defaultUnit={threeDigitunit} setDefaultUnit={setThreeDigitunit} />
+            <aside>
+                <Section variant={['framed', 'raised']}>
+                    <h2 className="resistors-page__title">Code converter</h2>
+                    <h3>3 Digit EIA</h3>
+                    <ResistorCodeCalculator />
                 </Section>
-            </section>
-            <section className="resistors-page__section">
+            </aside>
+            <section>
                 <Tab>
                     <TabItem title="Fixed" path='fixed'>
-                        <h3>Fixed E24 values (5% tolerance)</h3>
                         <ul className="resistors-page__items-list">
                             {queryFixedResistors.data.map(item => (
                                 <li key={`fixed${item.id}`}>
-                                    <ResistorValueItem value={item}
+                                    <ResistorValueItem item={item}
                                         onSelect={handleFixedActiveChange} 
                                         onAdd={handleFixedToWantlist}
                                         onUpdate={handleFixedNotesChange} />
                                 </li>
                             ))}
                         </ul>
+                        <p>Fixed E24 values (5% tolerance)</p>
                     </TabItem>
                     <TabItem title="Variable" path='variable'>
-                        <h3>Variable Resistors</h3>
                         <ul className="resistors-page__items-list">
                             {queryVariableResistors.data.map(item => (
                                 <li key={`variable${item.id}`}>
-                                    <ResistorValueItem value={item}
+                                    <ResistorValueItem item={item}
                                         onSelect={handleVariableActiveChange} 
                                         onAdd={handleVariableToWantlist} 
                                         onUpdate={handleVariableNotesChange} />
@@ -251,11 +249,10 @@ export default function Resistor() {
                         </ul>
                     </TabItem>
                     <TabItem title="Trimpods" path='trim'>
-                        <h3>Trimpot Resistors</h3>
                         <ul className="resistors-page__items-list">
                             {queryTrimResistors.data.map(item => (
                                 <li key={`trim${item.id}`}>
-                                    <ResistorValueItem value={item}
+                                    <ResistorValueItem item={item}
                                         onSelect={handleTrimpodActiveChange} 
                                         onAdd={handleTrimToWantlist} 
                                         onUpdate={handleTrimNotesChange} />

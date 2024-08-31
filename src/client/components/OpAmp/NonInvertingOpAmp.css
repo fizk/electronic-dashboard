@@ -1,8 +1,9 @@
-/* .non-inverting-op-amp {} */
-
 .non-inverting-op-amp__formula {
     grid-column: 1 /span 1;
     grid-row: 3 / span 1;
+
+    font-size: var(--font-2);
+    text-align: center;
 }
 
 .non-inverting-op-amp__input {

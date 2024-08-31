@@ -44,7 +44,6 @@ export default function CD40106 () {
             <aside className="cd40106__aside">
                 <svg width="190" height="281" viewBox="0 0 190 281" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_62_2)">
-                    <rect width="190" height="281" fill="white"/>
                     <rect x="29" y="5.5" width="134" height="270" stroke="black" strokeWidth="3" strokeLinejoin="round"/>
                     <line x1="176" y1="30" x2="188" y2="30" stroke="black" strokeWidth="3"/>
                     <line x1="182" y1="24" x2="182" y2="36" stroke="black" strokeWidth="3"/>

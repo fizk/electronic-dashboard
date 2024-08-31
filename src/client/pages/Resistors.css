@@ -1,13 +1,16 @@
 .resistors-page {
     display: grid;
     grid-template-columns: 1fr 3fr;
+    gap: var(--space-4);
 }
 
 .resistors-page__header {
     grid-column: 1 / span 2;
 }
 
-.resistors-page__section {}
+.resistors-page__title {
+    margin: 0;
+}
 
 .resistor-page__footer {
     position: fixed;
@@ -25,6 +28,7 @@
 .resistors-page__items-list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2) var(--space-4);
+    padding: 0;
 }

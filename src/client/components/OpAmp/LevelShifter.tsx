@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { FormStack, LabelInput } from '../elements/Form';
-import classVariant from '../helpers/classVariant';
-import { isEmptyString } from '../helpers/isEmpty';
-import useLocalStorage from '../hooks/useLocalStorage';
-import { ResistorValuesContext } from '../contexts/ResistorValuesContext';
+import { FormStack, LabelInput } from '../../elements/Form';
+import { Section } from "../../elements/Section";
+import classVariant from '../../helpers/classVariant';
+import { isEmptyString } from '../../helpers/isEmpty';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { ResistorValuesContext } from '../../contexts/ResistorValuesContext';
 import type {ChangeEvent} from 'react';
-import '../elements/Table.css';
 import './Levelshifter.css';
-import '../elements/Schematics.css';
+import '../../elements/Table.css';
+import '../../elements/Schematics.css';
 
 interface Props {
     
@@ -307,28 +308,30 @@ export default function Levelshifter ({}: Props) {
     return (
         <>
             <section className="level-shifter__input">
-                <form className="level-shifter__form">
-                    <fieldset className="level-shifter__fieldset">
-                        <legend>In</legend>
-                        <FormStack>
-                            <LabelInput text="min" type="number" name="in_min" value={inputForm.inMin} onChange={handleInMinChange} />
-                            <LabelInput text="max" type="number" name="in_max" value={inputForm.inMax} onChange={handleInMaxChange} />
-                        </FormStack>
-                    </fieldset>
-                    <fieldset className="level-shifter__fieldset">
-                        <legend>Out</legend>
-                        <FormStack>
-                            <LabelInput text="min" type="number" name="out_min" value={inputForm.outMin} onChange={handleOutMinChange} />
-                            <LabelInput text="max" type="number" name="out_max" value={inputForm.outMax} onChange={handleOutMaxhange} />
-                        </FormStack>
-                    </fieldset>
-                    <fieldset className="level-shifter__fieldset">
-                        <legend>Bias</legend>
-                        <FormStack>
-                            <LabelInput text="volt" type="number" name="v_bias" value={inputForm.bias} onChange={handleBiasChange}  />
-                        </FormStack>
-                    </fieldset>
-                </form>
+                <Section variant={['framed', 'raised']}>
+                    <form className="level-shifter__form">
+                        <fieldset className="level-shifter__fieldset">
+                            <legend>In</legend>
+                            <FormStack>
+                                <LabelInput text="min" type="number" name="in_min" value={inputForm.inMin} onChange={handleInMinChange} />
+                                <LabelInput text="max" type="number" name="in_max" value={inputForm.inMax} onChange={handleInMaxChange} />
+                            </FormStack>
+                        </fieldset>
+                        <fieldset className="level-shifter__fieldset">
+                            <legend>Out</legend>
+                            <FormStack>
+                                <LabelInput text="min" type="number" name="out_min" value={inputForm.outMin} onChange={handleOutMinChange} />
+                                <LabelInput text="max" type="number" name="out_max" value={inputForm.outMax} onChange={handleOutMaxhange} />
+                            </FormStack>
+                        </fieldset>
+                        <fieldset className="level-shifter__fieldset">
+                            <legend>Bias</legend>
+                            <FormStack>
+                                <LabelInput text="volt" type="number" name="v_bias" value={inputForm.bias} onChange={handleBiasChange}  />
+                            </FormStack>
+                        </fieldset>
+                    </form>
+                </Section>
             </section>
             <section className="level-shifter__schematic">
                 <svg width="325" height="261" viewBox="0 0 325 261" fill="none" className="schematics">

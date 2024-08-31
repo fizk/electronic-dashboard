@@ -8,7 +8,7 @@ export const ConfigContext = createContext({
 
 export function ConfigContextWrapper ({children}) {
 
-    const [isAllResistorValues, setIsAllResistorValues] = useLocalStorage('all-resistor-values', false);
+    const [isAllResistorValues, setIsAllResistorValues] = useLocalStorage('all-resistor-values', true);
 
     return (
         <ConfigContext.Provider value={{isAllResistorValues, setIsAllResistorValues}}>

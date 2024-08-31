@@ -26,7 +26,6 @@ export default function Lm358 () {
             <aside className="lm358__aside">
                 <svg width="190" height="173" viewBox="0 0 190 173" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_58_63)">
-                    <rect width="190" height="173" fill="white"/>
                     <rect x="29.5" y="5.5" width="134" height="162" stroke="black" strokeWidth="3" strokeLinejoin="round"/>
                     <path d="M38.5 112.5V58.5L83 85L38.5 112.5Z" stroke="black" strokeWidth="3" strokeLinejoin="round"/>
                     <line x1="42" y1="95" x2="54" y2="95" stroke="black" strokeWidth="3"/>
