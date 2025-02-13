@@ -42,6 +42,7 @@ declare global {
             mfrac: any;     
             mstyle: any;     
             mfenced: any;     
+            mroot: any;     
         }   
     } 
 }

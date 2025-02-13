@@ -1,4 +1,4 @@
-import {readFile} from 'fs/promises';
+import { readFile } from 'fs/promises';
 import apacheMD5 from '../helpers/apacheMD5';
 
 export default async function authorization (authorization: string | undefined): Promise<void> {

@@ -1,12 +1,11 @@
 import React, { useContext, useRef, useEffect, useState, MouseEvent } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import classVariant from './helpers/classVariant';
-import Logo from './icons/Logo';
-import Cog from './icons/Cog';
 import { Button, Toggle } from './elements/Form';
 import { ConfigContext } from './contexts/ConfigContext';
 import { Outlet } from "react-router-dom";
-import './fonts/latinmodern-math.otf';
+import Logo from './icons/Logo';
+import Cog from './icons/Cog';
 import './App.css';
 
 export default function App () {
@@ -35,6 +34,9 @@ export default function App () {
             </header>
             <nav className="app__navigation">
                 <ul className="main-nav">
+                    <li>
+                        <NavLink to={`/scratchpad`}>Scratchpad</NavLink>
+                    </li>
                     <li>
                         <span>Calculators</span>
                         <ul>

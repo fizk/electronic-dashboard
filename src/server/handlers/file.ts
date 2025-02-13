@@ -92,7 +92,7 @@ export const ManifestHandler = async (request: IncomingMessage, response: Server
 
 }
 
-export const IconHandler = async (request: IncomingMessage, response: ServerResponse) => {
+export const IconRastarHandler = async (request: IncomingMessage, response: ServerResponse) => {
     const url = new URL(request.url!, 'http://any-host');
     const path = url.pathname?.split('/').filter(part => part !== '');
     try {
@@ -108,8 +108,24 @@ export const IconHandler = async (request: IncomingMessage, response: ServerResp
         }).end();
     }
 }
+export const IconVectorHandler = async (request: IncomingMessage, response: ServerResponse) => {
+    const url = new URL(request.url!, 'http://any-host');
+    const path = url.pathname?.split('/').filter(part => part !== '');
+    try {
+        const file = await readFile(`./client/icons/${path.pop()}`);
+        response.writeHead(200, {
+            'Content-Length': Buffer.byteLength(file),
+            'content-type': 'image/svg+xml'
+        }).end(file);
+    } catch (error) {
+        response.writeHead(404, {
+            'Content-Length': 0,
+            'content-type': 'application/javascript'
+        }).end();
+    }
+}
 
-export const FontHandler = async (request: IncomingMessage, response: ServerResponse) => {
+export const FontOtfHandler = async (request: IncomingMessage, response: ServerResponse) => {
     const url = new URL(request.url!, 'http://any-host');
     const path = url.pathname?.split('/').filter(part => part !== '');
     try {
@@ -117,6 +133,24 @@ export const FontHandler = async (request: IncomingMessage, response: ServerResp
         response.writeHead(200, {
             'Content-Length': Buffer.byteLength(file),
             'content-type': 'font/otf'
+        }).end(file);
+    } catch (error) {
+        response.writeHead(404, {
+            'Content-Length': 0,
+            'content-type': 'application/javascript'
+        }).end();
+    }
+}
+
+export const FontWoffHandler = async (request: IncomingMessage, response: ServerResponse) => {
+    console.log('woff handler');
+    const url = new URL(request.url!, 'http://any-host');
+    const path = url.pathname?.split('/').filter(part => part !== '');
+    try {
+        const file = await readFile(`./client/fonts/${path.pop()}`);
+        response.writeHead(200, {
+            'Content-Length': Buffer.byteLength(file),
+            'content-type': 'font/woff'
         }).end(file);
     } catch (error) {
         response.writeHead(404, {

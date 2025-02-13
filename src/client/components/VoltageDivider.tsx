@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LabelInput, LabelOutput, Button, FormStack } from '../elements/Form';
+import { LabelInput, LabelOutput, Button, FormStack, FormRow } from '../elements/Form';
 import ResistorSelector from './ResistorSelector';
 import classVariant from '../helpers/classVariant';
 import isEmpty from '../helpers/isEmpty';
@@ -140,13 +140,15 @@ export default function VoltageDivider ({}: Props) {
                 <Section variant={['framed', 'raised']}>
                     <FormStack>
                         <LabelInput text={<>V<sub>in</sub></>} onChange={handleVin} value={inputState.at(0)} />
-                        <ResistorSelector text={<>R<sub>1</sub></>} 
-                            onSelect={handleR1} 
-                            value={inputState.at(1)} />
-                        <Button onClick={handleSwitch}>switch</Button>
-                        <ResistorSelector text={<>R<sub>2</sub></>} 
-                            onSelect={handleR2} 
-                            value={inputState.at(2)} />
+                        <FormRow variants={['stretch']}>
+                            <ResistorSelector text={<>R<sub>1</sub></>} 
+                                onSelect={handleR1} 
+                                value={inputState.at(1)} />
+                            <Button onClick={handleSwitch}>switch</Button>
+                            <ResistorSelector text={<>R<sub>2</sub></>} 
+                                onSelect={handleR2} 
+                                value={inputState.at(2)} />
+                        </FormRow>
                         <LabelOutput text={<>V<sub>out</sub></>} value={outputState} readOnly />
                     </FormStack>
                 </Section>

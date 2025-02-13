@@ -10,10 +10,18 @@ import {
     ResistorType 
 } from './handlers/values.js';
 import { WantListHandler, WantListItemHandler } from './handlers/wantlist.js';
-import { SkeletonHandler, NotFoundHandler, JsHandler, CssHandler, ManifestHandler, IconHandler, FontHandler } from './handlers/skeleton.js';
+import { 
+    SkeletonHandler, 
+    NotFoundHandler, 
+    JsHandler, 
+    CssHandler, 
+    ManifestHandler, 
+    IconRastarHandler, 
+    IconVectorHandler,
+    FontOtfHandler,
+    FontWoffHandler
+} from './handlers/file.js';
 import type { IncomingMessage, ServerResponse } from 'http';
-import authorization from './helpers/authorization.js';
-import apacheMD5 from './helpers/apacheMD5.js';
 
 type Handler = (request: IncomingMessage, response: ServerResponse) => void;
 
@@ -26,9 +34,11 @@ const router: [RegExp, Handler][] = [
     [/^\/electronic\/manifest.json$/,                                   ManifestHandler],
     [/^\/electronic\/.*\.js(\?.*)*$/,                                   JsHandler],
     [/^\/electronic\/.*\.css(\?.*)*$/,                                  CssHandler],
-    [/^\/electronic\/.*\.otf(\?.*)*$/,                                  FontHandler],
+    [/^\/electronic\/fonts\/.*\.otf(\?.*)*$/,                           FontOtfHandler],
+    [/^\/electronic\/fonts\/.*\.woff(\?.*)*$/,                          FontWoffHandler],
 
-    [/^\/electronic\/icons\/.*\.png(\?.*)*$/,                           IconHandler],
+    [/^\/electronic\/icons\/.*\.png(\?.*)*$/,                           IconRastarHandler],
+    [/^\/electronic\/icons\/.*\.svg(\?.*)*$/,                           IconVectorHandler],
     
     [/^\/electronic\/api\/wantlist$/,                                   WantListHandler(db)],
     [/^\/electronic\/api\/wantlist\/[0-9]+$/,                           WantListItemHandler(db)],
@@ -53,15 +63,7 @@ const router: [RegExp, Handler][] = [
 ]
 
 const server = createServer(async (request, response) => {
-    console.log(`${new Date().toISOString()} ${request.method} ${request.url}`);
-
-    // authorization(request.headers.authorization).then(console.log).catch(console.error)
-
-    console.log(apacheMD5('hundurhundur', '$apr1$ZTNkx2gC$qPwGEA.dfK46L4ZraGCMi0'));
-    //                  $apr1$UblRvUo4$r3B2c62frfnLYze38wRi.0
-    // fizk78@gmail.com:$apr1$xGDI3D/G$gWDsVA85BpCDyLsoNxSui0
-
-
+    console.log(`${new Date().toISOString()} - ${request.url}`)
     for (const element of router) {
         if (request.url?.match(element.at(0) as RegExp)) {
             (element.at(1) as Handler)(request, response);

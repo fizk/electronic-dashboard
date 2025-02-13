@@ -46,7 +46,7 @@ export default function ResistorValueItem ({item, onSelect, onAdd, onUpdate}: Pr
         <>
             <header className="resistor-value-item__header">
                 <Toggle checked={item.active} onToggle={() => onSelect(item)} />
-                <span className="resistor-value-item__label">{item.text}</span>
+                <strong className="resistor-value-item__label">{item.text}</strong>
                 <div className="resistor-value-item__controls">
                     <Info onClick={() => handleToggleDialog(!isOpenDialog)} kind={item.notes ? 'normal' : 'disabled' } />
                     <Basket onClick={() => onAdd(item)} />

@@ -3,24 +3,90 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;400&display=swap" rel="stylesheet">
+    <meta name="msapplication-TileColor" content="#dde7ea">
+    <meta name="theme-color" content="#F6F8F9">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;400&display=swap" rel="stylesheet"> -->
     <link rel="manifest" href="/electronic/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/electronic/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/electronic/icons/32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/electronic/icons/16x16.png">
+    <link rel="mask-icon" href="/electronic/icons/safari-pinned-tab.svg" color="#5bbad5">
+
     <title>Electronic Dashboard</title>
 
     <style>
+        /* MathML font */ 
         @font-face {
             font-family: LatinmodernMath;
-            src: url("fonts/latinmodern-math.otf") format("opentype");
+            src: url("/electronic/fonts/latinmodern-math.otf") format("opentype");
+            
         }
 
-        body {
-            font-family: 'Spartan', sans-serif;
-            line-height: 1.5;
-            margin: 0;
-            color: var(--color-text);
-            background-color: var(--color-primary-100);
-            height: 100dvh;
+        /* Futura-Light webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Light'; */
+            font-family: 'Futura';
+            src: url('/electronic/fonts/futura/Futura-Light.woff') format('woff');
+            font-style: normal;
+            font-weight: 100 199;
         }
+        /* Futura-Light-Italic webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Light-Italic'; */
+            font-family: 'Futura-Italic';
+            src: url('/electronic/fonts/futura/Futura-Light-Italic.woff') format('woff');
+            font-style: italic;
+            font-weight: 100 199;
+        }
+        /* Futura-Book webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Book'; */
+            font-family: 'Futura';
+            src: url('/electronic/fonts/futura/Futura-Book.woff') format('woff');
+            font-style: normal;
+            font-weight: 200 299;
+        }
+        /* Futura-Book-Italic webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Book-Italic'; */
+            font-family: 'Futura-Italic';
+            src: url('/electronic/fonts/futura/Futura-Book-Italic.woff') format('woff');
+            font-style: italic;
+            font-weight: 200 299;
+        }
+        /* Futura-Medium webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Medium'; */
+            font-family: 'Futura';
+            src: url('/electronic/fonts/futura/Futura-Medium.woff') format('woff');
+            font-style: normal;
+            font-weight: 300 499;
+        }
+        /* Futura-Medium-Italic webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Medium-Italic'; */
+            font-family: 'Futura-Italic';
+            src: url('/electronic/fonts/futura/Futura-Medium-Italic.woff') format('woff');
+            font-style: italic;
+            font-weight: 300 499;
+        }
+        /* Futura-Bold webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Bold'; */
+            font-family: 'Futura';
+            src: url('/electronic/fonts/futura/Futura-Bold.woff') format('woff');
+            font-style: normal;
+            font-weight: 500 700;
+        }
+        /* Futura-Bold-Italic webfont (new-bulletproof) */ 
+        @font-face {
+            /* font-family: 'Futura-Bold-Italic'; */
+            font-family: 'Futura-Italic';
+            src: url('/electronic/fonts/futura/Futura-Bold-Italic.woff') format('woff');
+            font-style: italic;
+            font-weight: 500 700;
+        }
+
 
         :root {
             --color-red-1: #EF9A9A;
@@ -86,11 +152,27 @@
             -webkit-text-size-adjust: none;
             text-size-adjust: none;
         }
+        
+        /* Set core body defaults */
+        body {
+            min-height: 100vh;
+            line-height: 1.25;
+            /* font-family: 'Spartan', sans-serif; */
+            font-family: 'Futura', sans-serif;
+            font-weight: 100;
+            font-size: 18px;
+            margin: 0;
+            color: var(--color-text);
+            background-color: var(--color-primary-100);
+        }
 
         /* Remove default margin in favour of better control in authored CSS */
-        body, h1, h2, h3, h4, p,
+        /* body, h1, h2, h3, h4, p,
         figure, blockquote, dl, dd {
             /* margin-block-end: 0; */
+        /*} */
+        h1, h2, h3, h4, h5, h6, strong{
+            font-weight: 200;
         }
 
         /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -99,14 +181,7 @@
             list-style: none;
         }
 
-        /* Set core body defaults */
-        body {
-            min-height: 100vh;
-            line-height: 1.25;
-            font-family: 'Spartan', sans-serif;
-            margin: 0;
-            color: var(--color-text);
-        }
+
 
         /* Set shorter line heights on headings and interactive elements */
         /* h1, h2, h3, h4,
@@ -116,7 +191,7 @@
 
         /* Balance text wrapping on headings */
         h1, h2,
-        h3, h4 {
+        h3, h4, h5, h6 {
             text-wrap: balance;
         }
 
@@ -134,11 +209,25 @@
             display: inline-block;
         }
 
+        p {
+            text-wrap: pretty;
+        }
+        section > p:first-of-type, 
+        footer > p:first-of-type, 
+        aside > p:first-of-type {
+            margin-block-start: 0;
+        }
+
+        code {
+            font-weight: inherit;
+        }
+
         /* Inherit fonts for inputs and buttons */
         input, button,
         textarea, select {
             font-family: inherit;
             font-size: inherit;
+            font-weight: inherit;
         }
 
         /* Make sure textareas without a rows attribute are not tiny */

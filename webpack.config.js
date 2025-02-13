@@ -38,25 +38,31 @@ module.exports = {
                 test: /\.png$/i,
                 type: 'asset/resource',
                 generator: {
-                    // keep original filenames and copy images to `dist/img/`
+                // keep original filenames
                     filename: 'icons/[name][ext]', 
-                  },
-                // generator: {
-                //     publicPath: 'https://cdn/assets/',
-                //     outputPath: 'icons/',
-                //   },
+                },
             },
             {
                 test: /\.otf$/i,
                 type: 'asset/resource',
                 generator: {
-                    // keep original filenames and copy images to `dist/img/`
+                // keep original filenames
                     filename: 'fonts/[name][ext]', 
-                  },
-                // generator: {
-                //     publicPath: 'https://cdn/assets/',
-                //     outputPath: 'icons/',
-                //   },
+                },
+            },
+            {
+                test: /\.svg$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'icons/[name][ext]', 
+                },
+            },
+            {
+                test: /\.woff$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]', 
+                },
             },
         ]
     }

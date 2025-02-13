@@ -18,10 +18,25 @@ import ErrorPage from './pages/Error';
 import { ConfigContextWrapper } from './contexts/ConfigContext'
 import { ResistorValuesContextWrapper } from './contexts/ResistorValuesContext';
 import ArticleTemplate from './pages/ArticleTemplate';
+import './fonts/latinmodern-math.otf';
+import './icons/apple-touch-icon.png';
+import './icons/32x32.png';
+import './icons/16x16.png';
+import './icons/safari-pinned-tab.svg';
 import './icons/192.png';
 import './icons/512.png';
+import './fonts/futura/Futura-Light-Italic.woff';
+import './fonts/futura/Futura-Bold-Italic.woff';
+import './fonts/futura/Futura-Bold.woff';
+import './fonts/futura/Futura-Book-Italic.woff';
+import './fonts/futura/Futura-Book.woff';
+import './fonts/futura/Futura-Light.woff';
+import './fonts/futura/Futura-Medium-Italic.woff';
+import './fonts/futura/Futura-Medium.woff';
+
 import Eseries from './pages/Eseries';
 import StyleGuidePage from './pages/StyleGuide';
+import Scratchpad from './pages/Scratchpad';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +44,13 @@ const router = createBrowserRouter([
         element: (<App />),
         errorElement: (<ErrorPage />),
         children: [
+            {
+                path: "/scratchpad",
+                element: (
+                    <Scratchpad />
+                ),
+                errorElement: (<ErrorPage />),
+            },
             {
                 path: "/styleguide",
                 element: (

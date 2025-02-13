@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { FormRow, FormStack, LabelInput, LabelSelect } from "../elements/Form";
+import VoltageUnitSelect from "../elements/VoltageUnitSelect";
+import ResistorUnitSelect from "../elements/ResistorUnitSelect";
+import CurrentUnitSelect from "../elements/CurrentUnitSelect";
 import type { ChangeEvent } from "react";
 
 interface Props {}
@@ -77,6 +80,12 @@ export default function OhmsLaw ({}: Props) {
 
     const updateState = (state: State) => {
         setState(state);
+
+
+        if (state.v !== '' && state.r !== '' && state.i !== '') {
+            
+            
+        }
 
         if (state.v === '') {
             if (state.i !== '' && state.r !== ''){
@@ -231,25 +240,15 @@ export default function OhmsLaw ({}: Props) {
         <FormStack>
             <FormRow>
                 <LabelInput text="V" value={state.v} onChange={handleVoltageChange} onFocus={() => setFocus('v')} />
-                <LabelSelect value={state.vu} onChange={handleVoltageUnitChange}>
-                    <option>mV</option>
-                    <option>V</option>
-                </LabelSelect>
+                <VoltageUnitSelect value={state.vu}  onChange={handleVoltageUnitChange}/>
             </FormRow>
             <FormRow>
                 <LabelInput text="I" value={state.i} onChange={handleCurrentChange} onFocus={() => setFocus('i')} />
-                <LabelSelect value={state.iu} onChange={handleCurrentUnitChange}>
-                    <option>µA</option>
-                    <option>mA</option>
-                    <option>A</option>
-                </LabelSelect>
+                <CurrentUnitSelect value={state.iu} onChange={handleCurrentUnitChange} />
             </FormRow>
             <FormRow>
                 <LabelInput text="R" value={state.r} onChange={handleResistanceChange} onFocus={() => setFocus('r')} />
-                <LabelSelect value={state.ru} onChange={handleResistanceUnitChange}>
-                    <option>Ω</option>
-                    <option>KΩ</option>
-                </LabelSelect>
+                <ResistorUnitSelect  value={state.ru} onChange={handleResistanceUnitChange}/>
             </FormRow>
         </FormStack>
     )

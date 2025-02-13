@@ -281,7 +281,7 @@ export default function InvertingOpAmp ({}: Props) {
                 </p>
             </section>
             <section className="inverting-op-amp__footer">
-                <a href="https://en.wikibooks.org/wiki/Electronics/Electronics_Formulas/Op_Amp_Configurations">wikibooks.org Electronics</a>
+                <a href="https://en.wikibooks.org/wiki/Electronics/Electronics_Formulas/Op_Amp_Configurations">wikibooks.org</a>
             </section>
         </>
     )

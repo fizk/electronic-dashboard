@@ -1,0 +1,9 @@
+.eseries__definition-term {
+    margin-block-start: var(--space-2);
+    font-weight: 200;
+}
+.eseries__definition-sub-term {
+    margin-block: var(--space-0);
+    font-size: var(--font-1);
+    font-style: italic;
+}
