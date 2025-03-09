@@ -5,12 +5,18 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-          -
-            name: Check out repository code
-            uses: actions/checkout@v4
+            -
+                name: Check out repository code
+                uses: actions/checkout@v4
         #   -
         #     name: Run tests
         #     run: docker compose run test
+            - 
+                name: save deploy file
+                uses: actions/upload-artifact@v4
+                with:
+                    name: deployscript
+                    path: ./bin/deploy.sh
 
     build-deploy:
         runs-on: ubuntu-latest
@@ -31,6 +37,11 @@ jobs:
                     target: app
                     push: true
                     tags: ${{ secrets.DOCKER_USERNAME }}/electronic:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/electronic:latest
+            - 
+                name: Download deployscript
+                uses: actions/download-artifact@v4
+                with:
+                    name: deployscript
             -
                 name: List
                 run: ls -al
@@ -42,7 +53,7 @@ jobs:
                 uses: appleboy/ssh-action@v1.2.2
                 with:
                     # script: /var/www/electronic/deploy.sh ${{ github.sha }}
-                    script_path: /var/www/electronic/deploy.sh ${{ github.sha }}
+                    script_path: ./bin/deploy.sh ${{ github.sha }}
                     host: ${{ secrets.SSH_HOST }}
                     username: ${{ secrets.SSH_USER }}
                     passphrase: ${{ secrets.SSH_PASSPHRASE }}
