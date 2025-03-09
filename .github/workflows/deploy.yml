@@ -29,7 +29,6 @@ jobs:
                 uses: docker/build-push-action@v6
                 with:
                     target: app
-                    file: dockerfile
                     push: true
                     tags: ${{ secrets.DOCKER_USERNAME }}/electronic:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/electronic:latest
             -
@@ -39,7 +38,7 @@ jobs:
                 name: Deploy container to server
                 uses: appleboy/ssh-action@v1.2.2
                 with:
-                    script: /var/www/electronic/deploy.sh
+                    script: /var/www/electronic/deploy.sh ${{ github.sha }} >> /var/www/electronic/deploy.log
                     host: ${{ secrets.SSH_HOST }}
                     username: ${{ secrets.SSH_USER }}
                     passphrase: ${{ secrets.SSH_PASSPHRASE }}

@@ -44,8 +44,7 @@ WORKDIR /app
 COPY ./package.json package.json
 COPY ./package-lock.json package-lock.json
 
-RUN npm cache clean; \
-    npm install --omit=dev;
+RUN npm install --omit=dev;
 
 COPY bin bin
 COPY --from=build /app/client client
