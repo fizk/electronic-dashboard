@@ -1,6 +1,6 @@
 import React from "react";
 import { Section } from '../elements/Section';
-import ResistorParallel from "../components/ResistorParallel";
+import ResistorParallel from "../calculators/resistors/ResistorParallel";
 import './ResistorCalculator.css'
 
 export default function ResistorCalculator () {

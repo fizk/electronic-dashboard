@@ -1,0 +1,15 @@
+.capacitor-discharge {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.capacitor-discharge__details {}
+
+.capacitor-discharge__formula {}
+
+.capacitor-discharge__description {}
+
+.capacitor-discharge__summary {
+    cursor: pointer;
+}

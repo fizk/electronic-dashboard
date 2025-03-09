@@ -1,0 +1,15 @@
+.scratchpad {}
+.scratchpad__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-columns: repeat(auto-fill, minmax(18rem, 2fr)); */
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+}
+
+.scratchpad__list-item {
+    padding: 1rem;
+    /* border: 1px solid red;
+    background-color: white; */
+}

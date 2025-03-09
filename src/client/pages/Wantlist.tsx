@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button, FormRow, FormStack, LabelInput, Textarea } from '../elements/Form';
-import WantlistDetails from '../components/WantlistDetails';
+import WantlistDetails from '../elements/WantlistItem';
 import type {ChangeEvent, FormEvent} from 'react';
 import type { WantListEntry } from '../types.d';
-import './Wantlist.css'
 import { Section } from '../elements/Section';
+import './Wantlist.css'
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import ResistorCodeCalculator from '../components/ResistorCodeCalculator';
-import ResistorValueItem from '../components/ResistorValueItem';
+import ResistorCodeCalculator from '../converters/ResistorCodeCalculator';
+import ToggleableValueItem, {resistorLabelFormatter, resistorValueFormat} from '../elements/ToggleableValueItem';
 import { Section } from '../elements/Section';
 import { Loading } from '../icons/Loading';
 import { Tab, TabItem } from '../elements/Tab';
@@ -227,10 +227,13 @@ export default function Resistor() {
                         <ul className="resistors-page__items-list">
                             {queryFixedResistors.data.map(item => (
                                 <li key={`fixed${item.id}`}>
-                                    <ResistorValueItem item={item}
+                                    <ToggleableValueItem item={item}
                                         onSelect={handleFixedActiveChange} 
                                         onAdd={handleFixedToWantlist}
-                                        onUpdate={handleFixedNotesChange} />
+                                        onUpdate={handleFixedNotesChange}
+                                        formatLabel={resistorLabelFormatter}
+                                        formatValue={resistorValueFormat}
+                                     />
                                 </li>
                             ))}
                         </ul>
@@ -240,10 +243,13 @@ export default function Resistor() {
                         <ul className="resistors-page__items-list">
                             {queryVariableResistors.data.map(item => (
                                 <li key={`variable${item.id}`}>
-                                    <ResistorValueItem item={item}
+                                    <ToggleableValueItem item={item}
                                         onSelect={handleVariableActiveChange} 
                                         onAdd={handleVariableToWantlist} 
-                                        onUpdate={handleVariableNotesChange} />
+                                        onUpdate={handleVariableNotesChange}
+                                        formatLabel={resistorLabelFormatter}
+                                        formatValue={resistorValueFormat}
+                                     />
                                 </li>
                             ))}
                         </ul>
@@ -252,10 +258,13 @@ export default function Resistor() {
                         <ul className="resistors-page__items-list">
                             {queryTrimResistors.data.map(item => (
                                 <li key={`trim${item.id}`}>
-                                    <ResistorValueItem item={item}
+                                    <ToggleableValueItem item={item}
                                         onSelect={handleTrimpodActiveChange} 
                                         onAdd={handleTrimToWantlist} 
-                                        onUpdate={handleTrimNotesChange} />
+                                        onUpdate={handleTrimNotesChange} 
+                                        formatLabel={resistorLabelFormatter}
+                                        formatValue={resistorValueFormat}
+                                    />
                                 </li>
                             ))}
                         </ul>

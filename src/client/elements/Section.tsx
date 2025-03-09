@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { type ReactNode} from 'react';
 import classVariant from '../helpers/classVariant';
-import type { ReactNode } from 'react';
 import './Section.css';
+
+export type Variants = ( 'framed' | 'raised' )[];
 
 interface Props {
     children: ReactNode
-    variant?: ( 'framed' | 'raised' )[]
+    variant?: Variants
 }
 
 export function Section ({children, variant = []}: Props) {
     return (
-        <div className={classVariant('section', variant)}>{children}</div>
+        <section className={classVariant('section', variant)}>{children}</section>
     )
 }

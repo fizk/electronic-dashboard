@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Tab, TabItem } from '../elements/Tab';
 import { Section } from '../elements/Section';
-import CapacitorValueItem from '../components/CapacitorValueItem';
-import CapacitorCodeCalculator from '../components/CapacitorCodeCalculator';
+import ToggleableValueItem, { capacitorLabelFormatter, capacitorValueFormat } from '../elements/ToggleableValueItem';
+import CapacitorCodeCalculator from '../converters/CapacitorCodeCalculator';
 import { Loading } from '../icons/Loading';
 import CeramicCapacitor from '../icons/CeramicCapacitor';
 import FilmCapacitor from '../icons/FilmCapacitor';
@@ -121,7 +121,7 @@ export default function Capacitors () {
 
     const handleSaveCeramic = (item: CapacitorValue) => {
         const form = new FormData();
-        form.set('notes', item.notes)
+        form.set('notes', item.notes as string)
         updateCeramic.mutate({item, form});
     }
 
@@ -136,7 +136,7 @@ export default function Capacitors () {
 
     const handleSaveElectrolytic = (item: CapacitorValue) => {
         const form = new FormData();
-        form.set('notes', item.notes)
+        form.set('notes', item.notes as string)
         updateElectrolytic.mutate({item, form});
     }
 
@@ -151,7 +151,7 @@ export default function Capacitors () {
 
     const handleSaveFilm = (item: CapacitorValue) => {
         const form = new FormData();
-        form.set('notes', item.notes)
+        form.set('notes', item.notes as string)
         updateFilm.mutate({item, form});
     }
 
@@ -178,44 +178,6 @@ export default function Capacitors () {
         setTimeout(() => setLoading(false), 1000);
     };
 
-    const capacitorValueFormatter = (item: CapacitorValue) => (
-        <>
-            {item.micro >= 0.000001 && item.micro < 0.0001 && (
-                <div className="capacitors-page__value-format">
-                    <strong>{item.pico_value}</strong>
-                    <small>{item.nano_value}</small>
-                </div>
-            )}
-
-            {item.micro >= 0.0001 && item.micro < 0.001 && (
-                <div className="capacitors-page__value-format">
-                    <strong>{item.nano_value}</strong>
-                    <small>{item.pico_value}</small>
-                </div>
-            )}
-
-            {item.micro >= 0.001 && item.micro < 0.01 && (
-                <div className="capacitors-page__value-format">
-                    <strong>{item.nano_value}</strong>
-                    <small>{item.micro_value}</small>
-                </div>
-            )}
-
-            {item.micro >= 0.01 && item.micro < 10 && (
-                <div className="capacitors-page__value-format">
-                    <strong>{item.micro_value}</strong>
-                    <small>{item.nano_value}</small>
-                </div>
-            )}
-
-            {item.micro >= 10 && (
-                <div className="capacitors-page__value-format">
-                    <strong>{item.micro_value}</strong>
-                </div>
-            )}
-        </>
-    )
-
     return (
         <>
             <article className="capacitors-page">
@@ -235,11 +197,13 @@ export default function Capacitors () {
                             <ul className="capacitors-page__value-list">
                                 {ceramicCapacitors.data?.map(item => (
                                     <li className="capacitors-page__value-item" key={`ceramic${item.id}`}>
-                                        <CapacitorValueItem item={item} 
+                                        <ToggleableValueItem item={item} 
                                             onUpdate={handleSaveCeramic}
                                             onSelect={handleStatusCeramic} 
                                             onAdd={handleAddToWantlist('Ceramic')}
-                                            format={capacitorValueFormatter} />
+                                            formatLabel={capacitorLabelFormatter}
+                                            formatValue={capacitorValueFormat}
+                                        />
                                     </li>
                                 ))}
                             </ul>
@@ -248,11 +212,13 @@ export default function Capacitors () {
                             <ul className="capacitors-page__value-list">
                                 {filmCapacitors.data?.map(item => (
                                     <li className="capacitors-page__value-item" key={`film${item.id}`}>
-                                        <CapacitorValueItem item={item} 
+                                        <ToggleableValueItem item={item} 
                                             onSelect={handleStatusFilm} 
                                             onUpdate={handleSaveFilm}
                                             onAdd={handleAddToWantlist('Film')}
-                                            format={capacitorValueFormatter}/>
+                                            formatLabel={capacitorLabelFormatter}
+                                            formatValue={capacitorValueFormat}
+                                        />
                                     </li>
                                 ))}
                             </ul>
@@ -261,11 +227,12 @@ export default function Capacitors () {
                             <ul className="capacitors-page__value-list">
                                 {electrolyticCapacitors.data?.map(item => (
                                     <li className="capacitors-page__value-item" key={`electro${item.id}`}>
-                                        <CapacitorValueItem item={item} 
+                                        <ToggleableValueItem item={item} 
                                             onSelect={handleSaveElectrolytic} 
                                             onUpdate={handleStatusElectrolytic}
                                             onAdd={handleAddToWantlist('Electrolytic')}
-                                            format={capacitorValueFormatter}
+                                            formatLabel={capacitorLabelFormatter}
+                                            formatValue={capacitorValueFormat}
                                         />
                                     </li>
                                 ))}

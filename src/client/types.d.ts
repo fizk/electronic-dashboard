@@ -1,15 +1,17 @@
 type Maybe<T> = T | null | undefined
 
-export interface ResistorValue {
+export interface Value {
     id: string | number
-    text: string
-    value: number
     active: boolean
     notes: Maybe<string>
 }
 
-export interface CapacitorValue {
-    id: string | number,
+export interface ResistorValue extends Value {
+    text: string
+    value: number
+}
+
+export interface CapacitorValue extends Value {
     nano: number
     nano_value: string
     pico: number
@@ -18,9 +20,8 @@ export interface CapacitorValue {
     micro_value: string
     farad: number
     farad_value: string
-    active: boolean
-    notes: string
 }
+
 export interface WantListEntry {
     id: string | number,
     name: string
@@ -43,6 +44,7 @@ declare global {
             mstyle: any;     
             mfenced: any;     
             mroot: any;     
+            munderover: any
         }   
     } 
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { Tab, TabItem } from '../elements/Tab';
-import FaradConverter from "../components/UnitConvert/FaradConverter";
-import AmpConverter from "../components/UnitConvert/AmpConverter";
-import VoltConverter from "../components/UnitConvert/VoltConverter";
+import FaradConverter from "../converters/UnitConvert/FaradConverter";
+import AmpConverter from "../converters/UnitConvert/AmpConverter";
+import VoltConverter from "../converters/UnitConvert/VoltConverter";
 import './UnitConverter.css';
 import { Section } from "../elements/Section";
 

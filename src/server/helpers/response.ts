@@ -8,6 +8,7 @@ export function writeResponse(response: ServerResponse, data: any, code: number 
         ...headers,
         'Content-Length': Buffer.byteLength(body),
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
     })
     .end(body);
 }

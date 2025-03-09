@@ -144,6 +144,7 @@ export const CapacitorsValueHandler = (db: Database) => async (request: Incoming
 }
 
 function getAllResistors(db: Database, type: string): Promise<ResistorItemEntry[]> {
+    console.log(db);
     return new Promise((resolve, reject) => {
         db.all(`select * from ${type} order by value`, [], (error: any, rows: ResistorItemEntry[]) => {
             if (error) {

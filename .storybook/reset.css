@@ -1,0 +1,321 @@
+/* MathML font */ 
+@font-face {
+    font-family: LatinmodernMath;
+    src: url("http://localhost:3030/electronic/fonts/latinmodern-math.otf") format("opentype");
+    
+}
+
+/* Futura-Light webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Light'; */
+    font-family: 'Futura';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Light.woff') format('woff');
+    font-style: normal;
+    font-weight: 100 199;
+}
+/* Futura-Light-Italic webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Light-Italic'; */
+    font-family: 'Futura-Italic';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Light-Italic.woff') format('woff');
+    font-style: italic;
+    font-weight: 100 199;
+}
+/* Futura-Book webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Book'; */
+    font-family: 'Futura';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Book.woff') format('woff');
+    font-style: normal;
+    font-weight: 200 299;
+}
+/* Futura-Book-Italic webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Book-Italic'; */
+    font-family: 'Futura-Italic';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Book-Italic.woff') format('woff');
+    font-style: italic;
+    font-weight: 200 299;
+}
+/* Futura-Medium webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Medium'; */
+    font-family: 'Futura';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Medium.woff') format('woff');
+    font-style: normal;
+    font-weight: 300 499;
+}
+/* Futura-Medium-Italic webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Medium-Italic'; */
+    font-family: 'Futura-Italic';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Medium-Italic.woff') format('woff');
+    font-style: italic;
+    font-weight: 300 499;
+}
+/* Futura-Bold webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Bold'; */
+    font-family: 'Futura';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Bold.woff') format('woff');
+    font-style: normal;
+    font-weight: 500 700;
+}
+/* Futura-Bold-Italic webfont (new-bulletproof) */ 
+@font-face {
+    /* font-family: 'Futura-Bold-Italic'; */
+    font-family: 'Futura-Italic';
+    src: url('http://localhost:3030/electronic/fonts/futura/Futura-Bold-Italic.woff') format('woff');
+    font-style: italic;
+    font-weight: 500 700;
+}
+
+
+:root {
+    --color-red-1: #EF9A9A;
+    --color-pink-1: #F48FB1;
+    --color-purple-1: #CE93D8;
+    --color-purple-2: #B39DDB;
+    --color-indigo-1: #9FA8DA;
+    --color-blue-1: #90CAF9;
+    --color-blue-2: #81D4FA;
+    --color-cyan-1: #80DEEA;
+    --color-green-1: #80CBC4;
+    --color-green-2: #A5D6A7;
+    --color-green-3: #C5E1A5;
+    --color-lime-1: #E6EE9C;
+    --color-yellow-1: #FFF59D;
+    --color-orange-1: #FFE082;
+    --color-orange-2: #FFCC80;
+    --color-orange-3: #FFAB91;
+    --color-brown-1: #BCAAA4;
+    --color-gray-1: #CFD8DC;
+    --color-gray-2: #607D8B;
+    --color-gray-3: #263238;
+
+    --color-white: white;
+    --color-primary-100: #F6F8F9;
+    --color-primary-500: #dde7ea;
+    --color-primary-700: #C6D7DC;
+    --color-secondary-100: #FFD994;
+    --color-secondary-500: #ffa500;
+    --color-text: #1e1e1e;
+
+    --size-max-width: 100%;
+
+    --border-radius: 4px;
+
+    --space-0: 0.625rem;
+    --space-1: 0.813rem;
+    --space-2: 1.000rem;
+    --space-3: 1.563rem;
+    --space-4: 2.438rem;
+    --space-5: 4.750rem;
+
+    --font-0: 0.625rem;
+    --font-1: 1rem;
+    --font-2: 1.25rem;
+
+    --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    line-height: 1.25;
+    /* font-family: 'Spartan', sans-serif; */
+    font-family: 'Futura', sans-serif;
+    font-weight: 100;
+    font-size: 18px;
+    margin: 0;
+    color: var(--color-text);
+    background-color: var(--color-primary-100);
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+/* body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+    /* margin-block-end: 0; */
+/*} */
+h1, h2, h3, h4, h5, h6, strong{
+    font-weight: 200;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+
+
+/* Set shorter line heights on headings and interactive elements */
+/* h1, h2, h3, h4,
+button, input, label {
+    line-height: 1.1;
+} */
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+svg,
+picture {
+    max-width: 100%;
+    display: inline-block;
+}
+
+p {
+    text-wrap: pretty;
+}
+section > p:first-of-type, 
+footer > p:first-of-type, 
+aside > p:first-of-type {
+    margin-block-start: 0;
+}
+
+code {
+    font-weight: inherit;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+    scroll-margin-block: 5ex;
+}
+
+
+
+/* MathML */
+math, math[mode="inline"] {
+    /* display: inline; */
+    font-family: LatinmodernMath, Symbol, Times;
+    /* font-style: normal;
+    math-style: normal; */
+
+}
+
+math[mode="display"] {
+    /* display: block; */
+    /* text-align: center; */
+    font-family: LatinmodernMath, Symbol, Times;
+    /* font-style: normal; */
+    /* math-style: normal; */
+}
+
+/* Schematics */
+.schematics {
+    --dark-color: var(--color-text);
+    --middle-color: var(--color-secondary-500);
+    --disable-color: var(--color-primary-500);
+    --light-color: var(--color-white);
+
+    --line-color-1: var(--color-secondary-500);
+    --line-color-2: var(--color-indigo-1);
+}
+
+.schematics--stroke-dark {
+    stroke-width: 2;
+    stroke: var(--dark-color);
+}
+.schematics--stroke-dark-thin {
+    stroke-width: 1;
+    stroke: var(--dark-color);
+}
+.schematics--stroke-middle {
+    stroke-width: 2;
+    stroke: var(--middle-color);
+}
+.schematics--stroke-light {
+    stroke-width: 2;
+    stroke: var(--light-color);
+}
+.schematics--stroke-light-thin {
+    stroke-width: 1;
+    stroke: var(--disable-color);
+}
+
+.schematics--fill-light {
+    fill: var(--light-color);
+}
+.schematics--fill-middle {
+    fill: var(--middle-color);
+}
+
+.schematics--fill-dark {
+    fill: var(--dark-color);
+}
+
+.schematics--line-one {
+    stroke-width: 1;
+    stroke: var(--line-color-1);
+}
+.schematics--fill-one {
+    fill: var(--line-color-1);
+}
+.schematics--line-two {
+    stroke-width: 1;
+    stroke: var(--line-color-2);
+}
+.schematics--fill-two {
+    fill: var(--line-color-2);
+}
+
+
+
+[data-react] {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100dvh;
+    /* overflow: hidden; */
+    
+}
+[data-splash-screen] {
+    grid-column: 1 / span 2;
+    display: flex;
+    background-color: var(--color-primary-500);
+    min-height: 100dvh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}

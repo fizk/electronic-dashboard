@@ -1,0 +1,22 @@
+.ohms-law {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.ohms-law__header {}
+.ohms-law__form {}
+.ohms-law__details {}
+.ohms-law__summary {
+    cursor: pointer;
+}
+
+.ohms-law__formula-list {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
+    list-style: none;
+    align-items: center;
+}
+.ohms-law__formula-item {
+    margin-block: var(--space-1);
+}

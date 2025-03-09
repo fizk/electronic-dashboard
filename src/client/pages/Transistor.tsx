@@ -1,5 +1,4 @@
 import React from "react";
-import '../elements/Schematics.css';
 import './Transistor.css';
 
 

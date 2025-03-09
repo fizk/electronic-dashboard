@@ -131,6 +131,7 @@ export const FontOtfHandler = async (request: IncomingMessage, response: ServerR
     try {
         const file = await readFile(`./client/fonts/${path.pop()}`);
         response.writeHead(200, {
+            'Access-Control-Allow-Origin': '*',
             'Content-Length': Buffer.byteLength(file),
             'content-type': 'font/otf'
         }).end(file);
@@ -143,12 +144,12 @@ export const FontOtfHandler = async (request: IncomingMessage, response: ServerR
 }
 
 export const FontWoffHandler = async (request: IncomingMessage, response: ServerResponse) => {
-    console.log('woff handler');
     const url = new URL(request.url!, 'http://any-host');
     const path = url.pathname?.split('/').filter(part => part !== '');
     try {
         const file = await readFile(`./client/fonts/${path.pop()}`);
         response.writeHead(200, {
+            'Access-Control-Allow-Origin': '*',
             'Content-Length': Buffer.byteLength(file),
             'content-type': 'font/woff'
         }).end(file);

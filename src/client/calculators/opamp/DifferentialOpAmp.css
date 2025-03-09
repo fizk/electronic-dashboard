@@ -1,0 +1,23 @@
+.differential-op-amp {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.differential-op-amp__header {}
+
+.differential-op-amp__description {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+
+}
+.differential-op-amp__diagram {
+    grid-column: 1 / span 1;
+}
+.differential-op-amp__formula {
+    grid-column: 1 / span 1;
+}
+.differential-op-amp__text {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 2;
+}

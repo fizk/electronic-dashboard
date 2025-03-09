@@ -35,7 +35,6 @@ import './fonts/futura/Futura-Medium-Italic.woff';
 import './fonts/futura/Futura-Medium.woff';
 
 import Eseries from './pages/Eseries';
-import StyleGuidePage from './pages/StyleGuide';
 import Scratchpad from './pages/Scratchpad';
 
 const router = createBrowserRouter([
@@ -48,13 +47,6 @@ const router = createBrowserRouter([
                 path: "/scratchpad",
                 element: (
                     <Scratchpad />
-                ),
-                errorElement: (<ErrorPage />),
-            },
-            {
-                path: "/styleguide",
-                element: (
-                    <StyleGuidePage />
                 ),
                 errorElement: (<ErrorPage />),
             },

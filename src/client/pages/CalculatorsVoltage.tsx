@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import VoltageDivider from '../components/VoltageDivider';
-import VoltageRatio from "../components/VoltageRatio";
-import OhmsLaw from "../components/OhmsLaw";
+import VoltageDivider from '../calculators/VoltageDivider';
+import VoltageRatio from "../calculators/VoltageRatio";
+import OhmsLaw from "../calculators/OhmsLaw";
 import { Tab, TabItem } from "../elements/Tab";
 import { ResistorValuesContext } from '../contexts/ResistorValuesContext';
 

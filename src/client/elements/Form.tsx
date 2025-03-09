@@ -1,11 +1,10 @@
-import React from 'react';
-import type {
-    DetailedHTMLProps,
-    InputHTMLAttributes,
-    ButtonHTMLAttributes,
-    ReactNode,
-    TextareaHTMLAttributes,
-    HTMLAttributes
+import React, {
+    type DetailedHTMLProps,
+    type InputHTMLAttributes,
+    type ButtonHTMLAttributes,
+    type ReactNode,
+    type TextareaHTMLAttributes,
+    type HTMLAttributes
 } from 'react';
 import classVariant from '../helpers/classVariant';
 import './Form.css';
@@ -22,21 +21,6 @@ export function LabelInput({text, attached = [], ...rest}: LabelInputProps) {
                 <span className="label-input__label">{text}</span>
             )}
             <input {...rest}  className={classVariant('label-input__input', text ? [] : ['full-radius'])}/>
-        </label>
-    )
-}
-
-interface LabelOutputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-    text?: ReactNode
-    attached?: ('left' | 'right') []
-}
-export function LabelOutput({text, attached = [], ...rest}: LabelOutputProps) {
-    return (
-        <label className={classVariant('label-output', attached)}>
-            <input {...rest}  className={classVariant('label-output__input', text ? [] : ['full-radius'])} readOnly/>
-            {text && (
-                <span className="label-output__label">{text}</span>
-            )}
         </label>
     )
 }
@@ -62,7 +46,7 @@ export function LabelSelect({text, attached = [], children, ...rest}: LabelSelec
 
 interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     children?: ReactNode
-    kind?: 'primary' | 'secondary' | 'warning' | 'danger'
+    kind?: 'primary' | 'secondary' | 'warning' | 'danger' | 'normal'
 }
 
 export function Button({children, kind = 'primary', ...rest}: ButtonProps) {

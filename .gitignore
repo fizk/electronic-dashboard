@@ -240,3 +240,5 @@ docker-compose.yml
 httpd.conf
 database.db
 .htpasswd
+
+*storybook.log

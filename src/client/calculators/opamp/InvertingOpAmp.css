@@ -1,0 +1,5 @@
+.inverting-op-amp {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}

@@ -1,0 +1,20 @@
+.resistor-serial {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.resistor-serial__summary {
+    cursor: pointer;
+}
+
+.resistor-serial__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-block: var(--space-2);
+}
+
+.resistor-serial__formula-list {
+    grid-column: 1 / span 2;
+}

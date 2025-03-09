@@ -1,10 +1,10 @@
 import React from "react";
-import TimeConstant from '../components/TimeConstant';
-import CapacitorDischarge from '../components/CapacitorDischarge';
-import CapacitorCharge from '../components/CapacitorCharge';
+import TimeConstant from '../calculators/capacitors/TimeConstant';
+import CapacitorDischarge from '../calculators/capacitors/CapacitorDischarge';
+import CapacitorCharge from '../calculators/capacitors/CapacitorCharge';
 import { Section } from '../elements/Section';
-import FaradConverter from '../components/UnitConvert/FaradConverter';
-import CapacitorCodeCalculator from "../components/CapacitorCodeCalculator";
+import FaradConverter from '../converters/UnitConvert/FaradConverter';
+import CapacitorCodeCalculator from "../converters/CapacitorCodeCalculator";
 
 import './CapacitorCalculator.css'
 

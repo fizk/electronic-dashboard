@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab, TabItem } from "../elements/Tab";
-import LowPassFilterCalculator from '../components/LowPassFilterCalculator';
-import HighPassFilterCalculator from '../components/HighPassFilterCalculator';
+import LowPassFilterCalculator from '../calculators/filters/LowPassFilterCalculator';
+import HighPassFilterCalculator from '../calculators/filters/HighPassFilterCalculator';
 
 export default function CalculatorsFilters () {
 

@@ -1,0 +1,18 @@
+.inverting-summing-op-amp {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.inverting-summing-op-amp__header {
+
+}
+
+.inverting-summing-op-amp__summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.inverting-summing-op-amp__schema {}
+
+.inverting-summing-op-amp__description {}

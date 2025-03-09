@@ -1,0 +1,15 @@
+.capacitor-charge {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.capacitor-charge__formula {}
+
+.capacitor-charge__details {}
+
+.capacitor-charge__description {}
+
+.capacitor-charge__summary {
+    cursor: pointer;
+}
