@@ -28,8 +28,9 @@ jobs:
                 id: docker_build
                 uses: docker/build-push-action@v6
                 with:
+                    target: app
+                    file: dockerfile
                     push: true
-                    build-args: ENV=production
                     tags: ${{ secrets.DOCKER_USERNAME }}/electronic:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/electronic:latest
             -
                 name: Image digest
