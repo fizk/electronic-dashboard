@@ -33,7 +33,7 @@ jobs:
                     tags: ${{ secrets.DOCKER_USERNAME }}/electronic:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/electronic:latest
             -
                 name: List
-                run ls -al
+                run: ls -al
             -
                 name: Image digest
                 run: echo ${{ steps.docker_build.outputs.digest }}
