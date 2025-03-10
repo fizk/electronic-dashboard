@@ -52,8 +52,10 @@ jobs:
                 name: Deploy container to server
                 uses: appleboy/ssh-action@v1.2.2
                 with:
-                    # script: /var/www/electronic/deploy.sh ${{ github.sha }}
-                    script_path: ./bin/deploy.sh ${{ github.sha }}
+                    script: |
+                        cd /var/www/electronic
+                        /var/www/electronic/deploy.sh ${{ github.sha }}
+                    # script_path: ./deploy.sh ${{ github.sha }}
                     host: ${{ secrets.SSH_HOST }}
                     username: ${{ secrets.SSH_USER }}
                     passphrase: ${{ secrets.SSH_PASSPHRASE }}
